@@ -36,7 +36,7 @@ namespace Edu_Online
                     who.Text = sdr["StuName"].ToString();
                     name.Text = sdr["StuName"].ToString();
                 }
-
+                Session["userName"] = name.Text;
                 SqlCommand cmd1 = new SqlCommand();
                 cmd1.Connection = con;
                 cmd1.CommandText = "select * from CourseInfo";
@@ -92,8 +92,11 @@ namespace Edu_Online
                             con.Close();
                     }
                 }
+                string sqlinit = "select * from CourseInfo";
+                gvopened.DataSource = DataOperate.GetDataset(sqlinit, "CourseInfo");
+                gvopened.DataKeyNames = new string[] { "courseId" };
+                gvopened.DataBind();
             }
-
         }
 
         protected void quit_Click(object sender, EventArgs e)
@@ -101,68 +104,100 @@ namespace Edu_Online
             Response.Redirect("Index.aspx");
         }
 
+        protected void select_Click(object sender, EventArgs e)
+        {
+            string sql = "";
+            int item = selectcourse.SelectedIndex;
+            switch (item)
+            {
+                case 0:
+                    sql = "select * from CourseInfo";
+                    break;
+                case 1:
+                    sql = "select * from CourseInfo where courseId like " + selectkey.Value;
+                    break;
+                case 2:
+                    sql = "select * from CourseInfo where courseName like '" + selectkey.Value + "'";
+                    break;
+                case 3:
+                    sql = "select * from CourseInfo where courseType like '" + selectkey.Value + "'";
+                    break;
+            }
+            gvopened.DataSource = DataOperate.GetDataset(sql, "CourseInfo");
+            gvopened.DataKeyNames = new string[] { "courseId" };
+            gvopened.DataBind();
+        }
+
+        protected void coursesave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SqlConnection con = DataOperate.CreateCon();
+                coverimg.SaveAs(Server.MapPath("~/upload/images/") + Path.GetFileName(coverimg.FileName));
+                string coverName = Path.GetFileName(coverimg.FileName);
+                string coverLink = "upload/images/" + Path.GetFileName(coverimg.FileName);
+                string teacherName = Session["userName"].ToString();
+                string sql = "insert into CourseInfo values('" + courseid.Text + "','" + coursename.Text + "','" + coursetype.SelectedValue + "','" + teacherName + "','" + coverLink + "'," + count.Text + ",'" + intro.Text + "','" + target.Text + "','" + part.Text + "')";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                courseid.Text = "";
+                coursename.Text = "";
+                part.Text = "";
+                count.Text = "";
+                target.Text = "";
+                intro.Text = "";
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('成功新添信息')</script>");
+            }
+            catch (Exception ex)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('新添信息失败')</script>");
+            }
+        }
+
         protected void videosave_Click(object sender, EventArgs e)
         {
             try
             {
                 SqlConnection con = DataOperate.CreateCon();
-                videopath.SaveAs(Server.MapPath("~/videos/") + Path.GetFileName(videopath.FileName));
+                videopath.SaveAs(Server.MapPath("~/upload/videos/") + Path.GetFileName(videopath.FileName));
                 string videoName = Path.GetFileName(videopath.FileName);
-                string videoLink = "videos/" + Path.GetFileName(videopath.FileName);
+                string videoLink = "upload/videos/" + Path.GetFileName(videopath.FileName);
                 string sql = "insert into VideoInfo values('" + videoid.Text + "','" + videoName + "','" + videoLink + "','" + videotype.SelectedValue + "','" + videocourse.SelectedValue + "')";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-                con.Close();
-                videotip.Text = "视频上传成功";
+                con.Close(); 
                 videoid.Text = "";
                 videoname.Text = "";
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('视频上传成功')</script>");
+
             }
             catch (Exception ex)
             {
-                videotip.Text = ex.ToString();
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('视频上传失败')</script>");
             }
         }
         protected void filesave_Click(object sender, EventArgs e)
         {
-            if (Page.IsPostBack)
+            try
             {
-                Boolean FileOk = false;
-                string Path = Server.MapPath("~/file/");
-
-                if (filepath.HasFile)
-                {
-                    string fileExtension = System.IO.Path.GetExtension(filepath.FileName).ToLower();
-                    string[] allowedExtensions = { ".pptx", ".docx", "pdf" };
-                    for (int i = 0; i < allowedExtensions.Length; i++)
-                    {
-                        if (fileExtension == allowedExtensions[i])
-                        {
-                            FileOk = true;
-                        }
-                    }
-                    if (FileOk)
-                    {
-                        try
-                        {
-                            filepath.PostedFile.SaveAs(Path + filepath.FileName);
-                            string fileName = filepath.FileName;
-                            SqlConnection con = DataOperate.CreateCon();
-                            string sql = "insert into FileInfo values('" + fileid.Text + "','" + fileName + "','" + filetype.SelectedValue + "'" + filecourse.SelectedValue + "')";
-                            SqlCommand cmd = new SqlCommand(sql, con);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
-                            filetip.Text = "文件上传成功";
-                            fileid.Text = "";
-                            filename.Text = "";
-                        }
-                        catch
-                        {
-                            filetip.Text = "File Saved Failed";
-                        }
-                    }
-                }
+                SqlConnection con = DataOperate.CreateCon();
+                filepath.SaveAs(Server.MapPath("~/upload/files/") + Path.GetFileName(filepath.FileName));
+                string fileLink = "upload/files/" + Path.GetFileName(videopath.FileName);
+                string sql = "insert into FileInfo values('" + fileid.Text + "','" + filename.Text + "','" + fileLink + "','" + filetype.SelectedValue + "'," + filecourse.SelectedValue + ")";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                fileid.Text = "";
+                filename.Text = "";
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('文件上传成功')</script>");
+            }
+            catch
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('文件上传失败')</script>");
             }
         }
     }

@@ -209,13 +209,13 @@
             <div class="content" onclick="warm()">
                 <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" CssClass="content">
                     <ItemTemplate>
-                        <asp:Image ID="play" runat="server" ImageUrl="~/images/play.png" CssClass="play" />
-                        <asp:Label ID="title" runat="server" Text='<%# Eval("VideoTitle") %>' CssClass="title"></asp:Label>
+                        <asp:Image ID="play" runat="server" ImageUrl="~/img/play.png" CssClass="play" />
+                        <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title"></asp:Label>
                     </ItemTemplate>
                 </asp:DataList>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EduString %>" SelectCommand="SELECT [VideoTitle] FROM [VideoInfo]"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EduString %>" SelectCommand="SELECT [VideoName] FROM [VideoInfo]"></asp:SqlDataSource>
             </div>
-            <asp:ImageButton ID="close" runat="server" ImageUrl="~/images/close.png" CssClass="close" OnClick="close_Click" />
+            <asp:ImageButton ID="close" runat="server" ImageUrl="~/img/close.png" CssClass="close" OnClick="close_Click" />
         </div>
     </form>
 </body>

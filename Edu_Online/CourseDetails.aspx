@@ -15,22 +15,22 @@
 
         .headerInfo {
             margin: 3%;
-            width: 85%;
-            height: 300px;
-            padding: 3% 4.5%;
+            width: 87%;
+            height: 340px;
+            padding: 2% 4%;
             background-color: #f7f7f7;
             border-radius: 5px;
         }
 
         #video {
             float: left;
-            width: 600px;
+            width: 51%;
         }
 
         .topRight {
             width: 40%;
             float: left;
-            padding: 10px 0px 0px 30px;
+            padding: 20px 0px 16px 36px;
             margin-left: 5%;
             background-color: white;
             box-shadow: 0 8px 16px 0 rgba(7,17,27,.1);
@@ -41,7 +41,6 @@
             padding: 5px 20px 10px 0px;
             margin-bottom: 20px;
             height: 115px;
-            overflow-y: auto;
         }
 
             .top::-webkit-scrollbar, .bottom::-webkit-scrollbar {
@@ -59,6 +58,7 @@
             line-height: 32px;
             font-size: 14px;
             height: 100px;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -70,11 +70,13 @@
             <div class="topRight">
                 <div class="top">
                     <asp:Label ID="tip_top" runat="server" Text="课程概况" CssClass="tip"></asp:Label><br />
-                    <asp:Label ID="maininfo_top" runat="server" CssClass="maininfo"></asp:Label>
+                    <div class="maininfo">
+                        <asp:Label ID="maininfo_top" runat="server"></asp:Label></div>
                 </div>
                 <div class="bottom">
                     <asp:Label ID="tip_bottom" runat="server" Text="课程目标" CssClass="tip"></asp:Label><br />
-                    <asp:Label ID="maininfo_bottom" runat="server" CssClass="maininfo"></asp:Label>
+                    <div class="maininfo">
+                        <asp:Label ID="maininfo_bottom" runat="server"></asp:Label><</div>
                 </div>
             </div>
         </div>

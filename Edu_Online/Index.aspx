@@ -8,7 +8,7 @@
     <title>登录注册</title>
     <style type="text/css">
         body {
-            background-image: url(images/indexback.png);
+            background-image: url(img/indexback.png);
             background-repeat: no-repeat;
             overflow: hidden;
         }
@@ -42,14 +42,14 @@
         }
 
         .loginInfo .inputLogin {
-            background: url(/images/user.png) no-repeat;
+            background: url(/img/user.png) no-repeat;
             background-size: 28px 28px;
             background-position: 10px 50%;
             padding-left: 40px;
         }
 
         .loginInfo .inputRegister {
-            background: url(/images/pwd.png) no-repeat;
+            background: url(/img/pwd.png) no-repeat;
             background-size: 28px 28px;
             background-position: 10px 50%;
             padding-left: 40px;

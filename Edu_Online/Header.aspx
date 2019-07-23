@@ -120,6 +120,27 @@
             cursor: pointer;
         }
 
+        .selectcourse {
+            color: gray;
+            padding-left: 8px;
+            height: 10%;
+            width: 15%;
+            font-size: 14px;
+        }
+
+        .select {
+            height: 40px;
+            width: 80px;
+            border: none;
+            border-radius: 5px;
+            background: #60baf1;
+            color: #fff;
+            right: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         .allcourse {
             background-color: #f7f7f7;
             position: absolute;
@@ -154,9 +175,9 @@
             top: 26%;
             left: 23%;
             padding: 30px 50px;
-            height: 380px;
-            width: 930px;
-            display:none;
+            height: 61%;
+            width: 69.3%;
+            display: none;
         }
 
         .auto-style3 {
@@ -171,12 +192,16 @@
             padding: 11px 20px;
         }
 
+        .auto-style7 {
+            width: 20%;
+            padding: 14px 42px;
+        }
 
         .auto-style5 {
             width: 400px;
         }
 
-        .upvideo, .upfile {
+        .upinfo, .upvideo, .upfile {
             background-color: #f7f7f7;
             position: absolute;
             top: 26%;
@@ -187,7 +212,7 @@
             display: none;
             color: white;
             font-size: 18px;
-            display:none;
+            display: none;
         }
 
         .save {
@@ -208,20 +233,25 @@
             .view:hover {
                 color: #60baf1;
             }
+
+        .auto-style6 {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="menu">
-            <asp:Image ID="person" runat="server" ImageUrl="~/images/person.png" CssClass="person" />
+            <asp:Image ID="person" runat="server" ImageUrl="~/img/person.png" CssClass="person" />
             <asp:Label ID="who" runat="server" CssClass="who"></asp:Label><br />
             <ul class="nav">
                 <li class="item" id="item1" onclick="li_click(event)">首页</li>
                 <li class="item" id="item2" onclick="li_click(event)">已开课程</li>
                 <li class="item" id="item3">学生信息</li>
                 <li class="item" id="item4">课程管理<ul>
-                    <li style="top: 390px" id="item41" onclick="li_click(event)">视频管理</li>
-                    <li style="top: 434px" id="item42" onclick="li_click(event)">资料管理</li>
+                    <li style="top: 390px" id="item41" onclick="li_click(event)">基本信息</li>
+                    <li style="top: 434px" id="item42" onclick="li_click(event)">视频管理</li>
+                    <li style="top: 478px" id="item43" onclick="li_click(event)">资料管理</li>
                 </ul>
                 </li>
                 <li class="item" id="item5">作业管理</li>
@@ -234,7 +264,7 @@
             <div class="tip">
                 <asp:Label ID="name" runat="server" CssClass="name"></asp:Label>
                 <asp:Label ID="wel" runat="server" Text=",欢迎登录" CssClass="wel"></asp:Label>
-                <asp:Image ID="img" runat="server" ImageUrl="~/images/person.png" CssClass="img" /><br />
+                <asp:Image ID="img" runat="server" ImageUrl="~/img/person.png" CssClass="img" /><br />
                 <asp:Button ID="quit" runat="server" Text="退出" CssClass="quit" OnClick="quit_Click" />
             </div>
         </div>
@@ -253,30 +283,104 @@
         </div>
 
         <div class="openedcourse" runat="server" id="openedcourse">
-            <asp:GridView ID="gvopened" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" Height="380px">
-                <Columns>
-                    <asp:BoundField DataField="courseId" HeaderText="课程代码" SortExpression="courseId" />
-                    <asp:BoundField DataField="courseName" HeaderText="课程名称" SortExpression="courseName" />
-                    <asp:BoundField DataField="courseType" HeaderText="课程类别" SortExpression="courseType" />
-                    <asp:BoundField DataField="count" HeaderText="可选人数" SortExpression="count" />
-                    <asp:BoundField DataField="part" HeaderText="课程节数" SortExpression="part" />
-                    <asp:TemplateField HeaderText="详情">
-                        <ItemTemplate>
-                            <a href="CourseDetails.aspx?courseId='<%#Eval("courseId") %>'" style="color: black; text-decoration: none;">查看</a>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <FooterStyle BackColor="#60baf1" ForeColor="Black" />
-                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#60baf1" />
-                <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Center" />
-                <RowStyle HorizontalAlign="Center" />
-                <SelectedRowStyle BackColor="#60baf1" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F7F7F7" />
-                <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
-                <SortedDescendingCellStyle BackColor="#E5E5E5" />
-                <SortedDescendingHeaderStyle BackColor="#242121" />
-            </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:EduString %>" SelectCommand="SELECT [courseId], [courseName], [courseType], [count], [part] FROM [CourseInfo]"></asp:SqlDataSource>
+            <asp:DropDownList ID="selectcourse" runat="server" CssClass="selectcourse">
+                <asp:ListItem Value="全部课程" Text="全部课程"></asp:ListItem>
+                <asp:ListItem Value="课程代码" Text="课程代码"></asp:ListItem>
+                <asp:ListItem Value="课程名称" Text="课程名称"></asp:ListItem>
+                <asp:ListItem Value="课程类别" Text="课程类别"></asp:ListItem>
+            </asp:DropDownList>
+            <input id="selectkey" type="text" placeholder="请输入内容" class="selectcourse" style="height: 9%" runat="server" value=""/>
+            <asp:Button ID="select" runat="server" Text="查询" CssClass="select" OnClick="select_Click" OnClientClick="return select_client_click()"/>
+            <div style="overflow:auto; height: 88%; margin-top: 1%;">
+                <asp:GridView ID="gvopened" runat="server" AutoGenerateColumns="False" DataKeyNames="courseId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" Height="380px">
+                    <Columns>
+                        <asp:BoundField DataField="courseId" HeaderText="课程代码" SortExpression="courseId" />
+                        <asp:BoundField DataField="courseName" HeaderText="课程名称" SortExpression="courseName" />
+                        <asp:BoundField DataField="courseType" HeaderText="课程类别" SortExpression="courseType" />
+                        <asp:BoundField DataField="count" HeaderText="可选人数" SortExpression="count" />
+                        <asp:BoundField DataField="part" HeaderText="课程节数" SortExpression="part" />
+                        <asp:TemplateField HeaderText="详情">
+                            <ItemTemplate>
+                                <a href="CourseDetails.aspx?courseId='<%#Eval("courseId") %>'" style="color: black; text-decoration: none;">查看</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <FooterStyle BackColor="#60baf1" ForeColor="Black" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#60baf1" />
+                    <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Center" />
+                    <RowStyle HorizontalAlign="Center" />
+                    <SelectedRowStyle BackColor="#60baf1" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                    <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                    <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                    <SortedDescendingHeaderStyle BackColor="#242121" />
+                </asp:GridView>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:EduString %>" SelectCommand="SELECT [courseId], [courseName], [courseType], [count], [part] FROM [CourseInfo]"></asp:SqlDataSource>
+            </div>
+        </div>
+
+        <div class="upinfo" runat="server" id="upinfo">
+            <table class="auto-style3" style="width: 96%; padding: 20px 12px">
+                <tr>
+                    <td class="auto-style7">课程编号</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="courseid" runat="server" Height="24px"></asp:TextBox>
+                    </td>
+                    <td class="auto-style7">课程名称</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="coursename" runat="server" Height="24px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style7">课程类别</td>
+                    <td class="auto-style5">
+                        <asp:DropDownList ID="coursetype" runat="server" Height="26px">
+                            <asp:ListItem Value="计算机">计算机</asp:ListItem>
+                            <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
+                            <asp:ListItem Value="外语">外语</asp:ListItem>
+                            <asp:ListItem Value="电视艺术">电视艺术</asp:ListItem>
+                            <asp:ListItem Value="管理学">管理学</asp:ListItem>
+                            <asp:ListItem Value="文学文化">文学文化</asp:ListItem>
+                            <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                    <td class="auto-style7">课程结构</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="part" runat="server" Height="24px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style7">课程页面</td>
+                    <td class="auto-style5">
+                        <asp:FileUpload ID="coverimg" runat="server" />
+                    </td>
+                    <td class="auto-style7">容纳人数</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="count" runat="server" Height="24px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style7">课程简介</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="intro" runat="server" TextMode="MultiLine" Style="width: 200px; height: 75px;"></asp:TextBox>
+                    </td>
+                    <td class="auto-style7">教学目标</td>
+                    <td class="auto-style5">
+                        <asp:TextBox ID="target" runat="server" TextMode="MultiLine" Style="width: 200px; height: 75px;"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style7">
+                    </td>
+                    <td class="auto-style5">
+                    </td>
+                    <td class="auto-style7">
+                    </td>
+                    <td class="auto-style5">
+                        <asp:Button ID="coursesave" runat="server" Text="上传" OnClick="coursesave_Click" OnClientClick="return coursesave_client_click()" CssClass="save" />
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="upvideo" runat="server" id="upvideo">
@@ -322,10 +426,9 @@
                 </tr>
                 <tr>
                     <td class="auto-style4">
-                        <asp:Label ID="videotip" runat="server" Height="26px"></asp:Label>
                     </td>
                     <td class="auto-style5">
-                        <asp:Button ID="save" runat="server" Text="上传" OnClick="videosave_Click" OnClientClick="return videosave_client_click();" CssClass="save" />
+                        <asp:Button ID="videosave" runat="server" Text="上传" OnClick="videosave_Click" OnClientClick="return videosave_client_click()" CssClass="save" />
                         <br />
                     </td>
                 </tr>
@@ -377,10 +480,9 @@
                 </tr>
                 <tr>
                     <td class="auto-style4">
-                        <asp:Label ID="filetip" runat="server" Height="26px"></asp:Label>
                     </td>
                     <td class="auto-style5">
-                        <asp:Button ID="filesave" runat="server" Text="上传" OnClick="filesave_Click" OnClientClick="filesave_Click" CssClass="save" />
+                        <asp:Button ID="filesave" runat="server" Text="上传" OnClick="filesave_Click" OnClientClick="return filesave_client_click()" CssClass="save" />
                     </td>
                 </tr>
             </table>
@@ -389,42 +491,55 @@
         </div>
     </form>
 </body>
-    <script type="text/javascript">
-        function li_click(event) {
-            changeTab(event.target.id)
+<script type="text/javascript">
+    function li_click(event) {
+        changeTab(event.target.id)
+    }
+    function changeTab(id) {
+        //根据id 设置显示隐藏
+        let map = {
+            "item1": "allcourse",
+            "item2": "openedcourse",
+            "item41": "upinfo",
+            "item42": "upvideo",
+            "item43": "upfile",
         }
-        function changeTab(id) {
-            //根据id 设置显示隐藏
-            let map = {
-                "item1": "allcourse",
-                "item2": "openedcourse",
-                "item41": "upvideo",
-                "item42": "upfile",
+        document.getElementById(map[id]).style.display = "block";
+        localStorage.setItem("current_tab_id", id);
+        for (var i in map) {
+            if (i != id) {
+                document.getElementById(map[i]).style.display = "none";
             }
-            document.getElementById(map[id]).style.display = "block";
-            localStorage.setItem("current_tab_id", id);
-            for (var i in map) {
-                if (i != id) {
-                    document.getElementById(map[i]).style.display = "none";
-                }
-            }
         }
+    }
 
-        let back_tab_id = localStorage.getItem("back_tab_id");
-        if (back_tab_id) {
-            changeTab(back_tab_id);
-            clear_current_tab_cache();
-        } else {
-            changeTab("item1");
-        }
-        function clear_current_tab_cache() {
-            localStorage.removeItem("current_tab_id");
-            localStorage.removeItem("back_tab_id");
-        }
+    let back_tab_id = localStorage.getItem("back_tab_id");
+    if (back_tab_id != null) {
+        changeTab(back_tab_id);
+        clear_back_tab_cache();
+    } else {
+        changeTab("item1");
+    }
 
-        //设置需要回退到的tab_id
-        function videosave_client_click() {
-            localStorage.setItem("back_tab_id", localStorage.getItem("current_tab_id"));
-        }
-    </script>
+    function clear_back_tab_cache() {
+        localStorage.removeItem("back_tab_id");
+    }
+
+    //设置需要回退到的tab_id
+    function select_client_click() {
+        localStorage.setItem("back_tab_id", localStorage.getItem("current_tab_id"));
+    }
+
+    function coursesave_client_click() {
+        localStorage.setItem("back_tab_id", localStorage.getItem("current_tab_id"));
+    }
+
+    function videosave_client_click() {
+        localStorage.setItem("back_tab_id", localStorage.getItem("current_tab_id"));
+    }
+
+    function filesave_client_click() {
+        localStorage.setItem("back_tab_id", localStorage.getItem("current_tab_id"));
+    }
+</script>
 </html>

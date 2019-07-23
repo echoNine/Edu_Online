@@ -37,13 +37,13 @@ namespace Edu_Online
             return true;           //返回布尔值 True
         }
 
-        public static DataSet GetDataset(string sql)
+        public static DataSet GetDataset(string sql, string table)
         {
             SqlConnection con = CreateCon();         //创建数据库连接
             con.Open();         //打开数据库连接
             DataSet ds = new DataSet();        //创建DataSet对象
             SqlDataAdapter sda = new SqlDataAdapter(sql, con);      //创建DataAdapter对象
-            sda.Fill(ds);        //填充DataSet数据集        
+            sda.Fill(ds, table);        //填充DataSet数据集        
             con.Close();      //关闭数据库连接
             return ds;        //返回DataSet对象
         }
