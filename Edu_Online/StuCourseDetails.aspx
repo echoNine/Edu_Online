@@ -363,6 +363,7 @@
             }
     </style>
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <body>
     <form id="form1" runat="server">
         <div id="header" runat="server" class="header">
@@ -457,7 +458,7 @@
                 </div>
 
                 <div id="resdata" runat="server" class="resdata">
-                    <asp:GridView ID="gvResource" runat="server" Width="900px" AutoGenerateColumns="False" DataKeyNames="fileId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" >
+                    <asp:GridView ID="gvResource" runat="server" Width="900px" AutoGenerateColumns="False" DataKeyNames="fileId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
                         <Columns>
                             <asp:BoundField DataField="fileId" HeaderText="文件编号" ReadOnly="True" InsertVisible="False" SortExpression="fileId"></asp:BoundField>
                             <asp:BoundField DataField="fileName" HeaderText="文件名称" SortExpression="fileName"></asp:BoundField>
@@ -484,4 +485,53 @@
         </div>
     </form>
 </body>
+<script>
+    function parseURL(url) { 
+    var a = document.createElement('a'); 
+    a.href = url; 
+    return { 
+        source: url, 
+        protocol: a.protocol.replace(':',''), 
+        host: a.hostname, 
+        port: a.port, 
+        query: a.search, 
+        params: (function(){ 
+            var ret = {}, 
+            seg = a.search.replace(/^\?/,'').split('&'), 
+            len = seg.length, i = 0, s; 
+            for (;i<len;i++) { 
+                if (!seg[i]) { continue; } 
+                s = seg[i].split('='); 
+                ret[s[0]] = s[1]; 
+            } 
+            return ret; 
+        })(), 
+        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1], 
+        hash: a.hash.replace('#',''), 
+        path: a.pathname.replace(/^([^\/])/,'/$1'), 
+        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1], 
+        segments: a.pathname.replace(/^\//,'').split('/') 
+    }; 
+}
+    $(document).ready(function () {
+        $("#video").on('timeupdate', function () {
+            path = decodeURI(parseURL(this.src).path);
+            path = path.substring(1, path.length);
+            var opt = {
+                currentTime: this.currentTime,
+                videoPath: path
+            };
+            $.ajax({
+                type: "post",
+                url: "StuCourseDetails.aspx/CurrentTime",
+                dataType: "json",
+                contentType : "application/json",
+                data: JSON.stringify(opt),
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+        });
+    });
+</script>
 </html>

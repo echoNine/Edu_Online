@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -40,6 +41,23 @@ namespace Edu_Online
                 notetitle.Style["color"] = "#47abdd";
             }
 
+        }
+
+        [WebMethod(EnableSession = true)]
+        public static string CurrentTime(float currentTime, string videoPath)
+        {
+            string stuId = HttpContext.Current.Session["userId"].ToString();
+            SqlConnection con = DataOperate.CreateCon();
+            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            SqlDataReader sdr = DataOperate.GetRow(sql1);
+            sdr.Read();
+            //todo 不存在则新建
+            string videoId = sdr["VideoId"].ToString();
+            string sql2 = "update LearnRecord set currentTime = " + currentTime + " where stuId='" + stuId + "' and videoId=" + videoId;
+            SqlCommand cmd = new SqlCommand(sql2, con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            return "success";
         }
 
         protected void link_Click(object sender, EventArgs e)
