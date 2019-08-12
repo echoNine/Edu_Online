@@ -50,21 +50,31 @@ namespace Edu_Online
             if (cs == "教师")
             {
                 sql = "select count(*) from TeacherInfo where TeachId=@userId and TeachPassword=@Pwd ";
+                if (CheckPwd(sql, userId, Pwd))
+                {
+                    Session["userId"] = userId;
+                    Response.Redirect("AllCourses.aspx");
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");   //提示登录失败
+                }
             }
             else
             {
                 sql = "select count(*) from StudentInfo where StuId=@userId and StuPassword=@Pwd ";
+                if (CheckPwd(sql, userId, Pwd))
+                {
+                    Session["userId"] = userId;
+                    Response.Redirect("StuHeader.aspx");
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");   //提示登录失败
+                }
             }
 
-            if (CheckPwd(sql, userId, Pwd))
-            {
-                Session["userId"] = userId;
-                Response.Redirect("Header.aspx");
-            }
-            else
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");   //提示登录失败
-            }
+            
         }
 
         public static bool CheckPwd(string sql, string userId, string Pwd)

@@ -60,7 +60,7 @@
                     <asp:Label ID="tip" runat="server"></asp:Label>
                 </td>
                 <td class="auto-style6">
-                    <asp:Button ID="save" runat="server" Text="Save File" BackColor="#FFCC66" OnClick="btnSave_Click"/>
+                    <asp:Button ID="save" runat="server" Text="Save File" BackColor="#FFCC66" />
                 </td>
             </tr>
         </table>

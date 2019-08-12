@@ -10,7 +10,7 @@
 namespace Edu_Online {
     
     
-    public partial class CommentList {
+    public partial class StuHeader {
         
         /// <summary>
         /// form1 控件。
@@ -22,174 +22,246 @@ namespace Edu_Online {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// headerInfo 控件。
+        /// header 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl headerInfo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl header;
         
         /// <summary>
-        /// back 控件。
+        /// PageLink 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button back;
+        protected global::System.Web.UI.WebControls.Panel PageLink;
         
         /// <summary>
-        /// video 控件。
+        /// indexPage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlVideo video;
+        protected global::System.Web.UI.WebControls.HyperLink indexPage;
         
         /// <summary>
-        /// partInfo 控件。
+        /// coursePage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl partInfo;
+        protected global::System.Web.UI.WebControls.HyperLink coursePage;
         
         /// <summary>
-        /// DataList1 控件。
+        /// teacherPage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataList1;
+        protected global::System.Web.UI.WebControls.HyperLink teacherPage;
         
         /// <summary>
-        /// bar 控件。
+        /// discussPage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bar;
+        protected global::System.Web.UI.WebControls.HyperLink discussPage;
         
         /// <summary>
-        /// introPart 控件。
+        /// userImg 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button introPart;
+        protected global::System.Web.UI.WebControls.ImageButton userImg;
         
         /// <summary>
-        /// QAPart 控件。
+        /// UserSetting 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button QAPart;
+        protected global::System.Web.UI.WebControls.Panel UserSetting;
         
         /// <summary>
-        /// Comment 控件。
+        /// user 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Comment;
+        protected global::System.Web.UI.WebControls.Label user;
         
         /// <summary>
-        /// listInfo 控件。
+        /// myCourse 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl listInfo;
+        protected global::System.Web.UI.WebControls.Button myCourse;
         
         /// <summary>
-        /// someIntro 控件。
+        /// myQuestion 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl someIntro;
+        protected global::System.Web.UI.WebControls.Button myQuestion;
         
         /// <summary>
-        /// tip_top 控件。
+        /// myWork 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tip_top;
+        protected global::System.Web.UI.WebControls.Button myWork;
         
         /// <summary>
-        /// maininfo_top 控件。
+        /// myInfo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label maininfo_top;
+        protected global::System.Web.UI.WebControls.Button myInfo;
         
         /// <summary>
-        /// tip_bottom 控件。
+        /// exit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tip_bottom;
+        protected global::System.Web.UI.WebControls.HyperLink exit;
         
         /// <summary>
-        /// maininfo_bottom 控件。
+        /// menu 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label maininfo_bottom;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menu;
         
         /// <summary>
-        /// questionList 控件。
+        /// Menu1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl questionList;
+        protected global::System.Web.UI.WebControls.Menu Menu1;
         
         /// <summary>
-        /// outerDataList 控件。
+        /// commandCourse 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList outerDataList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl commandCourse;
         
         /// <summary>
-        /// commentList 控件。
+        /// newestCourse 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl commentList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl newestCourse;
         
         /// <summary>
-        /// DataList2 控件。
+        /// NewCourseTitle 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataList2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NewCourseTitle;
+        
+        /// <summary>
+        /// NewCourseItems 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NewCourseItems;
+        
+        /// <summary>
+        /// NewCourseData 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList NewCourseData;
+        
+        /// <summary>
+        /// NewCourseSource 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource NewCourseSource;
+        
+        /// <summary>
+        /// niceTeacher 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl niceTeacher;
+        
+        /// <summary>
+        /// NiceTeacherTitle 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NiceTeacherTitle;
+        
+        /// <summary>
+        /// NiceTeacherItems 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NiceTeacherItems;
+        
+        /// <summary>
+        /// NiceTeacherData 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList NiceTeacherData;
+        
+        /// <summary>
+        /// NiceTeacherSource 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource NiceTeacherSource;
     }
 }

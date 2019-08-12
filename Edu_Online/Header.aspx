@@ -177,7 +177,7 @@
             padding: 30px 50px;
             height: 61%;
             width: 69.3%;
-            display: none;
+
         }
 
         .auto-style3 {
@@ -237,6 +237,10 @@
         .auto-style6 {
             width: 100%;
         }
+
+        .del{
+            text-decoration:none;
+        }
     </style>
 </head>
 <body>
@@ -292,7 +296,7 @@
             <input id="selectkey" type="text" placeholder="请输入内容" class="selectcourse" style="height: 9%" runat="server" value=""/>
             <asp:Button ID="select" runat="server" Text="查询" CssClass="select" OnClick="select_Click" OnClientClick="return select_client_click()"/>
             <div style="overflow:auto; height: 88%; margin-top: 1%;">
-                <asp:GridView ID="gvopened" runat="server" AutoGenerateColumns="False" DataKeyNames="courseId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" Height="380px">
+                <asp:GridView ID="gvopened" runat="server" AutoGenerateColumns="False" DataKeyNames="courseId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" Height="380px" OnRowDeleting="gvopened_RowDeleting">
                     <Columns>
                         <asp:BoundField DataField="courseId" HeaderText="课程代码" SortExpression="courseId" />
                         <asp:BoundField DataField="courseName" HeaderText="课程名称" SortExpression="courseName" />
@@ -304,6 +308,7 @@
                                 <a href="CourseDetails.aspx?courseId='<%#Eval("courseId") %>'" style="color: black; text-decoration: none;">查看</a>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:CommandField ShowDeleteButton="True" HeaderText="删除" ControlStyle-CssClass="del"/>
                     </Columns>
                     <FooterStyle BackColor="#60baf1" ForeColor="Black" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#60baf1" />
@@ -335,12 +340,11 @@
                     <td class="auto-style7">课程类别</td>
                     <td class="auto-style5">
                         <asp:DropDownList ID="coursetype" runat="server" Height="26px">
-                            <asp:ListItem Value="计算机">计算机</asp:ListItem>
-                            <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
-                            <asp:ListItem Value="外语">外语</asp:ListItem>
-                            <asp:ListItem Value="电视艺术">电视艺术</asp:ListItem>
-                            <asp:ListItem Value="管理学">管理学</asp:ListItem>
-                            <asp:ListItem Value="文学文化">文学文化</asp:ListItem>
+                            <asp:ListItem Value="Java">Java</asp:ListItem>
+                            <asp:ListItem Value="C语言">C语言</asp:ListItem>
+                            <asp:ListItem Value="数据库">数据库</asp:ListItem>
+                            <asp:ListItem Value="安卓">安卓</asp:ListItem>
+                            <asp:ListItem Value=".Net">.Net</asp:ListItem>
                             <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
                         </asp:DropDownList>
                     </td>

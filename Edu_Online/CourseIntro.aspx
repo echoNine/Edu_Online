@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CourseIndex.aspx.cs" Inherits="Edu_Online.CourseIndex" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CourseIntro.aspx.cs" Inherits="Edu_Online.CourseIndex" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>课程详情</title>
+    <title>课程简介</title>
     <style type="text/css">
         body {
             padding: 0;
@@ -32,6 +32,22 @@
             border-radius: 5px;
         }
 
+        .back {
+            position: absolute;
+            right: 9%;
+            top: 8%;
+            border: none;
+            padding: 3px 6px;
+            background-color: #f7f7f7;
+            color: #4F5459;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .back:hover{
+            color:white;
+            background-color:#4F5459;
+        }
         .rightTop {
             margin: 35px 80px;
             width: 396px;
@@ -126,36 +142,48 @@
         }
 
         .play {
-            width: 26px;
+            width: 23px;
             vertical-align: middle;
         }
 
         .title {
-            font-size: 16px;
-            padding: 10px;
-            padding-right: 180px;
+            font-size: 15px;
+            padding-left: 10px;
             line-height: 40px;
             border-radius: 5px;
         }
 
-            .title:hover {
-                color: #60baf1;
-                background-color: #f7f7f7;
-            }
-
-        #listInfo {
-            background-color: white;
+        .tipdiv {
+            background-color: #f7f7f7;
             box-shadow: 3px 5px 8px rgba(7,17,27,.1);
             z-index: 999;
             position: absolute;
-            width: 30%;
-            height: 45%;
+            width: 45%;
+            height: 46%;
             border-radius: 12px;
             top: 20%;
-            left: 30%;
-            padding: 35px 60px;
-            cursor: pointer;
+            left: 26%;
+            padding: 35px 45px;
         }
+
+        .listInfo {
+            width: 96%;
+            background-color: white;
+            padding: 10px 15px;
+            overflow-y: auto;
+            height: 96%;
+        }
+
+        .item {
+            padding: 2px 10px;
+            color: #6b6969;
+        }
+
+            .item:hover {
+                cursor: pointer;
+                color: #60baf1;
+                background-color: #f7f7f7;
+            }
 
         .close {
             position: absolute;
@@ -165,7 +193,7 @@
         }
     </style>
     <script type="text/javascript">
-        function warm() {
+        function warning() {
             alert("无权限查看");
         }
     </script>
@@ -173,6 +201,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="header">
+            <asp:Button ID="back" runat="server" Text="返回" OnClick="back_Click" CssClass="back"/>
             <asp:Image ID="img" runat="server" CssClass="img" />
             <asp:Panel ID="rightTop" runat="server" CssClass="rightTop">
                 <asp:Label ID="name" runat="server" CssClass="name"></asp:Label>
@@ -204,18 +233,19 @@
                 <asp:Label ID="maininfo_right" runat="server" CssClass="maininfo"></asp:Label>
             </div>
         </div>
-
-        <div id="listInfo" runat="server" visible="false">
-            <div class="content" onclick="warm()">
-                <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" CssClass="content">
+        <div id="tipdiv" class="tipdiv" visible="false" runat="server">
+            <div id="listInfo" runat="server" class="listInfo">
+                <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1">
                     <ItemTemplate>
-                        <asp:Image ID="play" runat="server" ImageUrl="~/img/play.png" CssClass="play" />
-                        <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title"></asp:Label>
+                        <div id="item" onclick="warning()" class="item">
+                            <asp:Image ID="play" runat="server" ImageUrl="~/img/play.png" CssClass="play" />
+                            <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title"></asp:Label>
+                        </div>
                     </ItemTemplate>
                 </asp:DataList>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EduString %>" SelectCommand="SELECT [VideoName] FROM [VideoInfo]"></asp:SqlDataSource>
+                <asp:ImageButton ID="close" runat="server" ImageUrl="~/img/close.png" CssClass="close" OnClick="close_Click" />
             </div>
-            <asp:ImageButton ID="close" runat="server" ImageUrl="~/img/close.png" CssClass="close" OnClick="close_Click" />
         </div>
     </form>
 </body>

@@ -30,12 +30,17 @@ namespace Edu_Online
 
         protected void close_Click(object sender, ImageClickEventArgs e)
         {
-            listInfo.Visible = false;
+            tipdiv.Visible = false;
         }
 
         protected void open_Click(object sender, EventArgs e)
         {
-            listInfo.Visible = true;
+            tipdiv.Visible = true;
+        }
+
+        protected void back_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AllCourses.aspx");
         }
     }
 }

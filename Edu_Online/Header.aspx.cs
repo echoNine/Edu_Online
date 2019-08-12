@@ -65,33 +65,6 @@ namespace Edu_Online
                     }
                 }
 
-                SqlCommand cmd2 = new SqlCommand();
-                cmd2.Connection = con;
-                cmd2.CommandText = "select * from CourseInfo";
-                SqlDataReader reader2 = null;
-                try
-                {
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-                    reader2 = cmd2.ExecuteReader();
-                    filecourse.DataSource = reader2;
-                    filecourse.DataTextField = "courseName";
-                    filecourse.DataValueField = "courseId";
-                    filecourse.DataBind();
-                }
-                catch (Exception ex)
-                {
-                    Response.Write(ex.Message);
-                }
-                finally
-                {
-                    if (reader2.IsClosed == false)
-                    {
-                        reader2.Close();
-                        if (con.State == ConnectionState.Open)
-                            con.Close();
-                    }
-                }
                 string sqlinit = "select * from CourseInfo";
                 gvopened.DataSource = DataOperate.GetDataset(sqlinit, "CourseInfo");
                 gvopened.DataKeyNames = new string[] { "courseId" };
@@ -199,6 +172,18 @@ namespace Edu_Online
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('文件上传失败')</script>");
             }
+        }
+
+        protected void gvopened_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            string id = gvopened.DataKeys[e.RowIndex].Value.ToString();
+            string sqlDel = "delete CourseInfo where courseId='" + id + "'";
+            DataOperate.ExecSQL(sqlDel);
+            string sqlinit = "select * from CourseInfo";
+            gvopened.DataSource = DataOperate.GetDataset(sqlinit, "CourseInfo");
+            gvopened.DataKeyNames = new string[] { "courseId" };
+            gvopened.DataBind();
+            ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除成功')</script>");
         }
     }
 }
