@@ -71,6 +71,7 @@
     <Content Include="AllCourses.aspx" />
     <Content Include="CourseDetails.aspx" />
     <Content Include="CourseIntro.aspx" />
+    <Content Include="docker-compose.yml" />
     <Content Include="FileList.aspx" />
     <Content Include="ForgetPwd.aspx" />
     <Content Include="Header.aspx" />
