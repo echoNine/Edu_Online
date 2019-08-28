@@ -5,3 +5,6 @@ Edu_Online/practice/*
 packages/*
 Edu_Online/upload/*
 .idea/*
+docker-compose.yml
+Edu_Online/bin/*
+Edu_Online/obj/*
