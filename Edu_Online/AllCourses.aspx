@@ -17,10 +17,7 @@
             font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
         }
 
-        .nav {
-            font-size: 16px;
-            padding: 0px 10% 7%;
-        }
+
 
         .menu {
             background-color: #f7f7f7;
@@ -28,71 +25,91 @@
         }
 
         .person {
-            width: 130px;
-            padding: 4% 27.3% 2%;
+    width: 130px;
+    padding: 10% 27.3% 2%;
         }
 
         .user {
             font-size: 24px;
             font-weight: bold;
             color: black;
-            line-height: 60px;
+            line-height: 80px;
             padding: 0 37.4%;
         }
 
-        .item {
-            line-height: 38px;
-            color: #808080;
-            padding: 3px 20px;
-            border-radius: 5px;
-            width: 80px;
-            list-style-type: none;
-            margin: 10px;
-            height: 38px;
-            cursor: pointer;
+        .nav {
+            padding: 0% 10% 15%;
         }
 
-            .item li {
-                width: 70px;
-                display: none;
-                background-color: #f7f7f7;
-                line-height: 38px;
-                color: #808080;
-                padding: 3px 12px;
-                border-radius: 5px;
-                position: absolute;
-                left: 160px;
-                font-size: 14px;
-                
+        .item, .item4 {
+            line-height: 40px;
+            border-radius: 24px 12px;
+            margin: 24px 18px;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid #cccccc;
+            width: 75px;
+            font-size: 15px;
+            padding: 0px 13px;
+            text-align: center;
+            list-style: none;
+            color: #808080;
+        }
+
+        .itemInit {
+            line-height: 40px;
+            border-radius: 24px 12px;
+            margin: 24px 18px;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid #cccccc;
+            width: 75px;
+            font-size: 15px;
+            padding: 0px 13px;
+            text-align: center;
+            list-style: none;
+            background-color: #60baf1;
+        }
+
+            .itemInit a {
+                text-decoration: none;
+                color: #fff;
             }
-            #itemInit{
-                background-color: #60baf1;
-            }
-            #itemInit a{
+
+        .item a, .item4 a {
+            text-decoration: none;
+            color: #808080;
+        }
+
+        .item4 li {
+            width: 55px;
+            display: none;
+            line-height: 38px;
+            padding: 0px 12px;
+            position: absolute;
+            left: 11%;
+            list-style: none;
+            font-size: 13px;
+            border-radius: 20px 10px;
+            border: 2px solid #cccccc;
+        }
+
+        .item:hover, .itemInit:hover, .item4:hover, .item:hover a {
+            background-color: #6699FF;
+            color: white;
+        }
+
+        .item4:hover ul li:hover {
+            background-color: #6699FF;
+        }
+
+            .item4:hover ul li:hover a {
                 color: white;
-                text-decoration:none;
-            }
-           
-            .item a{
-                color: #808080;
-                text-decoration:none;
             }
 
-            .item:hover,#itemInit:hover{
-                background-color: #6699FF;
-            }
-            .item:hover a,#itemInit:hover a {      
-                color: white;
-            }
-
-                .item:hover ul li {
-                    display: block;
-                }
-
-                    .item:hover ul li:hover {
-                        background-color: #6699FF;
-                        color: white;
-                    }
+        .item4:hover ul li {
+            display: block;
+        }
 
         .header {
             background-color: #f7f7f7;
@@ -138,12 +155,12 @@
         .allcourse {
             background-color: #f7f7f7;
             position: absolute;
-            top: 25%;
-            left: 22.3%;
-            width: 69%;
-            height: 70%;
-            padding: 16px 65px;
-            overflow-y: auto;
+            top: 23%;
+            left: 21.4%;
+            width: 68%;
+            height: 71%;
+            padding: 10px 70px 35px;
+            overflow: auto;
         }
 
         .cover {
@@ -166,28 +183,26 @@
 <body>
     <form id="form1" runat="server">
         <div class="menu">
-            <asp:Image ID="person" runat="server" ImageUrl="~/img/person.png" CssClass="person" />
+            <asp:Image ID="person" runat="server" CssClass="person" />
             <asp:Label ID="user" runat="server" CssClass="user"></asp:Label><br />
             <ul class="nav">
-                <li class="item" id="itemInit"><a href="AllCourses.aspx">全部课程</a></li>
-                <li class="item" id="item2"><a href="OpenedCourses.aspx">已开课程</a></li>
-                <li class="item" id="item3">学生信息</li>
-                <li class="item" id="item4">课程管理<ul>
-                    <li style="top: 390px" id="item41">基本信息</li>
-                    <li style="top: 434px" id="item42">视频管理</li>
-                    <li style="top: 478px" id="item43">资料管理</li>
+                <li class="itemInit"><a href="AllCourses.aspx">全部课程</a></li>
+                <li class="item"><a href="OpenedCourses.aspx">已开课程</a></li>
+                <li class="item4">课程管理<ul>
+                    <li style="bottom: 31%"><a href="InfoManage.aspx">新设课程</a></li>
+                    <li style="bottom: 24.5%"><a href="VideoManage.aspx">视频管理</a></li>
+                    <li style="bottom: 18%"><a href="SrcManage.aspx">资料管理</a></li>
                 </ul>
                 </li>
-                <li class="item" id="item5">作业管理</li>
-                <li class="item" id="item6">课程评价</li>
-                <li class="item" id="item7">个人中心</li>
+                <li class="item"><a href="PushPractice.aspx">作业管理</a></li>
+                <li class="item"><a href="AddUserInfo.aspx">个人中心</a></li>
             </ul>
         </div>
 
         <div class="header">
             <div class="tip">
                 <asp:Label ID="wel" runat="server" Text="欢迎登录" CssClass="wel"></asp:Label>
-                <asp:Image ID="img" runat="server" ImageUrl="~/img/person.png" CssClass="img" /><br />
+                <asp:Image ID="img" runat="server" CssClass="img" /><br />
                 <asp:Button ID="quit" runat="server" Text="退出" CssClass="quit" OnClick="quit_Click" />
             </div>
         </div>

@@ -67,17 +67,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddQues.aspx" />
     <Content Include="AddUserInfo.aspx" />
     <Content Include="AllCourses.aspx" />
     <Content Include="CourseDetails.aspx" />
     <Content Include="CourseIntro.aspx" />
-    <Content Include="FileList.aspx" />
+    <Content Include="DoingPage.aspx" />
     <Content Include="ForgetPwd.aspx" />
     <Content Include="Header.aspx" />
     <Content Include="img\course.png" />
     <Content Include="img\question.png" />
     <Content Include="img\setting.png" />
     <Content Include="img\work.png" />
+    <Content Include="modal.css" />
+    <Content Include="NewPracticeInfo.aspx" />
+    <Content Include="PerfectStuInfo.aspx" />
+    <Content Include="PerfectTeachInfo.aspx" />
     <Content Include="pic\boy5.png" />
     <Content Include="img\calendar.gif" />
     <Content Include="img\clock.png" />
@@ -99,7 +104,6 @@
     <Content Include="FileUpload.aspx" />
     <Content Include="MyCenter.aspx" />
     <Content Include="OpenedCourses.aspx" />
-    <Content Include="PartList.aspx" />
     <Content Include="pic\boy1.png" />
     <Content Include="pic\boy2.png" />
     <Content Include="pic\boy3.png" />
@@ -107,17 +111,28 @@
     <Content Include="pic\girl1.png" />
     <Content Include="pic\girl2.png" />
     <Content Include="pic\girl3.png" />
+    <Content Include="PracticePage.aspx" />
     <Content Include="PracticeUpload.aspx" />
+    <Content Include="PushPractice.aspx" />
+    <Content Include="SrcManage.aspx" />
     <Content Include="StuCourseDetails.aspx" />
     <Content Include="StuCourseIntro.aspx" />
     <Content Include="StuCourseSearch.aspx" />
     <Content Include="StuHeader.aspx" />
     <Content Include="TeachInfo.aspx" />
+    <Content Include="InfoManage.aspx" />
+    <Content Include="VideoManage.aspx" />
     <Content Include="VideoUpload.aspx" />
-    <Content Include="VideoList.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddQues.aspx.cs">
+      <DependentUpon>AddQues.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddQues.aspx.designer.cs">
+      <DependentUpon>AddQues.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddUserInfo.aspx.cs">
       <DependentUpon>AddUserInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,12 +162,12 @@
       <DependentUpon>CourseIntro.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataOperate.cs" />
-    <Compile Include="FileList.aspx.cs">
-      <DependentUpon>FileList.aspx</DependentUpon>
+    <Compile Include="DoingPage.aspx.cs">
+      <DependentUpon>DoingPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="FileList.aspx.designer.cs">
-      <DependentUpon>FileList.aspx</DependentUpon>
+    <Compile Include="DoingPage.aspx.designer.cs">
+      <DependentUpon>DoingPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgetPwd.aspx.cs">
       <DependentUpon>ForgetPwd.aspx</DependentUpon>
@@ -189,6 +204,13 @@
     <Compile Include="MyCenter.aspx.designer.cs">
       <DependentUpon>MyCenter.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NewPracticeInfo.aspx.cs">
+      <DependentUpon>NewPracticeInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NewPracticeInfo.aspx.designer.cs">
+      <DependentUpon>NewPracticeInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OpenedCourses.aspx.cs">
       <DependentUpon>OpenedCourses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -196,12 +218,26 @@
     <Compile Include="OpenedCourses.aspx.designer.cs">
       <DependentUpon>OpenedCourses.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PartList.aspx.cs">
-      <DependentUpon>PartList.aspx</DependentUpon>
+    <Compile Include="PerfectStuInfo.aspx.cs">
+      <DependentUpon>PerfectStuInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PartList.aspx.designer.cs">
-      <DependentUpon>PartList.aspx</DependentUpon>
+    <Compile Include="PerfectStuInfo.aspx.designer.cs">
+      <DependentUpon>PerfectStuInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PerfectTeachInfo.aspx.cs">
+      <DependentUpon>PerfectTeachInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PerfectTeachInfo.aspx.designer.cs">
+      <DependentUpon>PerfectTeachInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PracticePage.aspx.cs">
+      <DependentUpon>PracticePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PracticePage.aspx.designer.cs">
+      <DependentUpon>PracticePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="PracticeUpload.aspx.cs">
       <DependentUpon>PracticeUpload.aspx</DependentUpon>
@@ -211,7 +247,21 @@
       <DependentUpon>PracticeUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushPractice.aspx.cs">
+      <DependentUpon>PushPractice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PushPractice.aspx.designer.cs">
+      <DependentUpon>PushPractice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SqlCoxnnection.cs" />
+    <Compile Include="SrcManage.aspx.cs">
+      <DependentUpon>SrcManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SrcManage.aspx.designer.cs">
+      <DependentUpon>SrcManage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StuCourseDetails.aspx.cs">
       <DependentUpon>StuCourseDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -247,19 +297,26 @@
     <Compile Include="TeachInfo.aspx.designer.cs">
       <DependentUpon>TeachInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InfoManage.aspx.cs">
+      <DependentUpon>InfoManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InfoManage.aspx.designer.cs">
+      <DependentUpon>InfoManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VideoManage.aspx.cs">
+      <DependentUpon>VideoManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VideoManage.aspx.designer.cs">
+      <DependentUpon>VideoManage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="VideoUpload.aspx.cs">
       <DependentUpon>VideoUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="VideoUpload.aspx.designer.cs">
       <DependentUpon>VideoUpload.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="VideoList.aspx.cs">
-      <DependentUpon>VideoList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="VideoList.aspx.designer.cs">
-      <DependentUpon>VideoList.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -40,6 +40,15 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Button back;
         
         /// <summary>
+        /// currentVideo 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label currentVideo;
+        
+        /// <summary>
         /// video 控件。
         /// </summary>
         /// <remarks>
@@ -94,13 +103,13 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Button QAPart;
         
         /// <summary>
-        /// Comment 控件。
+        /// SrcPart 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Comment;
+        protected global::System.Web.UI.WebControls.Button SrcPart;
         
         /// <summary>
         /// listInfo 控件。
@@ -175,21 +184,21 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.DataList outerDataList;
         
         /// <summary>
-        /// commentList 控件。
+        /// resdata 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl commentList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl resdata;
         
         /// <summary>
-        /// DataList2 控件。
+        /// gvResource 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataList2;
+        protected global::System.Web.UI.WebControls.GridView gvResource;
     }
 }

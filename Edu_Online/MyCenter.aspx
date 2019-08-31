@@ -69,11 +69,8 @@
             padding: 6% 8%;
             background-color: white;
             border-radius: 8px 15px;
+            border: 2px solid gray;
         }
-
-            .linkBtn:hover .linkTitle {
-                color: black;
-            }
 
         .linkImg {
             width: 22px;
@@ -103,8 +100,8 @@
 
         .courseItem {
             background-color: white;
-            width: 100%;
-            margin-left: 10%;
+            width: 80%;
+            margin-left: 7%;
             margin-top: 3%;
             border-radius: 12px;
             box-shadow: 2px 3px 3px 2px #e8e8e8;
@@ -129,15 +126,142 @@
             margin-top: 3%;
         }
 
+        .divItem {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            float: left;
+            margin-left: 56%;
+            margin-top: -9%;
+            width: 40%;
+        }
+
         .continue {
-            float: right;
-            margin-top: 8%;
-            margin-right: 24%;
             color: white;
             padding: 10px 15px;
             background-color: #299bff;
             text-decoration: none;
             border-radius: 20px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .drop {
+            color: #6f6f6f;
+            padding: 10px 15px;
+            background-color: #dedede;
+            text-decoration: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 15px;
+            border: none;
+            margin-left: 12%;
+        }
+
+        .UserInfo {
+            background: #fff;
+            height: 657px;
+            width: 100%;
+        }
+
+        .leftTitle, .rightTitle {
+            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+            border-left: 5px solid #008BE1;
+            font-size: 18px;
+            padding-left: 25px;
+        }
+
+        .LeftInfo, .RightInfo {
+            float: left;
+            padding: 10% 4.8%;
+            height: 70%;
+            width: 40%;
+            border: 1px solid #c4c4c4;
+        }
+
+        .infoItem {
+            margin-right: 70px;
+            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+            font-size: 15px;
+            color: #5e5e5e;
+            line-height: 30px;
+        }
+
+        .input {
+            width: 250px;
+            height: 36px;
+            border-radius: 5px;
+            border: 1px solid #b9b9b9;
+            padding-left: 10px;
+        }
+
+        .info {
+            width: 380px;
+            height: 36px;
+            margin-top: 45px;
+            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+            font-size: 15px;
+            color: #5e5e5e;
+        }
+
+        .save {
+            height: 40px;
+            width: 90px;
+            margin-top: 120px;
+            margin-left: 148px;
+            margin-right: 20px;
+            border: none;
+            border-radius: 5px;
+            background: #008BE1;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+        }
+
+        .update {
+            height: 40px;
+            width: 90px;
+            border: none;
+            border-radius: 5px;
+            background: #a2a2a2;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+        }
+
+        .PracticeInfo {
+            width: 86%;
+            margin: 6% 8%;
+        }
+
+        .workStatus {
+            font-size: 19px;
+            color: gray;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .statusItem {
+            height: 30px;
+            padding-left: 8px;
+            width: 15%;
+            font-size: 15px;
+            color: gray;
+            margin-bottom: 3%;
+        }
+
+        .quesItem {
+            background-color: white;
+            width: 700px;
+            margin-left: 7%;
+            margin-top: 3%;
+            border-radius: 12px;
+            box-shadow: 2px 3px 3px 2px #e8e8e8;
+            padding: 20px 40px;
         }
     </style>
 </head>
@@ -159,19 +283,19 @@
             </div>
 
             <div id="menu" runat="server" class="menu">
-                <asp:LinkButton ID="myCourse" runat="server" CssClass="linkBtn">
+                <asp:LinkButton ID="myCourse" runat="server" CssClass="linkBtn" OnClick="myCourse_Click">
                     <asp:Image ID="courseImg" runat="server" ImageUrl="~/img/course.png" CssClass="linkImg" />
                     <asp:Label ID="courseTitle" runat="server" Text="我的课程" CssClass="linkTitle" />
                 </asp:LinkButton><br />
-                <asp:LinkButton ID="myQues" runat="server" CssClass="linkBtn">
+                <asp:LinkButton ID="myQues" runat="server" CssClass="linkBtn" OnClick="myQues_Click">
                     <asp:Image ID="quesImg" runat="server" ImageUrl="~/img/question.png" CssClass="linkImg" />
                     <asp:Label ID="quesTitle" runat="server" Text="我的提问" CssClass="linkTitle" />
                 </asp:LinkButton><br />
-                <asp:LinkButton ID="myWork" runat="server" CssClass="linkBtn">
+                <asp:LinkButton ID="myWork" runat="server" CssClass="linkBtn" OnClick="myWork_Click">
                     <asp:Image ID="workImg" runat="server" ImageUrl="~/img/work.png" CssClass="linkImg" />
                     <asp:Label ID="workTitle" runat="server" Text="作业情况" CssClass="linkTitle" />
                 </asp:LinkButton><br />
-                <asp:LinkButton ID="mySetting" runat="server" CssClass="linkBtn">
+                <asp:LinkButton ID="mySetting" runat="server" CssClass="linkBtn" OnClick="mySetting_Click">
                     <asp:Image ID="settingImg" runat="server" ImageUrl="~/img/setting.png" CssClass="linkImg" />
                     <asp:Label ID="settingTitle" runat="server" Text="个人信息" CssClass="linkTitle" />
                 </asp:LinkButton>
@@ -179,15 +303,135 @@
         </div>
 
         <div id="Right" runat="server" class="Right">
-            <asp:DataList ID="InfoDataList" runat="server" DataKeyField="courseId">
+            <asp:DataList ID="CourseInfo" runat="server" DataKeyField="courseId" Visible="false">
                 <ItemTemplate>
                     <div id="courseItem" runat="server" class="courseItem">
                         <asp:Image ImageUrl='<%# Eval("cover") %>' runat="server" ID="cover" CssClass="cover" />
-                        <asp:Label Text='<%# Eval("courseName") %>' runat="server" ID="courseName" CssClass="courseName" /><br />
-                        <asp:HyperLink ID="continue" runat="server" Text="继续学习" NavigateUrl='<%#"~/StuCourseDetails.aspx?courseId="+Eval("courseId") %>' CssClass="continue" />
+                        <asp:Label Text='<%# Eval("courseName") %>' runat="server" ID="courseName" CssClass="courseName" />
+                        <div id="divItem" class="divItem">
+                            <asp:HyperLink ID="continue" runat="server" Text="继续学习" NavigateUrl='<%#"~/StuCourseDetails.aspx?tip=again&courseId="+Eval("courseId") %>' CssClass="continue" />
+                            <asp:LinkButton ID="drop" runat="server" Text="退出课程" CssClass="drop" OnClick="drop_Click" CommandArgument='<%# Eval("courseId") %>' />
+                        </div>
                     </div>
                 </ItemTemplate>
             </asp:DataList>
+
+            <div id="UserInfo" runat="server" class="UserInfo" visible="false">
+                <div class="LeftInfo">
+                    <asp:Label ID="BaseInfo" runat="server" Text="基本信息" CssClass="leftTitle"></asp:Label><br />
+                    <div class="info">
+                        <asp:Label ID="name" runat="server" Text="姓名" CssClass="infoItem"></asp:Label><asp:TextBox ID="txtName" runat="server" CssClass="input"></asp:TextBox>
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="sex" runat="server" Text="性别" CssClass="infoItem"></asp:Label>
+                        <asp:RadioButton ID="Male" runat="server" GroupName="RadioSex" Text="男" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:RadioButton ID="Female" runat="server" GroupName="RadioSex" Text="女" />
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="birth" runat="server" Text="出生日期" CssClass="infoItem" Style="margin-right: 40px"></asp:Label>
+                        <asp:DropDownList ID="year" runat="server" Style="width: 60px; padding-left: 5px;" CssClass="input"></asp:DropDownList>&nbsp;年&nbsp;
+                        <asp:DropDownList ID="month" runat="server" Style="width: 60px; padding-left: 5px;" CssClass="input"></asp:DropDownList>&nbsp;月&nbsp;
+                        <asp:DropDownList ID="day" runat="server" Style="width: 60px; padding-left: 5px;" CssClass="input"></asp:DropDownList>&nbsp;日&nbsp;
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="city" runat="server" Text="现居城市" CssClass="infoItem" Style="margin-right: 40px"></asp:Label><asp:TextBox ID="txtCity" runat="server" CssClass="input"></asp:TextBox>
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="phone" runat="server" Text="联系电话" CssClass="infoItem" Style="margin-right: 40px"></asp:Label><asp:TextBox ID="txtPhone" runat="server" CssClass="input"></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="RightInfo">
+                    <asp:Label ID="OtherInfo" runat="server" Text="其他信息" CssClass="rightTitle"></asp:Label>
+                    <div class="info">
+                        <asp:Label ID="type" runat="server" Text="用户类型" CssClass="infoItem"></asp:Label>
+                        <asp:DropDownList ID="UserType" runat="server" CssClass="input" Width="210px">
+                            <asp:ListItem Value="1">学生</asp:ListItem>
+                            <asp:ListItem Value="2">教师</asp:ListItem>
+                            <asp:ListItem Value="3">在职</asp:ListItem>
+                            <asp:ListItem Value="4">其他</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="major" runat="server" Text="主修专业" CssClass="infoItem"></asp:Label>
+                        <asp:DropDownList ID="MajorCourse" runat="server" CssClass="input" Width="210px">
+                            <asp:ListItem Value="计算机">计算机</asp:ListItem>
+                            <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
+                            <asp:ListItem Value="外语">外语</asp:ListItem>
+                            <asp:ListItem Value="经济金融">经济金融</asp:ListItem>
+                            <asp:ListItem Value="管理学">管理学</asp:ListItem>
+                            <asp:ListItem Value="会计">会计</asp:ListItem>
+                            <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="unit" runat="server" Text="学校单位" CssClass="infoItem"></asp:Label>
+                        <asp:TextBox ID="txtUnit" runat="server" CssClass="input" Width="200px"></asp:TextBox>
+                    </div>
+                    <div class="info">
+                        <asp:Label ID="pic" runat="server" Text="更换头像" CssClass="infoItem"></asp:Label>
+                        <asp:FileUpload ID="UploadPic" runat="server" Width="200px" />
+                    </div>
+                    <asp:Button ID="save" runat="server" Text="保存" OnClick="save_Click" CssClass="save" Enabled="false" />
+                    <asp:Button ID="update" runat="server" Text="修改" OnClick="update_Click" CssClass="update" />
+                </div>
+            </div>
+            <asp:DataList ID="QuestionInfo" runat="server" class="QueetionInfo" Visible="false">
+                <ItemTemplate>
+                    <asp:Panel ID="quesItem" runat="server" CssClass="quesItem">
+                        <asp:Label Text='<%# Eval("questionContent") %>' runat="server" ID="questionContent" CssClass="questionContent" /><br />
+                        <asp:Label Text='<%# Eval("questionTime") %>' runat="server" ID="questionTime" CssClass="questionTime" />
+                    </asp:Panel>
+                </ItemTemplate>
+            </asp:DataList>
+            <div id="PracticeInfo" runat="server" class="PracticeInfo" visible="false">
+                <asp:Label ID="workStatus" runat="server" Text="作业状态" CssClass="workStatus" />
+                <asp:DropDownList ID="PracticeStatus" runat="server" OnSelectedIndexChanged="PracticeStatus_SelectedIndexChanged" AutoPostBack="true" CssClass="statusItem">
+                    <asp:ListItem Value="done">已完成</asp:ListItem>
+                    <asp:ListItem Value="todo">未完成</asp:ListItem>
+                </asp:DropDownList><br />
+                <asp:GridView ID="DoneList" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="20" ForeColor="Black" GridLines="Horizontal">
+                    <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
+                    <Columns>
+                        <asp:BoundField DataField="practiceName" HeaderText="练习名称"></asp:BoundField>
+                        <asp:BoundField DataField="hardLevel" HeaderText="练习难度"></asp:BoundField>
+                        <asp:BoundField DataField="courseName" HeaderText="所属课程"></asp:BoundField>
+                        <asp:BoundField DataField="videoName" HeaderText="对应章节"></asp:BoundField>
+                        <asp:BoundField DataField="score" HeaderText="练习得分"></asp:BoundField>
+                    </Columns>
+                    <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#9c9c9c" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Center" />
+                    <RowStyle HorizontalAlign="Center" BackColor="#fffeed" ForeColor="#5d5d5d" />
+                    <SelectedRowStyle BackColor="#60baf1" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2"></SortedAscendingCellStyle>
+                    <SortedAscendingHeaderStyle BackColor="#848384"></SortedAscendingHeaderStyle>
+                    <SortedDescendingCellStyle BackColor="#EAEAD3"></SortedDescendingCellStyle>
+                    <SortedDescendingHeaderStyle BackColor="#575357"></SortedDescendingHeaderStyle>
+                </asp:GridView>
+                <asp:GridView ID="TodoList" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="20" ForeColor="Black" GridLines="Horizontal">
+                    <Columns>
+                        <asp:BoundField DataField="practiceName" HeaderText="练习名称"></asp:BoundField>
+                        <asp:BoundField DataField="hardLevel" HeaderText="练习难度"></asp:BoundField>
+                        <asp:BoundField DataField="courseName" HeaderText="所属课程"></asp:BoundField>
+                        <asp:BoundField DataField="videoName" HeaderText="对应章节"></asp:BoundField>
+                        <asp:TemplateField HeaderText="详情">
+                            <ItemTemplate>
+                                <a href="DoingPage.aspx?practiceId='<%#Eval("practiceId") %>'" style="color: #5D5D5D; text-decoration: none;">开始练习</a>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#9c9c9c" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Center" />
+                    <RowStyle HorizontalAlign="Center" BackColor="#fffeed" ForeColor="#5d5d5d" />
+                    <SelectedRowStyle BackColor="#60baf1" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#FBFBF2"></SortedAscendingCellStyle>
+                    <SortedAscendingHeaderStyle BackColor="#848384"></SortedAscendingHeaderStyle>
+                    <SortedDescendingCellStyle BackColor="#EAEAD3"></SortedDescendingCellStyle>
+                    <SortedDescendingHeaderStyle BackColor="#575357"></SortedDescendingHeaderStyle>
+                </asp:GridView>
+            </div>
         </div>
     </form>
 </body>

@@ -18,14 +18,31 @@ namespace Edu_Online
             if (!IsPostBack)
             {
                 string courseId = Request.QueryString["courseId"];
+                Session["courseId"] = courseId;
                 string sql1 = "select * from CourseInfo where courseId =" + courseId;
                 SqlDataReader sdr1 = DataOperate.GetRow(sql1);
                 sdr1.Read();
                 courseTitle.Text = sdr1["courseName"].ToString();
-
-                string sql2 = "select * from CourseInfo inner join VideoInfo on CourseInfo.courseId = VideoInfo.CourseId where CourseInfo.courseId=" + courseId;
-                SqlDataReader sdr2 = DataOperate.GetRow(sql2);
-                sdr2.Read();
+                string tip = Request.QueryString["tip"];
+                string sql2 = "";
+                SqlDataReader sdr2 = null;
+                if (tip == "new")
+                {
+                    sql2 = "select top 1 * from CourseInfo inner join VideoInfo on CourseInfo.courseId = VideoInfo.CourseId where CourseInfo.courseId=" + courseId;
+                    sdr2 = DataOperate.GetRow(sql2);
+                    sdr2.Read();
+                    video.Src = sdr2["VideoPath"].ToString();
+                    currentVideo.Text= sdr2["VideoId"].ToString();
+                }
+                else
+                {
+                    sql2 = "select top 1 * from LearnRecord inner join VideoInfo on LearnRecord.videoId = VideoInfo.videoId where LearnRecord.courseId = '" + courseId + "' order by updatedAt desc";
+                    sdr2 = DataOperate.GetRow(sql2);
+                    sdr2.Read();
+                    video.Src = sdr2["VideoPath"].ToString();
+                    getTime.Text = sdr2["currentTime"].ToString();
+                    currentVideo.Text = sdr2["VideoId"].ToString();
+                }
                 video.Src = sdr2["VideoPath"].ToString();
                 NBindData();
                 QABindData(sdr2["VideoId"].ToString());
@@ -40,23 +57,35 @@ namespace Edu_Online
                 notetitle.Style["border-bottom"] = "2px solid #47abdd";
                 notetitle.Style["color"] = "#47abdd";
             }
-
         }
 
         [WebMethod(EnableSession = true)]
         public static string CurrentTime(float currentTime, string videoPath)
         {
-            string stuId = HttpContext.Current.Session["userId"].ToString();
+            string courseId = "";
+            string stuId = "";
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session["courseId"] != null && HttpContext.Current.Session["userId"] != null)
+            {
+                courseId = HttpContext.Current.Session["courseId"].ToString();
+                stuId = HttpContext.Current.Session["userId"].ToString();
+            }
             SqlConnection con = DataOperate.CreateCon();
             string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
-            SqlDataReader sdr = DataOperate.GetRow(sql1);
-            sdr.Read();
-            //todo 不存在则新建
-            string videoId = sdr["VideoId"].ToString();
-            string sql2 = "update LearnRecord set currentTime = " + currentTime + " where stuId='" + stuId + "' and videoId=" + videoId;
-            SqlCommand cmd = new SqlCommand(sql2, con);
-            con.Open();
-            cmd.ExecuteNonQuery();
+            SqlDataReader sdr1 = DataOperate.GetRow(sql1);
+            sdr1.Read();
+            string videoId = sdr1["VideoId"].ToString();
+            string sql2 = "select count(*) from LearnRecord where stuId='" + stuId + "' and videoId=" + videoId;
+            string sql3 = "";
+            string updatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            if (DataOperate.SeleSQL(sql2) == 0)
+            {
+                sql3 = "insert into LearnRecord(stuId,courseId,videoId,currentTime,updatedAt) values('" + stuId + "','" + courseId + "'," + videoId + "," + currentTime + ",'" + updatedAt + "')";
+            }
+            else
+            {
+                sql3 = "update LearnRecord set currentTime = " + currentTime + ",updatedAt = '" + updatedAt + "' where stuId='" + stuId + "' and videoId=" + videoId;
+            }
+            DataOperate.ExecSQL(sql3);
             return "success";
         }
 
@@ -65,10 +94,27 @@ namespace Edu_Online
             LinkButton btn = (LinkButton)sender;
             string videoName = btn.CommandArgument.ToString();
             string sql = "select * from VideoInfo where VideoName=" + "'" + videoName + "'";
-            SqlDataReader sdr = DataOperate.GetRow(sql);
-            sdr.Read();
-            video.Src = sdr["VideoPath"].ToString();
-            QABindData(sdr["VideoId"].ToString());
+            SqlDataReader sdr1 = DataOperate.GetRow(sql);
+            sdr1.Read();
+            video.Src = sdr1["VideoPath"].ToString();
+            currentVideo.Text = sdr1["VideoId"].ToString();
+            Label lb = (Label)btn.FindControl("title");
+            lb.Style["color"] = "red";
+            string stuId = Session["userId"].ToString();
+            string videoId = sdr1["VideoId"].ToString();
+            string courseId = Session["courseId"].ToString();
+            string updatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string timeSql = "select count(*) from LearnRecord where stuId='" + stuId + "' and videoId=" + videoId;
+            if (DataOperate.SeleSQL(timeSql) == 0)
+            {
+                string insertSql = "insert into LearnRecord(stuId,courseId,videoId,updatedAt) values('" + stuId + "','" + courseId + "'," + videoId + ",'" + updatedAt + "')";
+                DataOperate.ExecSQL(insertSql);
+            }
+            string selectSql = "select * from LearnRecord where stuId='" + stuId + "' and videoId=" + videoId;
+            SqlDataReader sdr2 = DataOperate.GetRow(selectSql);
+            sdr2.Read();
+            getTime.Text = sdr2["currentTime"].ToString();
+            QABindData(videoId);
             NBindData();
             RBindData();
         }

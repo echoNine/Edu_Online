@@ -22,6 +22,51 @@ namespace Edu_Online {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// person 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image person;
+        
+        /// <summary>
+        /// user 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label user;
+        
+        /// <summary>
+        /// wel 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label wel;
+        
+        /// <summary>
+        /// img 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img;
+        
+        /// <summary>
+        /// quit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button quit;
+        
+        /// <summary>
         /// BaseInfo 控件。
         /// </summary>
         /// <remarks>
@@ -58,15 +103,6 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Label sex;
         
         /// <summary>
-        /// Female 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Female;
-        
-        /// <summary>
         /// Male 控件。
         /// </summary>
         /// <remarks>
@@ -74,6 +110,15 @@ namespace Edu_Online {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton Male;
+        
+        /// <summary>
+        /// Female 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton Female;
         
         /// <summary>
         /// birth 控件。
@@ -166,31 +211,31 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Label type;
         
         /// <summary>
-        /// TeacherType 控件。
+        /// TeachType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TeacherType;
+        protected global::System.Web.UI.WebControls.DropDownList TeachType;
         
         /// <summary>
-        /// direction 控件。
+        /// Major 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label direction;
+        protected global::System.Web.UI.WebControls.Label Major;
         
         /// <summary>
-        /// TeachCourse 控件。
+        /// TeachMajor 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TeachCourse;
+        protected global::System.Web.UI.WebControls.DropDownList TeachMajor;
         
         /// <summary>
         /// unit 控件。
@@ -211,6 +256,42 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.TextBox txtUnit;
         
         /// <summary>
+        /// intro 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label intro;
+        
+        /// <summary>
+        /// txtIntro 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIntro;
+        
+        /// <summary>
+        /// pic 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label pic;
+        
+        /// <summary>
+        /// UploadPic 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload UploadPic;
+        
+        /// <summary>
         /// save 控件。
         /// </summary>
         /// <remarks>
@@ -218,5 +299,14 @@ namespace Edu_Online {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button save;
+        
+        /// <summary>
+        /// update 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button update;
     }
 }

@@ -14,7 +14,6 @@ namespace Edu_Online
 {
     public partial class Index : System.Web.UI.Page
     {
-        string str = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,6 +21,8 @@ namespace Edu_Online
                 loginInfo.Visible = true;
                 registerInfoTeach.Visible = false;
                 registerInfoStu.Visible = false;
+                show_login.Style["border-bottom"]= "2px solid #3f9ae8";
+                show_register.Style["border-bottom"] = "2px solid #cdd2d6";
             }
 
         }
@@ -31,6 +32,8 @@ namespace Edu_Online
             loginInfo.Visible = true;
             registerInfoTeach.Visible = false;
             registerInfoStu.Visible = false;
+            show_login.Style["border-bottom"] = "2px solid #3f9ae8";
+            show_register.Style["border-bottom"] = "2px solid #cdd2d6";
         }
 
         protected void show_register_Click(object sender, EventArgs e)
@@ -38,6 +41,8 @@ namespace Edu_Online
             loginInfo.Visible = false;
             registerInfoTeach.Visible = true;
             registerInfoStu.Visible = false;
+            show_login.Style["border-bottom"] = "2px solid #cdd2d6";
+            show_register.Style["border-bottom"] = "2px solid #3f9ae8";
         }
 
         protected void btn_login_Click(object sender, EventArgs e)
@@ -57,7 +62,7 @@ namespace Edu_Online
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");   //提示登录失败
+                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");
                 }
             }
             else
@@ -103,7 +108,9 @@ namespace Edu_Online
         {
             string userId = userIdTeach.Text;
             string userPwd = userPwdTeach.Text;
-            if (str == userId.ToString())
+            string mailCode = mailTeach.Text;
+            string str = Session["code"].ToString();
+            if (str == mailCode)
             {
                 string sql = "insert into TeacherInfo(TeachId,TeachPassword) values(@userId,@userPwd)";
                 SqlConnection con = DataOperate.CreateCon();
@@ -117,7 +124,7 @@ namespace Edu_Online
                 if (com.ExecuteNonQuery() > 0)
                 {
                     Session["userId"] = userId;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='AddTeacher.aspx'</script>");
+                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='PerfectTeachInfo.aspx'</script>");
                 }
                 else
                 {
@@ -156,16 +163,11 @@ namespace Edu_Online
             if (Convert.ToInt32(cmd.ExecuteScalar()) == 0)
             {
                 String To = userIdTeach.Text;
-                Random rm = new Random();
-                int i;
-                for (int p = 0; p < 6; p++)
-                {
-                    i = Convert.ToInt32(rm.NextDouble() * 10);
-                    str += i;
-                }
-                string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + str;
+                Random random = new Random(Guid.NewGuid().GetHashCode());
+                int code = random.Next(100000, 1000000);
+                string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
                 SendEmail1("smtp.163.com", "foxnine0720@163.com", "072065yat", To, "激活邮箱", content);
-                Session["code"] = str;
+                Session["code"] = code;
             }
             else
             {
@@ -178,7 +180,9 @@ namespace Edu_Online
         {
             string userId = userIdStu.Text;
             string userPwd = userPwdStu.Text;
-            if (str == userId.ToString())
+            string mailCode = mailStu.Text;
+            string str = Session["code"].ToString();
+            if (str == mailCode)
             {
                 string sql = "insert into StudentInfo(StuId,StuPassword) values(@userId,@userPwd)";
                 SqlConnection con = DataOperate.CreateCon();
@@ -192,7 +196,7 @@ namespace Edu_Online
                 if (com.ExecuteNonQuery() > 0)
                 {
                     Session["userId"] = userId;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='AddTeacher.aspx'</script>");
+                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='PerfectStuInfo.aspx'</script>");
                 }
                 else
                 {
@@ -230,17 +234,12 @@ namespace Edu_Online
             com.Parameters["@userId"].Value = userId;
             if (Convert.ToInt32(com.ExecuteScalar()) == 0)
             {
-                String To = userIdTeach.Text;
-                Random rm = new Random();
-                int i;
-                for (int p = 0; p < 6; p++)
-                {
-                    i = Convert.ToInt32(rm.NextDouble() * 10);
-                    str += i;
-                }
-                string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + str;
+                String To = userIdStu.Text;
+                Random random = new Random(Guid.NewGuid().GetHashCode());
+                int code = random.Next(100000, 1000000);
+                string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
                 SendEmail2("smtp.163.com", "foxnine0720@163.com", "072065yat", To, "激活邮箱", content);
-                Session["code"] = str;
+                Session["code"] = code;
             }
             else
             {
@@ -251,14 +250,14 @@ namespace Edu_Online
 
         protected void linkStu_Click(object sender, EventArgs e)
         {
-            registerInfoStu.Visible = true;
-            registerInfoTeach.Visible = false;
+            registerInfoStu.Visible = false;
+            registerInfoTeach.Visible = true;
         }
 
         protected void linkTeach_Click(object sender, EventArgs e)
         {
-            registerInfoStu.Visible = false;
-            registerInfoTeach.Visible = true;
+            registerInfoStu.Visible = true;
+            registerInfoTeach.Visible = false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +12,6 @@ namespace Edu_Online
 {
     public partial class CommentList : System.Web.UI.Page
     {
-        int num = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,11 +22,11 @@ namespace Edu_Online
                 SqlDataReader sdr = DataOperate.GetRow(sql);
                 sdr.Read();
                 video.Src = sdr["VideoPath"].ToString();
+                currentVideo.Text = sdr["VideoId"].ToString();
                 maininfo_top.Text = sdr["intro"].ToString();
                 maininfo_bottom.Text = sdr["target"].ToString();
 
                 QABindData(sdr["VideoId"].ToString());
-                CBindData(sdr["VideoId"].ToString());
                 SqlConnection con = DataOperate.CreateCon();
                 SqlCommand cmd = new SqlCommand("select * from VideoInfo where CourseId=" + courseId, con);
                 SqlDataAdapter ad = new SqlDataAdapter(cmd);
@@ -36,7 +36,7 @@ namespace Edu_Online
                 DataList1.DataBind();
                 someIntro.Visible = true;
                 questionList.Visible = false;
-                commentList.Visible = false;
+                resdata.Visible = false;
                 introPart.ForeColor = System.Drawing.Color.DodgerBlue;
             }
         }
@@ -49,8 +49,9 @@ namespace Edu_Online
             SqlDataReader sdr = DataOperate.GetRow(sql);
             sdr.Read();
             video.Src = sdr["VideoPath"].ToString();
-            CBindData(sdr["VideoId"].ToString());
             QABindData(sdr["VideoId"].ToString());
+            RBindData();
+            currentVideo.Text = sdr["VideoId"].ToString();
         }
 
         private void QABindData(string videoId)
@@ -67,21 +68,12 @@ namespace Edu_Online
 
             DataSet ds = new DataSet();
             ad.Fill(ds);
-            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["QuestionId"],
-            ds.Tables[1].Columns["QuestionId"]));
+            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["questionId"],
+            ds.Tables[1].Columns["questionId"]));
             outerDataList.DataSource = ds;
             outerDataList.DataBind();
         }
-        private void CBindData(string videoId)
-        {
-            SqlConnection con = DataOperate.CreateCon();
-            SqlCommand cmd = new SqlCommand("select * from CommentInfo where VideoId=" + videoId, con);
-            SqlDataAdapter ad = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            ad.Fill(ds);
-            DataList2.DataSource = ds;
-            DataList2.DataBind();
-        }
+        
 
         protected void outerDataList_OnItemDataBound(object sender, DataListItemEventArgs e)
         {
@@ -115,33 +107,18 @@ namespace Edu_Online
                 QABindData(getVideoIdByQuestionId(questionId));
             }
         }
-        protected void DataList2_ItemCommand(object source, DataListCommandEventArgs e)
+
+        protected void RBindData()
         {
-            if (e.CommandName == "good")
-            {
-                num++;
-                Response.Write(num);
-                string sql1 = "";
-                SqlConnection con = DataOperate.CreateCon();
-                if (num % 2 == 1)
-                {
-                    sql1 = "update CommentInfo set GoodCount=GoodCount+1 where CommentId=" + e.CommandArgument;
-                }
-                else
-                {
-                    sql1 = "update CommentInfo set GoodCount=GoodCount-1 where CommentId=" + e.CommandArgument;
-                }
-                
-                SqlCommand cmd = new SqlCommand(sql1, con);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-                string sql2 = "select * from CommentInfo where CommentId=" + e.CommandArgument;
-                SqlDataReader sdr = DataOperate.GetRow(sql2);
-                sdr.Read();
-                CBindData(sdr["VideoId"].ToString());
-                ((Image)e.Item.FindControl("Good")).ImageUrl = "~/img/gooded.png";
-            }
+            string videoPath = video.Src;
+            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            SqlDataReader sdr = DataOperate.GetRow(sql1);
+            sdr.Read();
+            string videoId = sdr["VideoId"].ToString();
+            string sql2 = "select * from FileInfo inner join VideoInfo on FileInfo.videoId = VideoInfo.VideoId where FileInfo.videoId=" + videoId;
+            gvResource.DataSource = DataOperate.GetDataset(sql2, "FileInfo");
+            gvResource.DataKeyNames = new string[] { "fileId" };
+            gvResource.DataBind();
         }
 
         private string getVideoIdByQuestionId(int questionId)
@@ -156,32 +133,64 @@ namespace Edu_Online
         {
             someIntro.Visible = true;
             questionList.Visible = false;
-            commentList.Visible = false;
+            resdata.Visible = false;
             introPart.ForeColor = System.Drawing.Color.DodgerBlue;
             QAPart.ForeColor = System.Drawing.Color.DimGray;
-            Comment.ForeColor = System.Drawing.Color.DimGray;
+            SrcPart.ForeColor = System.Drawing.Color.DimGray;
         }
 
         protected void QAPart_Click(object sender, EventArgs e)
         {
             someIntro.Visible = false;
             questionList.Visible = true;
-            commentList.Visible = false;
+            resdata.Visible = false;
             introPart.ForeColor = System.Drawing.Color.DimGray;
             QAPart.ForeColor = System.Drawing.Color.DodgerBlue;
-            Comment.ForeColor = System.Drawing.Color.DimGray;
+            SrcPart.ForeColor = System.Drawing.Color.DimGray;
         }
 
-        protected void Comment_Click(object sender, EventArgs e)
+        protected void Src_Click(object sender, EventArgs e)
         {
             someIntro.Visible = false;
             questionList.Visible = false;
-            commentList.Visible = true;
+            resdata.Visible = true;
             introPart.ForeColor = System.Drawing.Color.DimGray;
             QAPart.ForeColor = System.Drawing.Color.DimGray;
-            Comment.ForeColor = System.Drawing.Color.DodgerBlue;
+            SrcPart.ForeColor = System.Drawing.Color.DodgerBlue;
         }
 
+        protected void lbtnDown_Click(Object sender, CommandEventArgs e)
+        {
+            string fileName = "";
+            string url = e.CommandArgument.ToString();
+            if (url == "")
+            {
+                Page.ClientScript.RegisterStartupScript(Page.GetType(), "message", "<script defer>alert('该文件暂不提供下载！');</script>");
+                return;
+            }
+
+            if (url.IndexOf("\\") > -1)
+            {
+                fileName = url.Substring(url.LastIndexOf("\\") + 1);
+
+            }
+            else
+            {
+                fileName = url;
+            }
+
+            string urlServer = Server.MapPath(url);
+            FileStream fileStream = new FileStream(urlServer, FileMode.Open);
+            byte[] bytes = new byte[(int)fileStream.Length];
+            fileStream.Read(bytes, 0, bytes.Length);
+            fileStream.Close();
+            Response.ContentType = "application/octet-stream";
+
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+            Response.BinaryWrite(bytes);
+            Response.Flush();
+            Response.End();
+        }
         protected void back_Click(object sender, EventArgs e)
         {
             Response.Redirect("OpenedCourses.aspx");

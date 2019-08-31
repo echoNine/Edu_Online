@@ -68,7 +68,7 @@
             margin-top: 30px;
         }
 
-        .restInfo, .partInfo, .teacherInfo {
+        .orderInfo, .partInfo, .teacherInfo {
             height: 70px;
             font-size: 17px;
             width: 110px;
@@ -76,13 +76,13 @@
             padding-left: 20px;
         }
 
-        .rest, .part, .teacher {
+        .order, .part, .teacher {
             font-size: 16px;
             color: #AFB4B8;
             line-height: 40px;
         }
 
-        .restCount, .partCount, .teacherName {
+        .orderNum, .partCount, .teacherName {
             color: #4F5459;
             font-size: 18px;
             margin-top: 20px;
@@ -207,9 +207,9 @@
             <asp:Panel ID="rightTop" runat="server" CssClass="rightTop">
                 <asp:Label ID="name" runat="server" CssClass="name"></asp:Label>
                 <asp:Panel ID="someInfo" runat="server" CssClass="someInfo">
-                    <asp:Panel ID="restInfo" runat="server" CssClass="restInfo" Style="border-right: 2px solid #F2F2F2">
-                        <asp:Label ID="rest" runat="server" Text="可选数" CssClass="rest"></asp:Label><br />
-                        <asp:Label ID="restCount" runat="server" CssClass="restCount"></asp:Label>
+                    <asp:Panel ID="orderInfo" runat="server" CssClass="orderInfo" Style="border-right: 2px solid #F2F2F2">
+                        <asp:Label ID="order" runat="server" Text="已选数" CssClass="order"></asp:Label><br />
+                        <asp:Label ID="orderNum" runat="server" CssClass="orderNum"></asp:Label>
                     </asp:Panel>
                     <asp:Panel ID="partInfo" runat="server" CssClass="partInfo" Style="border-right: 2px solid #F2F2F2; float: left">
                         <asp:Label ID="part" runat="server" Text="课程结构" CssClass="part"></asp:Label><br />

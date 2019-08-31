@@ -67,31 +67,31 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Panel someInfo;
         
         /// <summary>
-        /// restInfo 控件。
+        /// orderInfo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel restInfo;
+        protected global::System.Web.UI.WebControls.Panel orderInfo;
         
         /// <summary>
-        /// rest 控件。
+        /// order 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label rest;
+        protected global::System.Web.UI.WebControls.Label order;
         
         /// <summary>
-        /// restCount 控件。
+        /// orderNum 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label restCount;
+        protected global::System.Web.UI.WebControls.Label orderNum;
         
         /// <summary>
         /// partInfo 控件。

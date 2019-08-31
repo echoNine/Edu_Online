@@ -20,7 +20,7 @@
             left: 28%;
             top: 19%;
             background: #fff;
-            padding: 50px 25px 55px 60px;
+            padding: 45px 25px 90px 60px;
         }
 
         .btnLogin1, .btnRegister1 {
@@ -30,7 +30,6 @@
             font-size: 14px;
             margin-bottom: 13px;
             outline: none;
-            border-bottom: 0.5px solid #cdd2d6;
             border-top: none;
             border-left: none;
             border-right: none;
@@ -69,8 +68,12 @@
             font-size: 14px;
             position: absolute;
             left: 56%;
+            cursor:pointer;
+            text-decoration:none;
         }
-
+        .forgetpwd:hover{
+            color: #3f9ae8;
+        }
         .login, .register,.send {
             height: 50px;
             width: 362px;
@@ -121,7 +124,7 @@
                 <asp:TextBox ID="txtUserId" runat="server" CssClass="inputLogin"></asp:TextBox>
                 <br />
                 <asp:TextBox ID="txtPwd" runat="server" CssClass="inputRegister" TextMode="Password"></asp:TextBox><br />
-                <asp:HyperLink ID="forgetPwd" runat="server" CssClass="forgetpwd">忘记密码？</asp:HyperLink>
+                <asp:HyperLink ID="forgetPwd" runat="server" CssClass="forgetpwd" NavigateUrl="~/ForgetPwd.aspx">忘记密码？</asp:HyperLink>
                 <br />
                 <asp:RadioButtonList ID="RadioUserType" runat="server" RepeatDirection="Horizontal" CellSpacing="24">
                     <asp:ListItem Selected="True">教师</asp:ListItem>
@@ -129,6 +132,7 @@
                 </asp:RadioButtonList>
                 <asp:Button ID="login" runat="server" Text="登&nbsp;&nbsp;录" OnClick="btn_login_Click" CssClass="login" />
             </asp:Panel>
+
             <asp:Panel ID="registerInfoTeach" runat="server">
                 账&nbsp;&nbsp;&nbsp;号：<asp:TextBox ID="userIdTeach" runat="server" CssClass="inputLogin" Width="220px"></asp:TextBox>
                 <br />

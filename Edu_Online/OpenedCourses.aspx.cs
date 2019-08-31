@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,7 +13,12 @@ namespace Edu_Online
         protected void Page_Load(object sender, EventArgs e)
         {
             BindInfo();
+            string sql1 = "select * from TeacherInfo where TeachId ='" + Session["userId"].ToString() + "'";
+            SqlDataReader sdr = DataOperate.GetRow(sql1);
+            sdr.Read();
             user.Text = Session["userName"].ToString();
+            person.ImageUrl = sdr["TeachPic"].ToString();
+            img.ImageUrl = sdr["TeachPic"].ToString();
         }
 
         protected void quit_Click(object sender, EventArgs e)
@@ -27,16 +33,16 @@ namespace Edu_Online
             switch (item)
             {
                 case 0:
-                    sql = "select * from CourseInfo";
+                    sql = "select * from CourseInfo inner join CourseType on CourseInfo.courseType = CourseType.courseTypeId where CourseInfo.teacher='" + Session["userName"].ToString() + "'";
                     break;
                 case 1:
-                    sql = "select * from CourseInfo where courseId like " + selectkey.Value;
+                    sql = "select * from CourseInfo inner join CourseType on CourseInfo.courseType = CourseType.courseTypeId where CourseInfo.teacher='" + Session["userName"].ToString() + "' and courseId like " + selectkey.Value;
                     break;
                 case 2:
-                    sql = "select * from CourseInfo where courseName like '" + selectkey.Value + "'";
+                    sql = "select * from CourseInfo inner join CourseType on CourseInfo.courseType = CourseType.courseTypeId where CourseInfo.teacher='" + Session["userName"].ToString() + "' and courseName like '" + selectkey.Value + "'";
                     break;
                 case 3:
-                    sql = "select * from CourseInfo where courseType like '" + selectkey.Value + "'";
+                    sql = "select * from CourseInfo inner join CourseType on CourseInfo.courseType = CourseType.courseTypeId where CourseInfo.teacher='" + Session["userName"].ToString() + "' and courseTypeName like '" + selectkey.Value + "'";
                     break;
             }
             gvopened.DataSource = DataOperate.GetDataset(sql, "CourseInfo");
@@ -55,7 +61,7 @@ namespace Edu_Online
 
         protected void BindInfo()
         {
-            string sqlinit = "select * from CourseInfo";
+            string sqlinit = "select * from CourseInfo inner join CourseType on CourseInfo.courseType = CourseType.courseTypeId where CourseInfo.teacher='" + Session["userName"].ToString() + "'";
             gvopened.DataSource = DataOperate.GetDataset(sqlinit, "CourseInfo");
             gvopened.DataKeyNames = new string[] { "courseId" };
             gvopened.DataBind();

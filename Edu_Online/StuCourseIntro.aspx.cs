@@ -25,27 +25,26 @@ namespace Edu_Online
             string sql = "select * from CourseInfo where courseId =" + courseId;
             SqlDataReader sdr = DataOperate.GetRow(sql);
             sdr.Read();
-            int rest = Convert.ToInt32(sdr["count"]);
-            if (rest > 0)
+            string SC_sql = "select count(*) from SCInfo where StuId='" + stuId + "' and CourseId='" + courseId + "' ";
+            if (DataOperate.SeleSQL(SC_sql) == 0)
             {
-                string SC_sql = "select count(*) from SCInfo where StuId='" + stuId + "' and CourseId='" + courseId + "' ";
-                if (DataOperate.SeleSQL(SC_sql) == 0)
+                string[] sqlT = new string[2];
+                int i = 0;
+                sqlT[i++] = "update CourseInfo set orderNum=orderNum+1 where courseId='" + courseId + "'";
+                sqlT[i] = "insert into SCInfo values('" + stuId + "','" + courseId + "')";
+                if (DataOperate.ExecTransaction(sqlT))
                 {
-                    string sqlT = "insert into SCInfo values('" + stuId + "','" + courseId + "')";
-                    if (DataOperate.ExecSQL(sqlT))
-                    {
-                        BindData();
-                        Response.Redirect("StuCourseDetails.aspx?courseId=" + courseId);
-                    }
+                    BindData();
+                    Response.Redirect("StuCourseDetails.aspx?tip=new&courseId=" + courseId);
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('您已加入过此课程！');location.href='StuCourseDetails.aspx?courseId=" + courseId + "';</script>");
+                    ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('加入课程失败！')</script>");
                 }
             }
             else
             {
-                ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('课程人数已满！')</script>");
+                ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('您已加入过此课程！');location.href='StuCourseDetails.aspx?tip=again&courseId=" + courseId + "';</script>");
             }
         }
 
@@ -62,7 +61,7 @@ namespace Edu_Online
             sdr.Read();
             img.ImageUrl = sdr["cover"].ToString();
             name.Text = sdr["CourseName"].ToString();
-            restCount.Text = sdr["count"].ToString();
+            orderNum.Text = sdr["orderNum"].ToString();
             partCount.Text = sdr["part"].ToString();
             teacherName.Text = sdr["teacher"].ToString();
             maininfo_left.Text = sdr["intro"].ToString();

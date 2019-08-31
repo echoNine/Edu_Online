@@ -366,6 +366,7 @@
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <body>
     <form id="form1" runat="server">
+        <asp:Label ID="getTime" runat="server" Style="display: none" />
         <div id="header" runat="server" class="header">
             <asp:Image ID="return" runat="server" ImageUrl="~/img/return.png" CssClass="return" />
             <asp:Label ID="courseTitle" runat="server" CssClass="courseTitle"></asp:Label>
@@ -375,6 +376,7 @@
                 <asp:Button ID="ques" runat="server" Text="提问" CssClass="partTitle" OnClick="ques_Click" />
             </div>
         </div>
+        <asp:Label ID="currentVideo" runat="server" Style="display: none"></asp:Label>
         <video id="video" controls="controls" runat="server" class="video">
             <source type="audio/mp4" />
         </video>
@@ -383,7 +385,7 @@
                 <ItemTemplate>
                     <asp:LinkButton ID="link" runat="server" CssClass="link" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "VideoName") %>' OnClick="link_Click">
                         <asp:Image ID="play" runat="server" ImageUrl="~/img/play1.png" CssClass="play" />
-                        <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title"></asp:Label>
+                        <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title" data-id='<%# Eval("VideoId") %>'></asp:Label>
                     </asp:LinkButton>
                 </ItemTemplate>
             </asp:DataList>
@@ -423,7 +425,6 @@
                                     <asp:TextBox ID="inputnote" runat="server" TextMode="MultiLine" CssClass="inputnote"></asp:TextBox><br />
                                     <asp:Button ID="save" runat="server" Text="保存" CssClass="save" CommandName="save" CommandArgument='<%#Eval("noteId") %>' />
                                     <asp:Button ID="cancel" runat="server" Text="取消" CssClass="cancel" CommandName="cancel" />
-
                                 </asp:Panel>
                             </asp:Panel>
                         </ItemTemplate>
@@ -435,7 +436,7 @@
                         <ItemTemplate>
                             <div class="QAdata">
                                 <div class="Qdata">
-                                    <asp:Image ID="Person" runat="server" ImageUrl="~/img/person.png" CssClass="person" />
+                                    <asp:Image ID="Person" runat="server" ImageUrl="~/img/user.png" CssClass="person" />
                                     <asp:Label ID="Qname" runat="server" Text='<%# Eval("questionBy") %>' CssClass="Qname"></asp:Label><br />
                                     <asp:Image ID="Clock" runat="server" ImageUrl="~/img/clock.png" CssClass="clock" />
                                     <asp:Label ID="Qtime" runat="server" Text='<%# Eval("questionTime") %>' CssClass="Qtime"></asp:Label><br />
@@ -486,52 +487,69 @@
     </form>
 </body>
 <script>
-    function parseURL(url) { 
-    var a = document.createElement('a'); 
-    a.href = url; 
-    return { 
-        source: url, 
-        protocol: a.protocol.replace(':',''), 
-        host: a.hostname, 
-        port: a.port, 
-        query: a.search, 
-        params: (function(){ 
-            var ret = {}, 
-            seg = a.search.replace(/^\?/,'').split('&'), 
-            len = seg.length, i = 0, s; 
-            for (;i<len;i++) { 
-                if (!seg[i]) { continue; } 
-                s = seg[i].split('='); 
-                ret[s[0]] = s[1]; 
-            } 
-            return ret; 
-        })(), 
-        file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1], 
-        hash: a.hash.replace('#',''), 
-        path: a.pathname.replace(/^([^\/])/,'/$1'), 
-        relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1], 
-        segments: a.pathname.replace(/^\//,'').split('/') 
-    }; 
-}
+
+    function parseURL(url) {
+        var a = document.createElement('a');
+        a.href = url;
+        return {
+            source: url,
+            protocol: a.protocol.replace(':', ''),
+            host: a.hostname,
+            port: a.port,
+            query: a.search,
+            params: (function () {
+                var ret = {},
+                    seg = a.search.replace(/^\?/, '').split('&'),
+                    len = seg.length, i = 0, s;
+                for (; i < len; i++) {
+                    if (!seg[i]) { continue; }
+                    s = seg[i].split('=');
+                    ret[s[0]] = s[1];
+                }
+                return ret;
+            })(),
+            file: (a.pathname.match(/\/([^\/?#]+)$/i) || [, ''])[1],
+            hash: a.hash.replace('#', ''),
+            path: a.pathname.replace(/^([^\/])/, '/$1'),
+            relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [, ''])[1],
+            segments: a.pathname.replace(/^\//, '').split('/')
+        };
+    }
+
     $(document).ready(function () {
-        $("#video").on('timeupdate', function () {
-            path = decodeURI(parseURL(this.src).path);
+        var videoId = $("#currentVideo").text();
+        var links = $(".link");
+        for (var i = 0; i < links.length; i++) {
+            var data = links[i].children[1].dataset.id;
+            if (videoId == data) {
+                links[i].children[1].style["color"] = "blue";
+            } else {
+                links[i].children[1].style["color"] = "white";
+            }
+        }
+        $("#video")[0].currentTime = $("#getTime").text();
+
+        function send() {
+            console.log($("#video")[0].currentTime);
+            path = decodeURI(parseURL($("#video").attr("src")).path);
             path = path.substring(1, path.length);
             var opt = {
-                currentTime: this.currentTime,
+                currentTime: $("#video")[0].currentTime,
                 videoPath: path
             };
+
             $.ajax({
                 type: "post",
                 url: "StuCourseDetails.aspx/CurrentTime",
                 dataType: "json",
-                contentType : "application/json",
+                contentType: "application/json",
                 data: JSON.stringify(opt),
                 success: function (result) {
                     console.log(result);
                 }
             });
-        });
+        };
+        setInterval(send, 10000);
     });
 </script>
 </html>

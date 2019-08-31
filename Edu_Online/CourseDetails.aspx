@@ -91,7 +91,7 @@
         .someIntro {
             margin-top: 1.5%;
             width: 90%;
-            padding: 20px 0px 16px 36px;
+            padding: 20px 0px 60px 36px;
             background-color: white;
             box-shadow: 0 8px 16px 0 rgba(7,17,27,.1);
             border-radius: 12px;
@@ -221,10 +221,10 @@
             width: 1025px;
         }
 
-        .CommentList {
+        .resdata {
             background-color: #f7f7f7;
-            width: 81%;
-            padding: 1% 6%;
+            width: 70%;
+            padding: 1% 7%;
             border-radius: 12px;
         }
 
@@ -238,43 +238,6 @@
             border-radius: 12px;
         }
 
-        .CommentBy {
-            font: 14px/1.5 "PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
-            color: #1c1f21;
-        }
-
-        .CommentContent {
-            font: 14px/1.5 "PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",ahoma,Arial,sans-serif;
-            color: gray;
-        }
-
-        .goodInfo {
-            float: left;
-            width: 4%;
-            background-color: #f1f1f1;
-            padding: 7px 16px;
-            font-size: 14px;
-            line-height: 1.5;
-            border-radius: 18px;
-            color: #93999f;
-            text-align: center;
-            vertical-align: middle;
-            margin-left: 60px;
-            margin-top: 15px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-            .goodInfo:hover {
-                background-color: #e0e0e0;
-            }
-
-        .CommentTime {
-            float: right;
-            margin-top: 25px;
-            color: #93999f;
-            font-size: 12px;
-        }
 
         .link {
             text-decoration: none;
@@ -296,12 +259,23 @@
                 color: white;
                 background-color: #4F5459;
             }
+
+        .lbtnDown {
+            text-decoration: none;
+            color: black;
+        }
+
+            .lbtnDown:hover {
+                color: #47abdd;
+            }
     </style>
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <body>
     <form id="form1" runat="server" style="height: 780px; width: 100%">
         <div id="headerInfo" runat="server" class="headerInfo">
             <asp:Button ID="back" runat="server" Text="返回" OnClick="back_Click" CssClass="back" />
+            <asp:Label ID="currentVideo" runat="server" Style="display: none"></asp:Label>
             <video id="video" controls="controls" runat="server" class="video">
                 <source type="audio/mp4" />
             </video>
@@ -310,7 +284,7 @@
                     <ItemTemplate>
                         <asp:LinkButton ID="link" runat="server" CssClass="link" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "VideoName") %>' OnClick="link_Click">
                             <asp:Image ID="play" runat="server" ImageUrl="~/img/play.png" CssClass="play" />
-                            <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title"></asp:Label>
+                            <asp:Label ID="title" runat="server" Text='<%# Eval("VideoName") %>' CssClass="title" data-id='<%# Eval("VideoId") %>'></asp:Label>
                         </asp:LinkButton>
                     </ItemTemplate>
                 </asp:DataList>
@@ -319,10 +293,9 @@
         <div id="bar" runat="server" class="bar">
             <asp:Button ID="introPart" runat="server" Text="简介" CssClass="partTitle" OnClick="introPart_Click" />
             <asp:Button ID="QAPart" runat="server" Text="问答" CssClass="partTitle" OnClick="QAPart_Click" />
-            <asp:Button ID="Comment" runat="server" Text="评价" CssClass="partTitle" OnClick="Comment_Click" />
+            <asp:Button ID="SrcPart" runat="server" Text="资料" CssClass="partTitle" OnClick="Src_Click" />
         </div>
         <div id="listInfo" runat="server" class="listInfo">
-
 
             <div class="someIntro" id="someIntro" runat="server">
                 <div class="intro">
@@ -344,7 +317,7 @@
                     <ItemTemplate>
                         <div class="QAstyle">
                             <div class="Qstyle">
-                                <asp:Image ID="Person" runat="server" ImageUrl="~/img/person.png" CssClass="img" />
+                                <asp:Image ID="Person" runat="server" ImageUrl='<%# Eval("StuPic") %>' CssClass="img" />
                                 <asp:Label ID="Qname" runat="server" Text='<%# Eval("QuestionBy") %>' CssClass="Qname"></asp:Label><br />
                                 <asp:Image ID="Clock" runat="server" Height="14px" ImageUrl="~/img/clock.png" />
                                 <asp:Label ID="Qtime" runat="server" Text='<%# Eval("QuestionTime") %>' CssClass="Qtime"></asp:Label><br />
@@ -357,6 +330,7 @@
                                 <asp:DataList ID="innerDataList" runat="server">
                                     <ItemTemplate>
                                         <div class="Aitem">
+                                            <asp:Image ID="Person" runat="server" ImageUrl='<%# Eval("TeachPic") %>' CssClass="img" />
                                             <asp:Label ID="Aname" runat="server" Text='<%# Eval("AnswerBy") %>' CssClass="Aname"></asp:Label>
                                             <asp:Label ID="Acontent" runat="server" Text='<%# Eval("AnswerContent") %>' CssClass="Acontent"></asp:Label><br />
                                             <asp:Label ID="Atime" runat="server" Text='<%# Eval("AnswerTime") %>' CssClass="Atime"></asp:Label>
@@ -369,23 +343,43 @@
                 </asp:DataList>
             </div>
 
-            <div id="commentList" runat="server" class="CommentList">
-                <asp:DataList ID="DataList2" runat="server" OnItemCommand="DataList2_ItemCommand">
-                    <ItemTemplate>
-                        <div class="Cstyle">
-                            <asp:Image ID="img" runat="server" ImageUrl="~/img/person.png" CssClass="img" />
-                            <asp:Label Text='<%# Eval("CommentBy") %>' runat="server" ID="CommentBy" CssClass="CommentBy" /><br />
-                            <asp:Label Text='<%# Eval("CommentContent") %>' runat="server" ID="CommentContent" CssClass="CommentContent" /><br />
-                            <asp:LinkButton ID="goodInfo" runat="server" CommandName="good" CommandArgument='<%#Eval("commentId") %>' CssClass="goodInfo">
-                                <asp:Image ID="Good" runat="server" ImageUrl="~/img/good.png" Width="16px" />
-                                <asp:Label Text='<%# Eval("GoodCount") %>' runat="server" ID="GoodCount" CssClass="GoodCount" />
-                            </asp:LinkButton>
-                            <asp:Label Text='<%# Eval("CommentTime") %>' runat="server" ID="CommentTime" CssClass="CommentTime" />
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
+            <div id="resdata" runat="server" class="resdata">
+                <asp:GridView ID="gvResource" runat="server" Width="900px" AutoGenerateColumns="False" DataKeyNames="fileId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal">
+                    <Columns>
+                        <asp:BoundField DataField="fileId" HeaderText="文件编号" ReadOnly="True" InsertVisible="False" SortExpression="fileId"></asp:BoundField>
+                        <asp:BoundField DataField="fileName" HeaderText="文件名称" SortExpression="fileName"></asp:BoundField>
+                        <asp:BoundField DataField="remark" HeaderText="备注" SortExpression="remark"></asp:BoundField>
+                        <asp:BoundField DataField="upTime" HeaderText="上传时间" SortExpression="upTime"></asp:BoundField>
+                        <asp:TemplateField HeaderText="资源下载">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbtnDown" runat="server" OnCommand="lbtnDown_Click" CommandArgument='<%#Eval("filePath").ToString() %>' CssClass="lbtnDown">下载</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <FooterStyle BackColor="#60baf1" ForeColor="Black" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#60baf1" Height="50px" />
+                    <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Center" />
+                    <RowStyle HorizontalAlign="Center" Height="45px" />
+                    <SelectedRowStyle BackColor="#60baf1" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                    <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                    <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                    <SortedDescendingHeaderStyle BackColor="#242121" />
+                </asp:GridView>
             </div>
         </div>
     </form>
 </body>
+<script>
+    var videoId = $("#currentVideo").text();
+    var links = $(".link");
+    for (var i = 0; i < links.length; i++) {
+        var data = links[i].children[1].dataset.id;
+        if (videoId == data) {
+            links[i].children[1].style["color"] = "#60baf1";
+        } else {
+            links[i].children[1].style["color"] = "#524949";
+        }
+    }
+</script>
 </html>

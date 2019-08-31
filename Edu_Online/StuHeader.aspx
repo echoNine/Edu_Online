@@ -390,9 +390,9 @@
                 <asp:DataList ID="NiceTeacherData" runat="server" DataKeyFiled="TeachId" DataSourceID="NiceTeacherSource" RepeatColumns="3" AutoPostBack="true">
                     <ItemTemplate>
                         <div id="linkteacher" runat="server" class="linkteacher">
-                            <asp:Image ID="pic" runat="server" ImageUrl='<%# Eval("pic") %>' CssClass="pic" /><br />
-                            <asp:Label ID="teachName" Text='<%# Eval("teachName") %>' runat="server" CssClass="teachName" /><br />
-                            <asp:Label ID="major" runat="server" Text='<%# "教学方向：" + Eval("major") %>' CssClass="major"></asp:Label><br />
+                            <asp:Image ID="pic" runat="server" ImageUrl='<%# Eval("TeachPic") %>' CssClass="pic" /><br />
+                            <asp:Label ID="teachName" Text='<%# Eval("TeachName") %>' runat="server" CssClass="teachName" /><br />
+                            <asp:Label ID="major" runat="server" Text='<%# "教学方向：" + Eval("TeachMajor") %>' CssClass="major"></asp:Label><br />
                             <asp:Label ID="intro" runat="server" Text='<%# Eval("intro") %>' CssClass="intro"></asp:Label>
                         </div>
                     </ItemTemplate>
