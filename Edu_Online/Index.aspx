@@ -11,14 +11,16 @@
             background-image: url(img/indexback.png);
             background-repeat: no-repeat;
             overflow: hidden;
+            background-size: 100%;
         }
 
         .main {
             position: absolute;
             width: 550px;
             height: 320px;
-            left: 28%;
-            top: 19%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             background: #fff;
             padding: 45px 25px 90px 60px;
         }

@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="modal.css" />
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .tdstyle {
+            padding: 10px;
+            font-size: 15px;
+            color: #464646;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -50,14 +61,14 @@
                     <asp:ListItem Text="难" />
                 </asp:RadioButtonList><br />
                 <span class="spantitle">所属课程</span>
-                <asp:DropDownList ID="CourseName" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CourseName_SelectedIndexChanged" CssClass="dropCourse"></asp:DropDownList><br />
+                <asp:DropDownList ID="CourseName" runat="server" OnSelectedIndexChanged="CourseName_SelectedIndexChanged" CssClass="dropCourse" AutoPostBack="true"></asp:DropDownList><br />
                 <span class="spantitle">对应章节</span>
                 <asp:DropDownList ID="VideoName" runat="server" CssClass="dropVideo"></asp:DropDownList>
                 <input id="next" type="button" value="下一步" onclick="Next()" class="next" />
             </div>
             <div class="laststep" id="laststep">
                 <span class="spanMain">试题清单 ></span>
-                <table id="tbody">
+                <table style="width: 916px; table-layout: fixed;">
                     <thead>
                         <tr style="background-color: #60baf1; color: white">
                             <th>题目名称</th>
@@ -67,12 +78,10 @@
                             <th>操作</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                     </tbody>
-                    <tr id="list">
-                    </tr>
                 </table>
-                <input id="submit" type="button" value="提交" onclick="Submit()" class="submit" />
+                <button type="button" class="pushQues" onclick="pushQues()">提交</button>
             </div>
         </div>
     </form>
@@ -107,7 +116,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <button type="button" class="btn btn-default" onclick="cleanModal()" data-dismiss="modal">
                             关闭
                         </button>
                         <button type="button" class="btn btn-primary" onclick="add()">
@@ -146,7 +155,6 @@
     }
 
     function add() {
-        console.log(1111);
         var name = $("#testContent").val();
         var type = $("#testType").val();
         var info = "";
@@ -164,10 +172,43 @@
             correct = $("#JudgeAnswer").val();
         }
         if (name && type && correct && (type != "single" || info)) {
-            $("#tbody").append("<td>" + name + "</td><td>" + (type == "single" ? "单选题" : "判断题") + "</td><td>" + info + "</td><td>" + correct + "</td><td><span>编辑</span><span>删除</span></td>");
-            list.push({ "name": name, "type": type, "options": options, "correct": correct });
+            $("#tbody").append("<tr><td class='tdstyle'>" + name + "</td><td class='tdstyle'>" + (type == "single" ? "单选题" : "判断题") + "</td><td class='tdstyle'>" + info + "</td><td class='tdstyle'>" + correct + "</td><td class='tdstyle'><span>编辑</span>&nbsp;&nbsp;&nbsp;<span>删除</span></td></tr>");
+            let targetInfo = { "name": name, "type": type, "options": options, "correct": correct };
+            list.push(targetInfo);
+            let currentTr = $("#tbody").children()[$("#tbody").children().length - 1];
+            let opreator = $(currentTr).children()[4];
+            let currentIndex = list.length - 1;
+            $(opreator).children()[1].onclick = function () {
+                currentTr.remove();
+                list.splice(currentIndex, 1);
+            }
 
+            $(opreator).children()[0].onclick = function () {
+                $("#myModal").modal('show');
+                $("#testContent").val(targetInfo.name);
+                if (type == "single") {
+                    $("#testType").val(type);
+                    $("#SingleAnswer").show();
+                    $("#JudgeAnswer").hide();
+                    let optionItems = targetInfo.options.split(';');
+                    $("#A").val(optionItems[0]);
+                    $("#B").val(optionItems[1]);
+                    $("#C").val(optionItems[2]);
+                    $("#D").val(optionItems[3]);
+                    $("#RadioBtn" + targetInfo.correct)[0].checked = "checked";
+
+                } else {
+                    $("#testType").val(type);
+                    $("#JudgeAnswer").show();
+                    $("#SingleAnswer").hide();
+                    $("#JudgeAnswer").val(targetInfo.correct)
+                }
+            }
         }
+        cleanModal();
+    }
+
+    function cleanModal () {
         $("#testContent").val("");
         $("#testType  option[value='0'] ").attr("selected", true);
         $("#A").val("");
@@ -182,10 +223,9 @@
         }
         $("#JudgeAnswer  option[value='0'] ").attr("selected", true);
         $("#myModal").modal('hide');
-
     }
 
-    function Submit() {
+    function pushQues() {
         if (list.length > 0) {
             var opt = {
                 list: list,
@@ -194,8 +234,6 @@
                 course: $("#CourseName").val(),
                 video: $("#VideoName").val(),
             };
-
-            console.log(opt)
             $.ajax({
                 type: "post",
                 url: "NewPracticeInfo.aspx/CreatePracticeInfo",
@@ -203,13 +241,23 @@
                 contentType: "application/json",
                 data: JSON.stringify(opt),
                 success: function (result) {
-                    alert("作业发布成功")
+                    alert("作业发布成功");
+                    window.location.href = "PushPractice.aspx";
                 },
                 error: function (result) {
                     alert("作业发布失败")
                 }
             });
         }
+    }
+
+    function del(event) {
+        console.log(event);
+        event.path[2].remove();
+    }
+
+    function edit(event) {
+        console.log(event);
     }
 </script>
 </html>

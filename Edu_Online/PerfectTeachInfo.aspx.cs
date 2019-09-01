@@ -71,9 +71,16 @@ namespace Edu_Online
             string Unit = txtUnit.Text;
             string Intro = txtIntro.Text;
             string Phone = txtPhone.Text;
-            UploadPic.SaveAs(Server.MapPath("~/upload/image/") + Path.GetFileName(UploadPic.FileName));
+            string filepath = "~/upload/image/";     //文件路径
+
+            //判断服务器目录是否存在
+            if (System.IO.Directory.Exists(filepath) == false)//如果不存在就创建file文件夹
+            {
+                System.IO.Directory.CreateDirectory(filepath);
+            }
+            UploadPic.SaveAs(Server.MapPath(filepath) + Path.GetFileName(UploadPic.FileName));
             string picName = Path.GetFileName(UploadPic.FileName);
-            string picLink = "~/upload/image/" + Path.GetFileName(UploadPic.FileName);       
+            string picLink = filepath + Path.GetFileName(UploadPic.FileName);       
             string sql = "update TeacherInfo set TeachName='" + Name + "', TeachSex='" + Sex + "',BirthYear='" + Year + "', BirthMonth='" + Month + "',BirthDay='" + Day + "',TeachTypeId='" + Type + "',TeachCity='" + City + "',TeachUnit='" + Unit + "', TeachPhone='" + Phone + "',TeachMajor='" + Major + "',intro='" + Intro + "',TeachPic='" + picLink + "'where TeachId='" + userId + "'";
             if (DataOperate.ExecSQL(sql))
             {

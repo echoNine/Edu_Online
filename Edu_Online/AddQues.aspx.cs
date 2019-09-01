@@ -16,13 +16,14 @@ namespace Edu_Online
         {
             if (!IsPostBack)
             {
-                DropDownListBind();
                 string sql = "select * from TeacherInfo where TeachId ='" + Session["userId"].ToString() + "'";
                 SqlDataReader sdr = DataOperate.GetRow(sql);
                 sdr.Read();
                 user.Text = Session["userName"].ToString();
                 person.ImageUrl = sdr["TeachPic"].ToString();
                 img.ImageUrl = sdr["TeachPic"].ToString();
+
+                DropDownListBind();
             }
 
         }

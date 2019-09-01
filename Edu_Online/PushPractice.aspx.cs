@@ -12,7 +12,8 @@ namespace Edu_Online
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string sql = "select * from PracticeInfo inner join VideoInfo on PracticeInfo.videoId = VideoInfo.VideoId inner join CourseInfo on CourseInfo.courseId = VideoInfo.CourseId where CourseInfo.teacher = '胡夏'";
+            string teachName = Session["userName"].ToString();
+            string sql = "select * from PracticeInfo inner join VideoInfo on PracticeInfo.videoId = VideoInfo.VideoId inner join CourseInfo on CourseInfo.courseId = VideoInfo.CourseId where CourseInfo.teacher = "+"'"+teachName+"'";
             WorkList.DataSource = DataOperate.GetDataset(sql, "PracticeInfo");
             WorkList.DataKeyNames = new string[] { "practiceId" };
             WorkList.DataBind();
