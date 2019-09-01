@@ -18,6 +18,29 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            border-bottom: 2px solid #afafaf;
+            background-color: #f2f2f2;
+        }
+
+        .tddo {
+            cursor: pointer;
+        }
+
+            .tddo:hover {
+                color: #60baf1;
+            }
+
+        .pushQues {
+            color: white;
+            background-color: #60baf1;
+            border: none;
+            padding: 10px 22px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 10%;
+            right: 8%;
         }
     </style>
 </head>
@@ -172,7 +195,7 @@
             correct = $("#JudgeAnswer").val();
         }
         if (name && type && correct && (type != "single" || info)) {
-            $("#tbody").append("<tr><td class='tdstyle'>" + name + "</td><td class='tdstyle'>" + (type == "single" ? "单选题" : "判断题") + "</td><td class='tdstyle'>" + info + "</td><td class='tdstyle'>" + correct + "</td><td class='tdstyle'><span>编辑</span>&nbsp;&nbsp;&nbsp;<span>删除</span></td></tr>");
+            $("#tbody").append("<tr><td class='tdstyle'>" + name + "</td><td class='tdstyle'>" + (type == "single" ? "单选题" : "判断题") + "</td><td class='tdstyle'>" + info + "</td><td class='tdstyle'>" + correct + "</td><td class='tdstyle'><span class='tddo'>编辑</span>&nbsp;&nbsp;&nbsp;<span class='tddo'>删除</span></td></tr>");
             let targetInfo = { "name": name, "type": type, "options": options, "correct": correct };
             list.push(targetInfo);
             let currentTr = $("#tbody").children()[$("#tbody").children().length - 1];
@@ -208,7 +231,7 @@
         cleanModal();
     }
 
-    function cleanModal () {
+    function cleanModal() {
         $("#testContent").val("");
         $("#testType  option[value='0'] ").attr("selected", true);
         $("#A").val("");
