@@ -11,16 +11,18 @@
             background-image: url(img/indexback.png);
             background-repeat: no-repeat;
             overflow: hidden;
+            background-size: 100%;
         }
 
         .main {
             background-color: white;
             width: 40%;
             height: 400px;
-            left: 27%;
-            top: 16%;
+            left: 50%;
+            top: 50%;
             padding: 45px;
             position: absolute;
+            transform: translate(-50%, -50%);
         }
 
         .header {
