@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -141,7 +140,7 @@ namespace Edu_Online
         public void SendEmail1(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
         {
             System.Net.Mail.SmtpClient client = new SmtpClient(strSmtpServer);
-            //client.UseDefaultCredentials = true;
+            client.UseDefaultCredentials = true;
             client.Credentials = new System.Net.NetworkCredential(strFrom, strFromPass);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             System.Net.Mail.MailMessage message = new MailMessage(strFrom, strto, strSubject, strBody);
@@ -167,11 +166,7 @@ namespace Edu_Online
                 Random random = new Random(Guid.NewGuid().GetHashCode());
                 int code = random.Next(100000, 1000000);
                 string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
-
-                string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
-                string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
-                string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail1(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
+                SendEmail1("smtp.163.com", "foxnine0720@163.com", "072065yat", To, "激活邮箱", content);
                 Session["code"] = code;
             }
             else
@@ -243,10 +238,7 @@ namespace Edu_Online
                 Random random = new Random(Guid.NewGuid().GetHashCode());
                 int code = random.Next(100000, 1000000);
                 string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
-                string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
-                string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
-                string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail2(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
+                SendEmail2("smtp.163.com", "foxnine0720@163.com", "072065yat", To, "激活邮箱", content);
                 Session["code"] = code;
             }
             else

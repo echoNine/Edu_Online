@@ -185,16 +185,6 @@
                 background-color: #286090;
                 border-color: #204d74;
             }
-
-            .view,.del{
-                color: #666666;
-                text-decoration: none;
-                cursor:pointer;
-            }
-
-                .view:hover, .del:hover {
-                    color:#60baf1;
-                }
     </style>
 </head>
 <body>
@@ -226,18 +216,17 @@
 
         <div class="newpractice" runat="server" id="newpractice">
             <asp:Button ID="add" runat="server" Text="新增练习" OnClick="add_Click" CssClass="newbtn" />
-            <asp:GridView ID="WorkList" runat="server" AutoGenerateColumns="False" DataKeyNames="practiceId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" CssClass="worktable" OnRowDeleting="WorkList_RowDeleting">
+            <asp:GridView ID="WorkList" runat="server" AutoGenerateColumns="False" DataKeyNames="practiceId" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="930px" CssClass="worktable">
                 <Columns>
-                    <asp:BoundField DataField="practiceName" HeaderText="作业名称" HeaderStyle-Width="15%"></asp:BoundField>
+                    <asp:BoundField DataField="practiceName" HeaderText="作业名称" HeaderStyle-Width="20%"></asp:BoundField>
                     <asp:BoundField DataField="hardLevel" HeaderText="难度等级" HeaderStyle-Width="15%"></asp:BoundField>
                     <asp:BoundField DataField="courseName" HeaderText="课程名称" HeaderStyle-Width="25%"></asp:BoundField>
                     <asp:BoundField DataField="VideoName" HeaderText="章节名称" HeaderStyle-Width="25%"></asp:BoundField>
-                    <asp:TemplateField HeaderText="详情" HeaderStyle-Width="10%">
+                    <asp:TemplateField HeaderText="详情" HeaderStyle-Width="15%">
                         <ItemTemplate>
-                            <a href="PracticePage.aspx?practiceId='<%#Eval("practiceId") %>'" class="view">查看</a>
+                            <a href="PracticePage.aspx?practiceId='<%#Eval("practiceId") %>'" style="color: #666666; text-decoration: none;">查看</a>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:CommandField ShowDeleteButton="True" HeaderText="删除" ControlStyle-CssClass="del" HeaderStyle-Width="10%"/>
                 </Columns>
                 <FooterStyle BackColor="#60baf1" ForeColor="#666666" />
                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Center" BackColor="#60baf1" Height="65px" Font-Size="16px" />
