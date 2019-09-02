@@ -6,10 +6,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
+using System.Web.Mail;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using MimeKit;
+using MailMessage = System.Net.Mail.MailMessage;
 
 namespace Edu_Online
 {
@@ -140,14 +145,21 @@ namespace Edu_Online
 
         public void SendEmail1(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
         {
-            System.Net.Mail.SmtpClient client = new SmtpClient(strSmtpServer);
-            //client.UseDefaultCredentials = true;
-            client.Credentials = new System.Net.NetworkCredential(strFrom, strFromPass);
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            System.Net.Mail.MailMessage message = new MailMessage(strFrom, strto, strSubject, strBody);
-            message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.IsBodyHtml = true;
-            client.Send(message);
+            BodyBuilder builder = new BodyBuilder();
+            MimeMessage mail = new MimeMessage();
+            mail.From.Add(new MailboxAddress("", strFrom));
+            mail.To.Add(new MailboxAddress("", strto));
+            mail.Subject = strSubject;
+            builder.HtmlBody = "<html><body>"+strBody;
+            builder.HtmlBody += "</body></html>";
+            mail.Body = builder.ToMessageBody();
+
+            MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient();
+            client.Connect(strSmtpServer, 465, true);
+            client.AuthenticationMechanisms.Remove("XOAUTH2");
+            client.Authenticate(strFrom, strFromPass);
+            client.Send(mail);
+            client.Disconnect(true);
             ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('已发送')</script>");
         }
 
@@ -163,7 +175,7 @@ namespace Edu_Online
             cmd.Parameters["@userId"].Value = userId;
             if (Convert.ToInt32(cmd.ExecuteScalar()) == 0)
             {
-                String To = userIdTeach.Text;
+                String to = userIdTeach.Text;
                 Random random = new Random(Guid.NewGuid().GetHashCode());
                 int code = random.Next(100000, 1000000);
                 string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
@@ -171,7 +183,7 @@ namespace Edu_Online
                 string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
                 string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
                 string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail1(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
+                SendEmail1(strSmtpServer, strFrom, strFromPass, to, "激活邮箱", content);
                 Session["code"] = code;
             }
             else
@@ -214,19 +226,6 @@ namespace Edu_Online
             }
         }
 
-        public void SendEmail2(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
-        {
-            System.Net.Mail.SmtpClient client = new SmtpClient(strSmtpServer);
-            //client.UseDefaultCredentials = true;
-            client.Credentials = new System.Net.NetworkCredential(strFrom, strFromPass);
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            System.Net.Mail.MailMessage message = new MailMessage(strFrom, strto, strSubject, strBody);
-            message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.IsBodyHtml = true;
-            client.Send(message);
-            ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('已发送')</script>");
-        }
-
         protected void Send_Click2(object sender, EventArgs e)
         {
             string userId = userIdStu.Text;
@@ -246,7 +245,7 @@ namespace Edu_Online
                 string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
                 string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
                 string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail2(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
+                SendEmail1(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
                 Session["code"] = code;
             }
             else
