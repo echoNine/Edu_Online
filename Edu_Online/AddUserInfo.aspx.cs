@@ -94,8 +94,6 @@ namespace Edu_Online
             txtIntro.Enabled = false;
             string type = sdr["TeachTypeId"].ToString();
             string major = sdr["TeachMajor"].ToString();
-            TeachType.Items.FindByValue(type).Selected = true;
-            TeachMajor.Items.FindByValue(major).Selected = true;
             TeachType.Enabled = false;
             TeachMajor.Enabled = false;
             UploadPic.Enabled = false;
@@ -124,9 +122,16 @@ namespace Edu_Online
             string Unit = txtUnit.Text;
             string Intro = txtIntro.Text;
             string Phone = txtPhone.Text;
-            UploadPic.SaveAs(Server.MapPath("~/upload/image/") + Path.GetFileName(UploadPic.FileName));
+            string filepath = "~/upload/image/";     //文件路径
+            string serverPath = Server.MapPath(filepath);
+            //判断服务器目录是否存在
+            if (System.IO.Directory.Exists(serverPath) == false)//如果不存在就创建文件夹
+            {
+                System.IO.Directory.CreateDirectory(serverPath);
+            }
+            UploadPic.SaveAs(serverPath + Path.GetFileName(UploadPic.FileName));
             string picName = Path.GetFileName(UploadPic.FileName);
-            string picLink = "~/upload/image/" + Path.GetFileName(UploadPic.FileName);
+            string picLink = filepath + Path.GetFileName(UploadPic.FileName);
             string[] sqlT = new string[2];
             int i = 0;
             sqlT[i++] = "update TeacherInfo set TeachName='" + Name + "', TeachSex='" + Sex + "',BirthYear='" + Year + "', BirthMonth='" + Month + "',BirthDay='" + Day + "',TeachTypeId='" + Type + "',TeachCity='" + City + "',TeachUnit='" + Unit + "', TeachPhone='" + Phone + "',TeachMajor='" + Major + "',intro='" + Intro + "',TeachPic='" + picLink + "'where TeachId='" + userId + "'";

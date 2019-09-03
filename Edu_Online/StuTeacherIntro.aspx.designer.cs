@@ -10,7 +10,7 @@
 namespace Edu_Online {
     
     
-    public partial class ForgetPwd {
+    public partial class StuTeacherIntro {
         
         /// <summary>
         /// form1 控件。
@@ -22,165 +22,138 @@ namespace Edu_Online {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// title 控件。
+        /// header 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image title;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl header;
         
         /// <summary>
-        /// firstImg 控件。
+        /// PageLink 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image firstImg;
+        protected global::System.Web.UI.WebControls.Panel PageLink;
         
         /// <summary>
-        /// secondImg 控件。
+        /// indexPage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image secondImg;
+        protected global::System.Web.UI.WebControls.HyperLink indexPage;
         
         /// <summary>
-        /// thirdImg 控件。
+        /// coursePage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image thirdImg;
+        protected global::System.Web.UI.WebControls.HyperLink coursePage;
         
         /// <summary>
-        /// first 控件。
+        /// teacherPage 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel first;
+        protected global::System.Web.UI.WebControls.HyperLink teacherPage;
         
         /// <summary>
-        /// mail 控件。
+        /// userImg 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label mail;
+        protected global::System.Web.UI.WebControls.ImageButton userImg;
         
         /// <summary>
-        /// txtMail 控件。
+        /// UserSetting 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMail;
+        protected global::System.Web.UI.WebControls.Panel UserSetting;
         
         /// <summary>
-        /// find 控件。
+        /// user 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button find;
+        protected global::System.Web.UI.WebControls.Label user;
         
         /// <summary>
-        /// second 控件。
+        /// myCourse 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel second;
+        protected global::System.Web.UI.WebControls.Button myCourse;
         
         /// <summary>
-        /// txtCode 控件。
+        /// myNote 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCode;
+        protected global::System.Web.UI.WebControls.Button myNote;
         
         /// <summary>
-        /// getcode 控件。
+        /// myWork 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button getcode;
+        protected global::System.Web.UI.WebControls.Button myWork;
         
         /// <summary>
-        /// check 控件。
+        /// myInfo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button check;
+        protected global::System.Web.UI.WebControls.Button myInfo;
         
         /// <summary>
-        /// third 控件。
+        /// exit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel third;
+        protected global::System.Web.UI.WebControls.HyperLink exit;
         
         /// <summary>
-        /// tip 控件。
+        /// main 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tip;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl main;
         
         /// <summary>
-        /// newone 控件。
+        /// TeacherData 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox newone;
-        
-        /// <summary>
-        /// newtwo 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox newtwo;
-        
-        /// <summary>
-        /// change 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button change;
-        
-        /// <summary>
-        /// foot 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image foot;
+        protected global::System.Web.UI.WebControls.DataList TeacherData;
     }
 }

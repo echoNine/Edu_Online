@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mail;
@@ -53,36 +54,34 @@ namespace Edu_Online
         protected void getcode_Click(object sender, EventArgs e)
         {
             String To = Session["Mail"].ToString();
-            Random rm = new Random();
-            int i;
-            for (int p = 0; p < 6; p++)
-            {
-                i = Convert.ToInt32(rm.NextDouble() * 10);
-                str += i;
-            }
-            string content = "您正在使用邮箱安全验证服务找回密码，您本次操作的验证码是：" + str;
-            SendEmail("smtp.163.com", "foxnine0720@163.com", "072065yat", To, "重置密码", content);
-            Session["code"] = str;
+            Random random = new Random(Guid.NewGuid().GetHashCode());
+            int code = random.Next(100000, 1000000);
+            string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
+
+            string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
+            string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
+            string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
+            SendEmail(strSmtpServer, strFrom, strFromPass, To, "忘记密码", content);
+            Session["code"] = code;
         }
 
         public void SendEmail(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
         {
             System.Net.Mail.SmtpClient client = new SmtpClient(strSmtpServer);
-            client.UseDefaultCredentials = true;
+            //client.UseDefaultCredentials = true;
             client.Credentials = new System.Net.NetworkCredential(strFrom, strFromPass);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             System.Net.Mail.MailMessage message = new MailMessage(strFrom, strto, strSubject, strBody);
             message.BodyEncoding = System.Text.Encoding.UTF8;
             message.IsBodyHtml = true;
             client.Send(message);
-            ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('已发送 请及时查收填写')</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('已发送')</script>");
         }
 
         protected void check_Click(object sender, EventArgs e)
         {
             string code = txtCode.Text.ToString();
             string str = Session["code"].ToString();
-
             if (str == code)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('验证成功 请重置密码')</script>");

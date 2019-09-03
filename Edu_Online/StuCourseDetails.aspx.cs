@@ -211,14 +211,14 @@ namespace Edu_Online
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
-            string questionBy = Session["userId"].ToString();
-            string quesContent = quescontent.InnerText;
+            string quesBy = Session["userId"].ToString();
+            string quesContent = questContent.InnerText;
             string quesTime = DateTime.Now.ToString("yyyy-MM-dd");
-            string sql2 = "insert into QuestionInfo values('" + videoId + "','" + questionBy + "','" + quesContent + "','" + quesTime + " ')";
+            string sql2 = "insert into QuestionInfo values('" + videoId + "','" + quesBy + "','" + quesContent + "','" + quesTime + " ')";
             if (DataOperate.ExecSQL(sql2))
             {
                 ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('发布成功！')</script>");
-                quescontent.InnerText = "";
+                questContent.InnerText = "";
             }
         }
         private void QABindData(string videoId)
@@ -235,8 +235,8 @@ namespace Edu_Online
 
             DataSet ds = new DataSet();
             ad.Fill(ds);
-            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["questionId"],
-            ds.Tables[1].Columns["questionId"]));
+            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["QuesId"],
+            ds.Tables[1].Columns["QuesId"], false));
             outer.DataSource = ds;
             outer.DataBind();
         }
@@ -391,6 +391,12 @@ namespace Edu_Online
             questitle.Style["color"] = "black";
             restitle.Style["color"] = "#47abdd";
             RBindData();
+        }
+
+        protected void return_Click(object sender, ImageClickEventArgs e)
+        {
+            string courseId = Session["courseId"].ToString();
+            Response.Redirect("StuCourseIntro.aspx?id=courseId");
         }
     }
 }

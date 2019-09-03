@@ -191,10 +191,6 @@
                 text-decoration: none;
                 cursor:pointer;
             }
-
-                .view:hover, .del:hover {
-                    color:#60baf1;
-                }
     </style>
 </head>
 <body>

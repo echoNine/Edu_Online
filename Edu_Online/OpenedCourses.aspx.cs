@@ -54,9 +54,17 @@ namespace Edu_Online
         {
             string id = gvopened.DataKeys[e.RowIndex].Value.ToString();
             string sqlDel = "delete CourseInfo where courseId='" + id + "'";
-            DataOperate.ExecSQL(sqlDel);
+            if (DataOperate.ExecSQL(sqlDel))
+            {
+                ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除成功')</script>");
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除失败')</script>");
+            }
+
             BindInfo();
-            ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除成功')</script>");
+
         }
 
         protected void BindInfo()

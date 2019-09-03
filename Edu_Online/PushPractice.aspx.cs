@@ -42,11 +42,10 @@ namespace Edu_Online
         protected void WorkList_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             string id = WorkList.DataKeys[e.RowIndex].Value.ToString();
-            string[] sqlT = new string[3];
-            sqlT[0] = "delete PracticeInfo where practiceId='" + id + "'";
-            sqlT[1] = "delete SingleChoice where practiceId='" + id + "'";
-            sqlT[2] = "delete JudgeQuestion where practiceId='" + id + "'";
-            if (DataOperate.ExecTransaction(sqlT))
+            string sql1 = "delete PracticeInfo where practiceId='" + id + "'";
+            string sql2 = "delete SingleChoice where practiceId='" + id + "'";
+            string sql3 = "delete JudgeQuestion where practiceId='" + id + "'";
+            if (DataOperate.ExecSQL(sql1)&& DataOperate.ExecSQL(sql2)&& DataOperate.ExecSQL(sql3))
             {
                 BindInfo();
                 ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除成功')</script>");

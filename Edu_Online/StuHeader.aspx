@@ -26,11 +26,11 @@
 
         .PageLink {
             width: 26%;
-            margin-left: 12%;
+            margin-left: 10%;
         }
 
         .LinkTitle {
-            margin: 20px 8px;
+            margin: 20px;
             font-size: 17px;
             border: none;
             padding: 5px 14px;
@@ -55,12 +55,13 @@
         .UserSetting {
             position: absolute;
             right: 2%;
+            top:9%;
             width: 20%;
-            border-top: 1px solid #868686;
             padding: 0 1.5%;
             background-color: white;
             border-radius: 0 0 5px 5px;
-            z-index:999;
+            z-index: 999;
+            display:none;
         }
 
         .user {
@@ -81,7 +82,6 @@
 
             .userItem:hover {
                 background-color: #e1e1e1;
-                color: #60baf1;
             }
 
         .exit {
@@ -115,9 +115,11 @@
         #Menu1 a {
             text-decoration: none;
             color: white;
-            padding: 16%;
+            padding: 12%;
         }
-
+                #Menu1 a:hover {
+            color:#60baf1;
+        }
         .commandCourse {
             background-color: #f7f7f7;
             width: 100%;
@@ -307,18 +309,17 @@
     <form id="form1" runat="server">
         <div id="header" runat="server" class="header">
             <asp:Panel ID="PageLink" runat="server" CssClass="PageLink">
-                <asp:HyperLink ID="indexPage" runat="server" Text="首页" CssClass="LinkTitle" NavigateUrl="~/StuHeader.aspx" />
+                <asp:HyperLink ID="indexPage" runat="server" Text="首页" CssClass="LinkTitle" ForeColor="#60baf1" NavigateUrl="~/StuHeader.aspx" />
                 <asp:HyperLink ID="coursePage" runat="server" Text="课程" CssClass="LinkTitle" NavigateUrl="~/StuCourseSearch.aspx" />
-                <asp:HyperLink ID="teacherPage" runat="server" Text="师资" CssClass="LinkTitle" />
-                <asp:HyperLink ID="discussPage" runat="server" Text="讨论区" CssClass="LinkTitle" />
+                <asp:HyperLink ID="teacherPage" runat="server" Text="师资" CssClass="LinkTitle" NavigateUrl="~/StuTeacherIntro.aspx"/>
             </asp:Panel>
-            <asp:ImageButton ID="userImg" runat="server" CssClass="userImg" />
-            <asp:Panel ID="UserSetting" runat="server" CssClass="UserSetting">
+            <asp:ImageButton ID="userImg" runat="server" CssClass="userImg" onmouseover="Show()" onmouseout="Hide()"/>
+            <asp:Panel ID="UserSetting" runat="server" CssClass="UserSetting" onmouseover="Show()" onmouseout="Hide()">
                 <asp:Label ID="user" runat="server" CssClass="user"></asp:Label><br />
                 <asp:Button ID="myCourse" runat="server" Text="我的课程" CssClass="userItem" OnClick="myCourse_Click"/>
-                <asp:Button ID="myQuestion" runat="server" Text="我的提问" CssClass="userItem" />
-                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" />
-                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" />
+                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click"/>
+                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click"/>
+                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click"/>
                 <hr />
                 <asp:HyperLink ID="exit" runat="server" CssClass="exit" NavigateUrl="~/Index.aspx">退出登录</asp:HyperLink>
             </asp:Panel>
@@ -327,31 +328,31 @@
         <div id="menu" runat="server" class="menu">
             <asp:Menu ID="Menu1" runat="server">
                 <Items>
-                    <asp:MenuItem Text="Java" Value="Java"></asp:MenuItem>
-                    <asp:MenuItem Text="C语言" Value="C语言"></asp:MenuItem>
-                    <asp:MenuItem Text="数据库" Value="数据库"></asp:MenuItem>
-                    <asp:MenuItem Text=".Net" Value=".Net"></asp:MenuItem>
-                    <asp:MenuItem Text="HTML5" Value="HTML5"></asp:MenuItem>
-                    <asp:MenuItem Text="安卓" Value="安卓"></asp:MenuItem>
-                    <asp:MenuItem Text="JSP" Value="JSP"></asp:MenuItem>
-                    <asp:MenuItem Text="Linux" Value="Linux"></asp:MenuItem>
-                    <asp:MenuItem Text="Python" Value="Python"></asp:MenuItem>
+                    <asp:MenuItem Text="JavaScript" Value="JavaScript" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=JavaScript" ></asp:MenuItem>
+                    <asp:MenuItem Text="C语言" Value="C语言" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=C"></asp:MenuItem>
+                    <asp:MenuItem Text="数据库" Value="数据库" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=数据库"></asp:MenuItem>
+                    <asp:MenuItem Text=".Net" Value=".Net" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=.Net"></asp:MenuItem>
+                    <asp:MenuItem Text="安卓" Value="安卓" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=Android"></asp:MenuItem>
+                    <asp:MenuItem Text="HTML5" Value="HTML5" NavigateUrl="~/StuCourseSearch.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="JSP" Value="JSP" NavigateUrl="~/StuCourseSearch.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Linux" Value="Linux" NavigateUrl="~/StuCourseSearch.aspx"></asp:MenuItem>
+                    <asp:MenuItem Text="Python" Value="Python" NavigateUrl="~/StuCourseSearch.aspx"></asp:MenuItem>
                 </Items>
             </asp:Menu>
         </div>
         <div id="commandCourse" runat="server" class="commandCourse">
             <div class="inner">
                 <ul style="margin: 0; padding: 0; left: 0px;">
-                    <li><a href="#">
-                        <img src="upload/images/Java_1.png" alt="" /></a></li>
-                    <li><a href="#">
-                        <img src="upload/images/C_1.png" alt="" /></a></li>
-                    <li><a href="#">
-                        <img src="upload/images/DB_1.png" alt="" /></a></li>
-                    <li><a href="#">
-                        <img src="upload/images/Android_1.png" alt="" /></a></li>
-                    <li><a href="#">
-                        <img src="upload/images/Net_1.png" alt="" /></a></li>
+                    <li><a href="StuCourseIntro.aspx?id=1001">
+                        <img src="upload/image/Java_1.png" alt="" /></a></li>
+                    <li><a href="StuCourseIntro.aspx?id=1002">
+                        <img src="upload/image/C_1.png" alt="" /></a></li>
+                    <li><a href="StuCourseIntro.aspx?id=1003">
+                        <img src="upload/image/DB_1.png" alt="" /></a></li>
+                    <li><a href="StuCourseIntro.aspx?id=1004">
+                        <img src="upload/image/Android_1.png" alt="" /></a></li>
+                    <li><a href="StuCourseIntro.aspx?id=1005">
+                        <img src="upload/image/Net_1.png" alt="" /></a></li>
                 </ul>
 
                 <ol class="bar">
@@ -398,7 +399,7 @@
                     </ItemTemplate>
                 </asp:DataList>
             </div>
-            <asp:SqlDataSource ID="NiceTeacherSource" runat="server" ConnectionString='<%$ ConnectionStrings:EduString %>' SelectCommand="SELECT * FROM [TeacherInfo]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="NiceTeacherSource" runat="server" ConnectionString='<%$ ConnectionStrings:EduString %>' SelectCommand="SELECT top 6 * FROM [TeacherInfo]"></asp:SqlDataSource>
         </div>
     </form>
 </body>
@@ -491,6 +492,14 @@
                 element.style.left = target + "px";
             }
         }, 10);
+    }
+
+    var Userdiv = document.getElementById("UserSetting");
+    function Show() {
+        Userdiv.style.display = 'block'
+    }
+    function Hide() {
+        Userdiv.style.display = 'none'
     }
 </script>
 </html>

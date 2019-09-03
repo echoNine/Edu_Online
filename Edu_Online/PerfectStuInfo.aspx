@@ -133,12 +133,11 @@
                 <div class="info">
                     <asp:Label ID="major" runat="server" Text="主修专业" CssClass="infoitem"></asp:Label>
                     <asp:DropDownList ID="MajorCourse" runat="server" CssClass="input" Width="210px">
-                        <asp:ListItem Value="计算机">计算机</asp:ListItem>
-                        <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
-                        <asp:ListItem Value="外语">外语</asp:ListItem>
-                        <asp:ListItem Value="经济金融">经济金融</asp:ListItem>
-                        <asp:ListItem Value="管理学">管理学</asp:ListItem>
-                        <asp:ListItem Value="会计">会计</asp:ListItem>
+                        <asp:ListItem Value="数字媒体技术">数字媒体技术</asp:ListItem>
+                        <asp:ListItem Value="网络工程">网络工程</asp:ListItem>
+                        <asp:ListItem Value="信息管理">信息管理</asp:ListItem>
+                        <asp:ListItem Value="计算机科学与技术">计算机科学与技术</asp:ListItem>
+                        <asp:ListItem Value="通信工程">通信工程</asp:ListItem>
                         <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
                     </asp:DropDownList>
                 </div>

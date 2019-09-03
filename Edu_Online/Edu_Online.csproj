@@ -75,11 +75,16 @@
     <Content Include="ForgetPwd.aspx" />
     <Content Include="Header.aspx" />
     <Content Include="img\course.png" />
-    <Content Include="img\question.png" />
+    <Content Include="img\foot.png" />
+    <Content Include="img\note.png" />
+    <Content Include="img\return1.png" />
     <Content Include="img\setting.png" />
+    <Content Include="img\temp.png" />
+    <Content Include="img\title.png" />
     <Content Include="img\work.png" />
     <Content Include="modal.css" />
     <Content Include="NewPracticeInfo.aspx" />
+    <Content Include="PartList.aspx" />
     <Content Include="PerfectStuInfo.aspx" />
     <Content Include="PerfectTeachInfo.aspx" />
     <Content Include="pic\boy5.png" />
@@ -118,11 +123,15 @@
     <Content Include="StuCourseIntro.aspx" />
     <Content Include="StuCourseSearch.aspx" />
     <Content Include="StuHeader.aspx" />
+    <Content Include="StuTeachCourseInfo.aspx" />
+    <Content Include="StuTeacherIntro.aspx" />
     <Content Include="TeachInfo.aspx" />
     <Content Include="InfoManage.aspx" />
     <Content Include="VideoManage.aspx" />
     <Content Include="VideoUpload.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddQues.aspx.cs">
@@ -217,6 +226,13 @@
     <Compile Include="OpenedCourses.aspx.designer.cs">
       <DependentUpon>OpenedCourses.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PartList.aspx.cs">
+      <DependentUpon>PartList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PartList.aspx.designer.cs">
+      <DependentUpon>PartList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PerfectStuInfo.aspx.cs">
       <DependentUpon>PerfectStuInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -288,6 +304,20 @@
     </Compile>
     <Compile Include="StuHeader.aspx.designer.cs">
       <DependentUpon>StuHeader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StuTeachCourseInfo.aspx.cs">
+      <DependentUpon>StuTeachCourseInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StuTeachCourseInfo.aspx.designer.cs">
+      <DependentUpon>StuTeachCourseInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StuTeacherIntro.aspx.cs">
+      <DependentUpon>StuTeacherIntro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StuTeacherIntro.aspx.designer.cs">
+      <DependentUpon>StuTeacherIntro.aspx</DependentUpon>
     </Compile>
     <Compile Include="TeachInfo.aspx.cs">
       <DependentUpon>TeachInfo.aspx</DependentUpon>

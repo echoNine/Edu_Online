@@ -10,7 +10,7 @@
 namespace Edu_Online {
     
     
-    public partial class PracticePage {
+    public partial class StuTeachCourseInfo {
         
         /// <summary>
         /// form1 控件。
@@ -22,6 +22,24 @@ namespace Edu_Online {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// header 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl header;
+        
+        /// <summary>
+        /// Pic 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Pic;
+        
+        /// <summary>
         /// Name 控件。
         /// </summary>
         /// <remarks>
@@ -31,58 +49,22 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Label Name;
         
         /// <summary>
-        /// SingleTitle 控件。
+        /// City 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SingleTitle;
+        protected global::System.Web.UI.WebControls.Label City;
         
         /// <summary>
-        /// singleList 控件。
+        /// Type 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList singleList;
-        
-        /// <summary>
-        /// JudgeTitle 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label JudgeTitle;
-        
-        /// <summary>
-        /// judgeList 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList judgeList;
-        
-        /// <summary>
-        /// title 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label title;
-        
-        /// <summary>
-        /// gvResult 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvResult;
+        protected global::System.Web.UI.WebControls.Label Type;
         
         /// <summary>
         /// return 控件。
@@ -92,5 +74,23 @@ namespace Edu_Online {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton @return;
+        
+        /// <summary>
+        /// content 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl content;
+        
+        /// <summary>
+        /// CourseData 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataList CourseData;
     }
 }

@@ -113,10 +113,110 @@
             font-size: 14px;
             padding-left: 4px;
         }
+
+        .header {
+            width: 100%;
+            background-color: white;
+            padding-right: 10px;
+            z-index: 900;
+            box-shadow: 0 4px 8px 0 rgba(7, 17, 27, 0.1);
+            border-bottom: 4px solid #e8e7e7;
+            line-height: 70px;
+        }
+
+        .PageLink {
+            width: 26%;
+            margin-left: 10%;
+        }
+
+        .LinkTitle {
+            margin: 20px;
+            font-size: 17px;
+            border: none;
+            padding: 5px 14px;
+            background-color: white;
+            color: #4D555D;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+            .LinkTitle:hover {
+                color: #60baf1;
+            }
+
+        .userImg {
+            position: absolute;
+            top: 2.5%;
+            right: 3%;
+            width: 43px;
+            cursor: pointer;
+        }
+
+        .UserSetting {
+            position: absolute;
+            right: 2%;
+            top: 9%;
+            width: 20%;
+            padding: 0 1.5%;
+            background-color: white;
+            border-radius: 0 0 5px 5px;
+            z-index: 999;
+            display: none;
+        }
+
+        .user {
+            font-size: 18px;
+            position: absolute;
+            top: 5%;
+            left: 13%;
+        }
+
+        .userItem {
+            border: none;
+            padding: 10px 26px;
+            background-color: #ececec;
+            border-radius: 4px;
+            margin-left: 5%;
+            cursor: pointer;
+        }
+
+            .userItem:hover {
+                background-color: #e1e1e1;
+            }
+
+        .exit {
+            color: #807c7c;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 41%;
+            text-decoration: none;
+        }
+
+            .exit:hover {
+                color: #60baf1;
+            }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <div id="header" runat="server" class="header">
+            <asp:Panel ID="PageLink" runat="server" CssClass="PageLink">
+                <asp:HyperLink ID="indexPage" runat="server" Text="首页" CssClass="LinkTitle" NavigateUrl="~/StuHeader.aspx" />
+                <asp:HyperLink ID="coursePage" runat="server" Text="课程" CssClass="LinkTitle" ForeColor="#60baf1" NavigateUrl="~/StuCourseSearch.aspx" />
+                <asp:HyperLink ID="teacherPage" runat="server" Text="师资" CssClass="LinkTitle" NavigateUrl="~/StuTeacherIntro.aspx" />
+            </asp:Panel>
+            <asp:ImageButton ID="userImg" runat="server" CssClass="userImg" onmouseover="Show()" onmouseout="Hide()" />
+            <asp:Panel ID="UserSetting" runat="server" CssClass="UserSetting" onmouseover="Show()" onmouseout="Hide()">
+                <asp:Label ID="user" runat="server" CssClass="user"></asp:Label><br />
+                <asp:Button ID="myCourse" runat="server" Text="我的课程" CssClass="userItem" OnClick="myCourse_Click" />
+                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click" />
+                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click" />
+                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click" />
+                <hr />
+                <asp:HyperLink ID="exit" runat="server" CssClass="exit" NavigateUrl="~/Index.aspx">退出登录</asp:HyperLink>
+            </asp:Panel>
+        </div>
+
         <div id="tagsBox" runat="server" class="tagsBox">
             <div id="classifyBox" runat="server" class="classifyBox" style="height: 110px">
                 <div id="classifyTitle" runat="server" class="classifyTitle">分类</div>
@@ -231,6 +331,14 @@
         }
 
         window.location.href = base;
+    }
+
+    var Userdiv = document.getElementById("UserSetting");
+    function Show() {
+        Userdiv.style.display = 'block'
+    }
+    function Hide() {
+        Userdiv.style.display = 'none'
     }
 </script>
 </html>

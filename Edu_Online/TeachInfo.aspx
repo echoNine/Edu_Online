@@ -47,9 +47,18 @@
             line-height: 38px;
         }
 
-        .intro, .list {
+        .intro{
             font-size: 14px;
             color: gray;
+        }
+        .list {
+            font-size: 14px;
+            color: gray;
+            text-decoration:none;
+        }
+
+        .list:hover{
+            color:#53b9f5;
         }
     </style>
 </head>
@@ -58,7 +67,7 @@
         <div>
             <asp:DataList ID="DataList1" runat="server" DataKeyField="TeachId" OnItemDataBound="DataList1_ItemDataBound">
                 <ItemTemplate>
-                    <asp:Image ID="pic" runat="server" ImageUrl='<%# Eval("pic") %>' CssClass="pic" /><br />
+                    <asp:Image ID="pic" runat="server" ImageUrl='<%# Eval("TeachPic") %>' CssClass="pic" /><br />
                     <asp:Label ID="name" runat="server" Text='<%# Eval("TeachName") %>' CssClass="name" /><br />
                     <asp:Panel ID="introInfo" runat="server" CssClass="introInfo">
                         <asp:Label ID="introTitle" runat="server" Text="教师简介" CssClass="introTitle" /><br />
@@ -68,7 +77,7 @@
                         <asp:Label ID="listTitle" runat="server" Text="已开课程" CssClass="listTitle" /><br />
                         <asp:DataList ID="list" runat="server" DataKeyField="courseId" CssClass="list">
                             <ItemTemplate>
-                                <asp:Label Text='<%# Eval("courseName") %>' runat="server" ID="courseName" />
+                                <asp:HyperLink ID="courseName" runat="server" NavigateUrl='<%#"~/StuCourseIntro.aspx?id="+Eval("courseId") %>' Text='<%# Eval("courseName") %>' CssClass="list"/>
                             </ItemTemplate>
                         </asp:DataList>
                     </asp:Panel>

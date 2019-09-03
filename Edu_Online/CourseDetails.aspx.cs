@@ -38,6 +38,7 @@ namespace Edu_Online
                 questionList.Visible = false;
                 resdata.Visible = false;
                 introPart.ForeColor = System.Drawing.Color.DodgerBlue;
+                RBindData();
             }
         }
 
@@ -68,8 +69,8 @@ namespace Edu_Online
 
             DataSet ds = new DataSet();
             ad.Fill(ds);
-            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["questionId"],
-            ds.Tables[1].Columns["questionId"]));
+            ds.Relations.Add(new DataRelation("QA_Relation", ds.Tables[0].Columns["quesId"],
+            ds.Tables[1].Columns["quesId"],false));
             outerDataList.DataSource = ds;
             outerDataList.DataBind();
         }
@@ -99,7 +100,7 @@ namespace Edu_Online
                 string answerBy = Session["userName"].ToString();
                 DateTime answerTime = DateTime.Now.ToLocalTime();
                 SqlConnection con = DataOperate.CreateCon();
-                string sql = "insert into AnswerInfo(AnswerContent,AnswerBy,QuestionId,AnswerTime) values('" + answerContent + "','" + answerBy + "'," + questionId + ",'" + answerTime + "')";
+                string sql = "insert into AnswerInfo(AnswerContent,AnswerBy,QuesId,AnswerTime) values('" + answerContent + "','" + answerBy + "'," + questionId + ",'" + answerTime + "')";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -123,7 +124,7 @@ namespace Edu_Online
 
         private string getVideoIdByQuestionId(int questionId)
         {
-            string sql = "select * from QuestionInfo where QuestionId=" + questionId;
+            string sql = "select * from QuesInfo where QuesId=" + questionId;
             SqlDataReader sdr = DataOperate.GetRow(sql);
             sdr.Read();
             return sdr["VideoId"].ToString();
@@ -191,7 +192,7 @@ namespace Edu_Online
             Response.Flush();
             Response.End();
         }
-        protected void back_Click(object sender, EventArgs e)
+        protected void return_Click(object sender, EventArgs e)
         {
             Response.Redirect("OpenedCourses.aspx");
         }

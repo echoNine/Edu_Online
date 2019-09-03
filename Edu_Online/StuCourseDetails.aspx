@@ -137,7 +137,7 @@
             font-weight: bold;
         }
 
-        .quescontent {
+        .quesContent {
             background: #ffffff;
             padding: 10px;
             font-size: 14px;
@@ -368,7 +368,7 @@
     <form id="form1" runat="server">
         <asp:Label ID="getTime" runat="server" Style="display: none" />
         <div id="header" runat="server" class="header">
-            <asp:Image ID="return" runat="server" ImageUrl="~/img/return.png" CssClass="return" />
+            <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return.png" CssClass="return" OnClick="return_Click"/>
             <asp:Label ID="courseTitle" runat="server" CssClass="courseTitle"></asp:Label>
             <div id="btn_title" runat="server" class="btn_title">
                 <asp:Button ID="list" runat="server" Text="章节" CssClass="partTitle" OnClick="list_Click" />
@@ -397,7 +397,7 @@
         <div id="askques" runat="server" class="askques" visible="false">
             <asp:Panel ID="quespanel" runat="server" CssClass="quespanel">
                 <asp:Label ID="asktop" runat="server" Text="提出问题" CssClass="asktop"></asp:Label><br />
-                <textarea id="quescontent" runat="server" cols="20" rows="2" class="quescontent"></textarea>
+                <textarea id="questContent" runat="server" cols="20" rows="2" class="quesContent"></textarea>
             </asp:Panel>
             <asp:Button ID="btn_push" runat="server" Text="发布" CssClass="btn_push" OnClick="btn_push_Click" />
         </div>
@@ -432,15 +432,15 @@
                 </div>
 
                 <div id="quesdata" runat="server" class="quesdata">
-                    <asp:DataList ID="outer" runat="server" DataKeyField="questionId" OnItemDataBound="outer_ItemDataBound" Width="100%">
+                    <asp:DataList ID="outer" runat="server" DataKeyField="QuesId" OnItemDataBound="outer_ItemDataBound" Width="100%">
                         <ItemTemplate>
                             <div class="QAdata">
                                 <div class="Qdata">
-                                    <asp:Image ID="Person" runat="server" ImageUrl="~/img/user.png" CssClass="person" />
-                                    <asp:Label ID="Qname" runat="server" Text='<%# Eval("questionBy") %>' CssClass="Qname"></asp:Label><br />
+                                    <asp:Image ID="Person" runat="server" ImageUrl='<%# Eval("StuPic") %>' CssClass="person" />
+                                    <asp:Label ID="Qname" runat="server" Text='<%# Eval("QuesBy") %>' CssClass="Qname"></asp:Label><br />
                                     <asp:Image ID="Clock" runat="server" ImageUrl="~/img/clock.png" CssClass="clock" />
-                                    <asp:Label ID="Qtime" runat="server" Text='<%# Eval("questionTime") %>' CssClass="Qtime"></asp:Label><br />
-                                    <asp:Label ID="Qcontent" runat="server" Text='<%# Eval("questionContent") %>' CssClass="Qcontent"></asp:Label><br />
+                                    <asp:Label ID="Qtime" runat="server" Text='<%# Eval("QuesTime") %>' CssClass="Qtime"></asp:Label><br />
+                                    <asp:Label ID="Qcontent" runat="server" Text='<%# Eval("QuesContent") %>' CssClass="Qcontent"></asp:Label><br />
                                 </div>
                                 <div class="Adata">
                                     <asp:DataList ID="inner" runat="server">

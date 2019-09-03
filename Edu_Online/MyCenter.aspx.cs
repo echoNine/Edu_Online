@@ -19,12 +19,32 @@ namespace Edu_Online
                 Course_Info();
                 init_Date();
                 User_Info();
-                Question_Info();
+                Note_Info();
+                Note_Info();
                 Practice_Done();
                 DoneList.Style["display"] = "block";
                 TodoList.Style["display"] = "none";
-                QuestionInfo.Visible = true;
-                courseTitle.Style["color"] = "black";
+
+                string item = Request.QueryString["item"].ToString();
+                switch (item)
+                {
+                    case "course":
+                        CourseInfo.Visible = true;
+                        courseTitle.Style["color"] = "black";
+                        break;
+                    case "note":
+                        NoteInfo.Visible = true;
+                        noteTitle.Style["color"] = "black";
+                        break;
+                    case "work":
+                        PracticeInfo.Visible = true;
+                        workTitle.Style["color"] = "black";
+                        break;
+                    case "info":
+                        UserInfo.Visible = true;
+                        settingTitle.Style["color"] = "black";
+                        break;
+                }
             }
 
         }
@@ -36,7 +56,7 @@ namespace Edu_Online
             headerDataList.DataKeyField = "StuId";
             headerDataList.DataBind();
         }
-            protected void Course_Info()
+        protected void Course_Info()
         {
             string StuId = Session["userId"].ToString();
             string sql = "select * from CourseInfo inner join SCInfo on CourseInfo.courseId = SCInfo.CourseId inner join StudentInfo on StudentInfo.StuId = SCInfo.StuId where SCInfo.StuId='" + StuId + "'";
@@ -50,10 +70,11 @@ namespace Edu_Online
             string stuId = Session["userId"].ToString();
             string courseId = ((LinkButton)sender).CommandArgument.ToString();
 
-            string[] sqlT = new string[2];
+            string[] sqlT = new string[3];
             int i = 0;
             sqlT[i++] = "update CourseInfo set orderNum=orderNum-1 where courseId='" + courseId + "'";
-            sqlT[i] = "delete from SCInfo where StuId='" + stuId + "' and CourseId='" + courseId + "'";
+            sqlT[i++] = "delete from SCInfo where StuId='" + stuId + "' and CourseId='" + courseId + "'";
+            sqlT[i] = "delete from LearnRecord where StuId='" + stuId + "' and CourseId='" + courseId + "'";
             if (DataOperate.ExecTransaction(sqlT))
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('退课成功！')</script>");
@@ -91,13 +112,13 @@ namespace Edu_Online
             }
         }
 
-        protected void Question_Info()
+        protected void Note_Info()
         {
             string stuId = Session["userId"].ToString();
-            string sql = "select * from QuestionInfo where questionBy='" + stuId + "'";
-            QuestionInfo.DataSource = DataOperate.GetDataset(sql, "QuestionInfo");
-            QuestionInfo.DataKeyField = "questionId";
-            QuestionInfo.DataBind();
+            string sql = "select * from NoteInfo inner join VideoInfo on NoteInfo.videoId = VideoInfo.videoId inner join CourseInfo on CourseInfo.courseId = VideoInfo.CourseId where stuId='" + stuId + "'";
+            NoteInfo.DataSource = DataOperate.GetDataset(sql, "NoteInfo");
+            NoteInfo.DataKeyField = "NoteId";
+            NoteInfo.DataBind();
         }
         protected void User_Info()
         {
@@ -223,21 +244,32 @@ namespace Edu_Online
         {
             CourseInfo.Visible = true;
             courseTitle.Style["color"] = "black";
+            NoteInfo.Visible = false;
+            noteTitle.Style["color"] = "#676767";
             PracticeInfo.Visible = false;
             workTitle.Style["color"] = "#676767";
             UserInfo.Visible = false;
             settingTitle.Style["color"] = "#676767";
         }
 
-        protected void myQues_Click(object sender, EventArgs e)
+        protected void myNote_Click(object sender, EventArgs e)
         {
-
+            CourseInfo.Visible = false;
+            courseTitle.Style["color"] = "#676767";
+            NoteInfo.Visible = true;
+            noteTitle.Style["color"] = "black";
+            PracticeInfo.Visible = false;
+            workTitle.Style["color"] = "#676767";
+            UserInfo.Visible = false;
+            settingTitle.Style["color"] = "#676767";
         }
 
         protected void myWork_Click(object sender, EventArgs e)
         {
             CourseInfo.Visible = false;
             courseTitle.Style["color"] = "#676767";
+            NoteInfo.Visible = false;
+            noteTitle.Style["color"] = "#676767";
             PracticeInfo.Visible = true;
             workTitle.Style["color"] = "black";
             UserInfo.Visible = false;
@@ -248,6 +280,8 @@ namespace Edu_Online
         {
             CourseInfo.Visible = false;
             courseTitle.Style["color"] = "#676767";
+            NoteInfo.Visible = false;
+            noteTitle.Style["color"] = "#676767";
             PracticeInfo.Visible = false;
             workTitle.Style["color"] = "#676767";
             UserInfo.Visible = true;
@@ -268,6 +302,11 @@ namespace Edu_Online
                 TodoList.Style["display"] = "block";
                 DoneList.Style["display"] = "none";
             }
+        }
+
+        protected void return_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("StuHeader.aspx");
         }
     }
 }

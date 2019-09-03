@@ -240,7 +240,7 @@
 
         .workStatus {
             font-size: 19px;
-            color: gray;
+            color: #676767;
             font-weight: bold;
             margin-right: 20px;
         }
@@ -254,14 +254,45 @@
             margin-bottom: 3%;
         }
 
-        .quesItem {
+        .noteItem {
             background-color: white;
             width: 700px;
             margin-left: 7%;
-            margin-top: 3%;
+            margin-top: 6%;
             border-radius: 12px;
             box-shadow: 2px 3px 3px 2px #e8e8e8;
-            padding: 20px 40px;
+            padding: 5px 40px 20px;
+        }
+
+        .CourseVideo {
+            font-size: 17px;
+            font-weight: 700;
+            color: #464646;
+            line-height: 60px;
+        }
+
+        .noteContent {
+            font-size: 15px;
+            color: #505050;
+            line-height: 45px;
+            text-indent: 2em;
+            display: inline-block;
+            width: 76%;
+            border: 1px solid #e6e6e6;
+            border-radius: 5px;
+        }
+
+        .noteTime {
+            font-size: 14px;
+            color: #585858;
+            float: right;
+        }
+
+        .return {
+            width: 30px;
+            position: absolute;
+            top: 2%;
+            left: 32%;
         }
     </style>
 </head>
@@ -287,9 +318,9 @@
                     <asp:Image ID="courseImg" runat="server" ImageUrl="~/img/course.png" CssClass="linkImg" />
                     <asp:Label ID="courseTitle" runat="server" Text="我的课程" CssClass="linkTitle" />
                 </asp:LinkButton><br />
-                <asp:LinkButton ID="myQues" runat="server" CssClass="linkBtn" OnClick="myQues_Click">
-                    <asp:Image ID="quesImg" runat="server" ImageUrl="~/img/question.png" CssClass="linkImg" />
-                    <asp:Label ID="quesTitle" runat="server" Text="我的提问" CssClass="linkTitle" />
+                <asp:LinkButton ID="myNote" runat="server" CssClass="linkBtn" OnClick="myNote_Click">
+                    <asp:Image ID="noteImg" runat="server" ImageUrl="~/img/note.png" CssClass="linkImg" />
+                    <asp:Label ID="noteTitle" runat="server" Text="我的笔记" CssClass="linkTitle" />
                 </asp:LinkButton><br />
                 <asp:LinkButton ID="myWork" runat="server" CssClass="linkBtn" OnClick="myWork_Click">
                     <asp:Image ID="workImg" runat="server" ImageUrl="~/img/work.png" CssClass="linkImg" />
@@ -302,8 +333,10 @@
             </div>
         </div>
 
+        <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click"/>
+
         <div id="Right" runat="server" class="Right">
-            <asp:DataList ID="CourseInfo" runat="server" DataKeyField="courseId" Visible="false">
+            <asp:DataList ID="CourseInfo" runat="server" DataKeyField="courseId">
                 <ItemTemplate>
                     <div id="courseItem" runat="server" class="courseItem">
                         <asp:Image ImageUrl='<%# Eval("cover") %>' runat="server" ID="cover" CssClass="cover" />
@@ -355,14 +388,14 @@
                     <div class="info">
                         <asp:Label ID="major" runat="server" Text="主修专业" CssClass="infoItem"></asp:Label>
                         <asp:DropDownList ID="MajorCourse" runat="server" CssClass="input" Width="210px">
-                            <asp:ListItem Value="计算机">计算机</asp:ListItem>
-                            <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
-                            <asp:ListItem Value="外语">外语</asp:ListItem>
-                            <asp:ListItem Value="经济金融">经济金融</asp:ListItem>
-                            <asp:ListItem Value="管理学">管理学</asp:ListItem>
-                            <asp:ListItem Value="会计">会计</asp:ListItem>
-                            <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:ListItem Value="JavaScript">JavaScript</asp:ListItem>
+                        <asp:ListItem Value="C">C</asp:ListItem>
+                        <asp:ListItem Value="数据库">数据库</asp:ListItem>
+                        <asp:ListItem Value="Android">Android</asp:ListItem>
+                        <asp:ListItem Value=".Net">.Net</asp:ListItem>
+                        <asp:ListItem Value="Php">Php</asp:ListItem>
+                        <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
+                    </asp:DropDownList>
                     </div>
                     <div class="info">
                         <asp:Label ID="unit" runat="server" Text="学校单位" CssClass="infoItem"></asp:Label>
@@ -376,14 +409,17 @@
                     <asp:Button ID="update" runat="server" Text="修改" OnClick="update_Click" CssClass="update" />
                 </div>
             </div>
-            <asp:DataList ID="QuestionInfo" runat="server" class="QueetionInfo" Visible="false">
+
+            <asp:DataList ID="NoteInfo" runat="server" Visible="false">
                 <ItemTemplate>
-                    <asp:Panel ID="quesItem" runat="server" CssClass="quesItem">
-                        <asp:Label Text='<%# Eval("questionContent") %>' runat="server" ID="questionContent" CssClass="questionContent" /><br />
-                        <asp:Label Text='<%# Eval("questionTime") %>' runat="server" ID="questionTime" CssClass="questionTime" />
+                    <asp:Panel ID="noteItem" runat="server" CssClass="noteItem">
+                        <asp:Label Text='<%# Eval("courseName")+" > "+Eval("VideoName") %>' runat="server" ID="CourseVideo" CssClass="CourseVideo" /><br />
+                        <asp:Label Text='<%# Eval("noteContent") %>' runat="server" ID="noteContent" CssClass="noteContent" /><br />
+                        <asp:Label Text='<%# Eval("noteTime") %>' runat="server" ID="noteTime" CssClass="noteTime" /><br />
                     </asp:Panel>
                 </ItemTemplate>
             </asp:DataList>
+
             <div id="PracticeInfo" runat="server" class="PracticeInfo" visible="false">
                 <asp:Label ID="workStatus" runat="server" Text="作业状态" CssClass="workStatus" />
                 <asp:DropDownList ID="PracticeStatus" runat="server" OnSelectedIndexChanged="PracticeStatus_SelectedIndexChanged" AutoPostBack="true" CssClass="statusItem">

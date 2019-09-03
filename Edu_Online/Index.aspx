@@ -19,7 +19,7 @@
             width: 550px;
             height: 320px;
             left: 50%;
-            top: 50%;
+            top: 55%;
             transform: translate(-50%, -50%);
             background: #fff;
             padding: 45px 25px 90px 60px;
@@ -37,10 +37,10 @@
             border-right: none;
             cursor: pointer;
         }
-        
-        .btnLogin1:active, .btnRegister1:active {
-            border-bottom: 0.5px solid #008BE1;
-        }
+
+            .btnLogin1:active, .btnRegister1:active {
+                border-bottom: 0.5px solid #008BE1;
+            }
 
         .loginInfo .inputLogin {
             background: url(/img/user.png) no-repeat;
@@ -56,7 +56,7 @@
             padding-left: 40px;
         }
 
-        .inputLogin, .inputRegister,.inputEmail {
+        .inputLogin, .inputRegister, .inputEmail {
             width: 320px;
             height: 50px;
             border-radius: 5px;
@@ -70,13 +70,15 @@
             font-size: 14px;
             position: absolute;
             left: 56%;
-            cursor:pointer;
-            text-decoration:none;
+            cursor: pointer;
+            text-decoration: none;
         }
-        .forgetpwd:hover{
-            color: #3f9ae8;
-        }
-        .login, .register,.send {
+
+            .forgetpwd:hover {
+                color: #3f9ae8;
+            }
+
+        .login, .register, .send {
             height: 50px;
             width: 362px;
             border: none;
@@ -101,8 +103,8 @@
             color: #3f9ae8;
             bottom: 30%;
             left: 22%;
-            border:none;
-            background-color:white;
+            border: none;
+            background-color: white;
         }
 
         .right {
@@ -114,11 +116,25 @@
             border-left: 1px solid #e4e4e4;
             float: right;
         }
+
+        .title {
+            width: 20%;
+            margin-left: 25%;
+            margin-top: 4%;
+        }
+
+        .foot {
+            float: right;
+            width: 16%;
+            margin-top: 10%;
+            margin-right: 5%;
+        }
     </style>
 
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:Image ID="title" runat="server" CssClass="title" ImageUrl="~/img/title.png" />
         <div class="main">
             <asp:Button ID="show_login" runat="server" Text="登录" OnClick="show_login_Click" CssClass="btnLogin1" />
             <asp:Button ID="show_register" runat="server" Text="注册" OnClick="show_register_Click" CssClass="btnRegister1" />
@@ -165,6 +181,7 @@
                 </div>
             </asp:Panel>
         </div>
+        <asp:Image ID="foot" runat="server" CssClass="foot" ImageUrl="~/img/foot.png" />
     </form>
 </body>
 </html>

@@ -135,12 +135,12 @@
                 <div class="info">
                     <asp:Label ID="Major" runat="server" Text="教学方向" CssClass="infoitem"></asp:Label>
                     <asp:DropDownList ID="TeachMajor" runat="server" CssClass="input" Width="210px">
-                        <asp:ListItem Value="计算机">计算机</asp:ListItem>
-                        <asp:ListItem Value="艺术设计">艺术设计</asp:ListItem>
-                        <asp:ListItem Value="外语">外语</asp:ListItem>
-                        <asp:ListItem Value="经济金融">经济金融</asp:ListItem>
-                        <asp:ListItem Value="管理学">管理学</asp:ListItem>
-                        <asp:ListItem Value="会计">会计</asp:ListItem>
+                        <asp:ListItem Value="JavaScript">JavaScript</asp:ListItem>
+                        <asp:ListItem Value="C">C</asp:ListItem>
+                        <asp:ListItem Value="数据库">数据库</asp:ListItem>
+                        <asp:ListItem Value="Android">Android</asp:ListItem>
+                        <asp:ListItem Value=".Net">.Net</asp:ListItem>
+                        <asp:ListItem Value="Php">Php</asp:ListItem>
                         <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
                     </asp:DropDownList>
                 </div>

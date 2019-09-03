@@ -243,22 +243,12 @@
             text-decoration: none;
         }
 
-        .back {
+        .return {
+            width: 30px;
             position: absolute;
+            top: 5%;
             right: 3%;
-            top: 6%;
-            border: none;
-            padding: 3px 6px;
-            background-color: #f7f7f7;
-            color: #4F5459;
-            font-size: 14px;
-            cursor: pointer;
         }
-
-            .back:hover {
-                color: white;
-                background-color: #4F5459;
-            }
 
         .lbtnDown {
             text-decoration: none;
@@ -274,7 +264,7 @@
 <body>
     <form id="form1" runat="server" style="height: 780px; width: 100%">
         <div id="headerInfo" runat="server" class="headerInfo">
-            <asp:Button ID="back" runat="server" Text="返回" OnClick="back_Click" CssClass="back" />
+            <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
             <asp:Label ID="currentVideo" runat="server" Style="display: none"></asp:Label>
             <video id="video" controls="controls" runat="server" class="video">
                 <source type="audio/mp4" />
@@ -318,13 +308,13 @@
                         <div class="QAstyle">
                             <div class="Qstyle">
                                 <asp:Image ID="Person" runat="server" ImageUrl='<%# Eval("StuPic") %>' CssClass="img" />
-                                <asp:Label ID="Qname" runat="server" Text='<%# Eval("QuestionBy") %>' CssClass="Qname"></asp:Label><br />
+                                <asp:Label ID="Qname" runat="server" Text='<%# Eval("QuesBy") %>' CssClass="Qname"></asp:Label><br />
                                 <asp:Image ID="Clock" runat="server" Height="14px" ImageUrl="~/img/clock.png" />
-                                <asp:Label ID="Qtime" runat="server" Text='<%# Eval("QuestionTime") %>' CssClass="Qtime"></asp:Label><br />
-                                <asp:Label ID="Qcontent" runat="server" Text='<%# Eval("QuestionContent") %>' CssClass="Qcontent"></asp:Label><br />
+                                <asp:Label ID="Qtime" runat="server" Text='<%# Eval("QuesTime") %>' CssClass="Qtime"></asp:Label><br />
+                                <asp:Label ID="Qcontent" runat="server" Text='<%# Eval("QuesContent") %>' CssClass="Qcontent"></asp:Label><br />
                                 <asp:Button ID="ToAnswer" runat="server" Text="回复" CommandName="answer" CssClass="Toanswer" /><br />
                                 <asp:TextBox ID="AddAnswer" runat="server" Visible="false" CssClass="Addanswer" TextMode="MultiLine"></asp:TextBox><br />
-                                <asp:Button ID="Submit" runat="server" Text="确认回复" Visible="false" CommandArgument='<%#Eval("QuestionId") %>' CommandName="submit" CssClass="submit" />
+                                <asp:Button ID="Submit" runat="server" Text="确认回复" Visible="false" CommandArgument='<%#Eval("QuesId") %>' CommandName="submit" CssClass="submit" />
                             </div>
                             <div class="Astyle">
                                 <asp:DataList ID="innerDataList" runat="server">

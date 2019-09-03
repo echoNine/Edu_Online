@@ -43,7 +43,7 @@ namespace Edu_Online
             tipdiv.Visible = true;
         }
 
-        protected void back_Click(object sender, EventArgs e)
+        protected void return_Click(object sender, EventArgs e)
         {
             Response.Redirect("AllCourses.aspx");
         }

@@ -32,22 +32,12 @@
             border-radius: 5px;
         }
 
-        .back {
+        .return {
+            width: 30px;
             position: absolute;
+            top: 7%;
             right: 9%;
-            top: 8%;
-            border: none;
-            padding: 3px 6px;
-            background-color: #f7f7f7;
-            color: #4F5459;
-            font-size: 14px;
-            cursor: pointer;
         }
-
-            .back:hover {
-                color: white;
-                background-color: #4F5459;
-            }
 
         .rightTop {
             margin: 35px 80px;
@@ -202,7 +192,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="header">
-            <asp:Button ID="back" runat="server" Text="返回" OnClick="back_Click" CssClass="back" />
+            <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
             <asp:Image ID="img" runat="server" CssClass="img" />
             <asp:Panel ID="rightTop" runat="server" CssClass="rightTop">
                 <asp:Label ID="name" runat="server" CssClass="name"></asp:Label>

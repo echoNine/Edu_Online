@@ -48,7 +48,7 @@ namespace Edu_Online
             }
         }
 
-        protected void back_Click(object sender, EventArgs e)
+        protected void return_Click(object sender, EventArgs e)
         {
             Response.Redirect("StuHeader.aspx");
         }

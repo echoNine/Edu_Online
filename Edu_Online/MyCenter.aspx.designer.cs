@@ -85,31 +85,31 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Label courseTitle;
         
         /// <summary>
-        /// myQues 控件。
+        /// myNote 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton myQues;
+        protected global::System.Web.UI.WebControls.LinkButton myNote;
         
         /// <summary>
-        /// quesImg 控件。
+        /// noteImg 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image quesImg;
+        protected global::System.Web.UI.WebControls.Image noteImg;
         
         /// <summary>
-        /// quesTitle 控件。
+        /// noteTitle 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label quesTitle;
+        protected global::System.Web.UI.WebControls.Label noteTitle;
         
         /// <summary>
         /// myWork 控件。
@@ -164,6 +164,15 @@ namespace Edu_Online {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label settingTitle;
+        
+        /// <summary>
+        /// return 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton @return;
         
         /// <summary>
         /// Right 控件。
@@ -418,13 +427,13 @@ namespace Edu_Online {
         protected global::System.Web.UI.WebControls.Button update;
         
         /// <summary>
-        /// QuestionInfo 控件。
+        /// NoteInfo 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList QuestionInfo;
+        protected global::System.Web.UI.WebControls.DataList NoteInfo;
         
         /// <summary>
         /// PracticeInfo 控件。

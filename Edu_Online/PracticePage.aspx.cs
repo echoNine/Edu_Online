@@ -34,5 +34,10 @@ namespace Edu_Online
             gvResult.DataKeyNames = new string[] { "answerId" };
             gvResult.DataBind();
         }
+
+        protected void return_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PushPractice.aspx.aspx");
+        }
     }
 }

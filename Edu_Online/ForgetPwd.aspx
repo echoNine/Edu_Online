@@ -19,7 +19,7 @@
             width: 40%;
             height: 400px;
             left: 50%;
-            top: 50%;
+            top: 57%;
             padding: 45px;
             position: absolute;
             transform: translate(-50%, -50%);
@@ -27,12 +27,11 @@
 
         .header {
             font-size: 22px;
-            margin: 0 auto;
-            text-align: center;
+            margin:0 40%;
         }
 
         .img {
-            margin: 50px 77px;
+            margin: 50px 66px;
         }
 
         .mail {
@@ -56,7 +55,7 @@
             margin: 20px 0px 20px 25px;
         }
 
-        .find, .send, .check,.change {
+        .find, .send, .check, .change {
             border: none;
             border-radius: 5px;
             background: #008BE1;
@@ -72,10 +71,25 @@
             color: #008BE1;
             margin: 14%;
         }
+
+        .title {
+            width: 20%;
+            margin-left: 25%;
+            margin-top: 4%;
+        }
+
+        .foot {
+            float: right;
+            width: 16%;
+            margin-top: 10%;
+            margin-right: 5%;
+        }
+
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:Image ID="title" runat="server" CssClass="title" ImageUrl="~/img/title.png" />
         <div class="main">
             <p class="header">找回密码</p>
             <asp:Image ID="firstImg" runat="server" ImageUrl="~/img/email_one.png" CssClass="img" />
@@ -97,6 +111,7 @@
                 <asp:Button ID="change" runat="server" Text="重置" CssClass="change" Style="margin: 10px 77px; width: 401px; height: 50px;" OnClick="change_Click" />
             </asp:Panel>
         </div>
+         <asp:Image ID="foot" runat="server" CssClass="foot" ImageUrl="~/img/foot.png" />
     </form>
 </body>
 </html>

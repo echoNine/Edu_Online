@@ -84,6 +84,13 @@
             vertical-align: middle;
             padding-bottom: 3px;
         }
+
+        .return {
+            width: 30px;
+            position: absolute;
+            top: 5%;
+            right: 3%;
+        }
     </style>
 </head>
 <body>
@@ -133,6 +140,9 @@
                 <SortedDescendingHeaderStyle BackColor="#242121" />
             </asp:GridView>
         </div>
+
+            <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
     </form>
 </body>
+
 </html>
