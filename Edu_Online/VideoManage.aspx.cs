@@ -45,25 +45,23 @@ namespace Edu_Online
 
         protected void videosave_Click(object sender, EventArgs e)
         {
-            try
+            string videoName = videoname.Text;
+            SqlConnection con = DataOperate.CreateCon();
+            videopath.SaveAs(Server.MapPath("~/upload/video/") + Path.GetFileName(videopath.FileName));
+            string videoLink = "~/upload/video/" + Path.GetFileName(videopath.FileName);
+            string[] sqlT = new string[2];
+            int i = 0;
+            sqlT[i++] = "insert into VideoInfo values('" + videoName + "','" + videoLink + "','" + videocourse.SelectedValue + "')";
+            sqlT[i] = "update CourseInfo set part = part+1 where courseId='" + videocourse.SelectedValue + "'";
+            if (DataOperate.ExecTransaction(sqlT))
             {
-                string videoName = videoname.Text;
-                SqlConnection con = DataOperate.CreateCon();
-                videopath.SaveAs(Server.MapPath("~/upload/video/") + Path.GetFileName(videopath.FileName));
-                string videoLink = "~/upload/video/" + Path.GetFileName(videopath.FileName);
-                string sql = "insert into VideoInfo values('" + videoName + "','" + videoLink + "','" + videocourse.SelectedValue + "')";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
                 videoname.Text = "";
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('视频上传成功')</script>");
             }
-            catch (Exception ex)
+            else
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('视频上传失败')</script>");
             }
         }
-
     }
 }

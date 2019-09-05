@@ -74,14 +74,13 @@ namespace Edu_Online
             string Unit = txtUnit.Text;
             string Phone = txtPhone.Text;
             string filepath = "~/upload/image/";     //文件路径
-
+            string serverPath = Server.MapPath(filepath);
             //判断服务器目录是否存在
-            if (System.IO.Directory.Exists(filepath) == false)//如果不存在就创建file文件夹
+            if (System.IO.Directory.Exists(serverPath) == false)//如果不存在就创建文件夹
             {
-                System.IO.Directory.CreateDirectory(filepath);
+                System.IO.Directory.CreateDirectory(serverPath);
             }
-
-            UploadPic.SaveAs(Server.MapPath(filepath) + Path.GetFileName(UploadPic.FileName));
+            UploadPic.SaveAs(serverPath + Path.GetFileName(UploadPic.FileName));
             string picName = Path.GetFileName(UploadPic.FileName);
             string picLink = filepath + Path.GetFileName(UploadPic.FileName);
             string sql = "update StudentInfo set StuName='" + Name + "', StuSex='" + Sex + "',BirthYear='" + Year + "', BirthMonth='" + Month + "',BirthDay='" + Day + "',StuTypeId='" + TypeId + "',StuCity='" + City + "',StuSchool='" + Unit + "',StuMajor='" + Major + "', StuPhone='" + Phone + "',StuPic='" + picLink + "' where StuId='" + userId + "'";
@@ -93,6 +92,11 @@ namespace Edu_Online
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('个人信息完善失败，请重试')</script>");   //提示注册失败
             }
+        }
+
+        protected void return_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Index.aspx");
         }
     }
 }

@@ -201,7 +201,7 @@
                 </ul>
                 </li>
                 <li class="item"><a href="PushPractice.aspx">作业管理</a></li>
-                <li class="item"><a>个人中心</a></li>
+                <li class="item"><a href="AddUserInfo.aspx">个人中心</a></li>
             </ul>
         </div>
 

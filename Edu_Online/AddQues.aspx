@@ -195,7 +195,7 @@
             correct = $("#JudgeAnswer").val();
         }
         if (name && type && correct && (type != "single" || info)) {
-            $("#tbody").append("<tr><td class='tdstyle'>" + name + "</td><td class='tdstyle'>" + (type == "single" ? "单选题" : "判断题") + "</td><td class='tdstyle'>" + info + "</td><td class='tdstyle'>" + correct + "</td><td class='tdstyle'><span class='tddo'>编辑</span>&nbsp;&nbsp;&nbsp;<span class='tddo'>删除</span></td></tr>");
+            $("#tbody").append("<tr><td class='tdstyle'>" + name + "</td><td class='tdstyle'>" + (type == "single" ? "单选题" : "判断题") + "</td><td class='tdstyle'>" + info + "</td><td class='tdstyle'>" + correct + "</td><td class='tdstyle'><span class='tddo'>增加</span>&nbsp;&nbsp;&nbsp;<span class='tddo'>删除</span></td></tr>");
             let targetInfo = { "name": name, "type": type, "options": options, "correct": correct };
             list.push(targetInfo);
             let currentTr = $("#tbody").children()[$("#tbody").children().length - 1];

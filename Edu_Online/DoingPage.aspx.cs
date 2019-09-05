@@ -70,7 +70,7 @@ namespace Edu_Online
             }
             float count = singleCount + judgeCount;
             int score = Convert.ToInt32((count / QuesCount) * 100);
-            string doneTime = DateTime.Now.ToString("yyyy-mm-dd");
+            string doneTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string addResult = "insert into AnswerResult(practiceId,stuId,score,doneTime) values(" + practiceId + ",'" + stuId + "'," + score + ",'"+ doneTime+"')";
             DataOperate.ExecSQL(addResult);
             return score;

@@ -66,7 +66,7 @@ namespace Edu_Online
                 SqlConnection con = DataOperate.CreateCon();
                 filepath.SaveAs(Server.MapPath("~/upload/file/") + Path.GetFileName(filepath.FileName));
                 string fileLink = "~/upload/file/" + Path.GetFileName(filepath.FileName);
-                string upTime = DateTime.Now.ToString("yyyy-MM-dd");
+                string upTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 string sql = "insert into FileInfo values('" + filename.Text + "','" + fileLink + "','" + filevideo.SelectedValue + "','" + remark.Text + "','" + upTime + "')";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();

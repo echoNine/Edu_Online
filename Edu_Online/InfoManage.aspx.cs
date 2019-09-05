@@ -35,7 +35,7 @@ namespace Edu_Online
                 string coverName = Path.GetFileName(coverimg.FileName);
                 string coverLink = "~/upload/image/" + Path.GetFileName(coverimg.FileName);
                 string teacherName = Session["userName"].ToString();
-                string openDate = DateTime.Now.ToString("yyyy-MM-dd");
+                string openDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 string sql = "insert into CourseInfo(courseId,courseName,courseType,teacher,cover,intro,target,part,courseLevel,openDate) values('" + courseid.Text + "','" + coursename.Text + "','" + coursetype.SelectedValue + "','" + teacherName + "','" + coverLink + "','" + intro.Text + "','" + target.Text + "','" + part.Text + "','" + courselevel.SelectedValue + "','" + openDate + "')";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
@@ -46,11 +46,11 @@ namespace Edu_Online
                 part.Text = "";
                 target.Text = "";
                 intro.Text = "";
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('成功新添信息')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('成功新设课程')</script>");
             }
             catch (Exception ex)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('新添信息失败')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('新设课程失败')</script>");
             }
         }
     }

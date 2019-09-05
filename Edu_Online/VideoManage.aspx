@@ -200,6 +200,7 @@
             box-shadow: 2px 3px 2px #e0e0e0;
             float: right;
             margin-right: 10%;
+            margin-top:-3%;
         }
 
             .save:hover {
@@ -231,7 +232,7 @@
                 </ul>
                 </li>
                 <li class="item"><a href="PushPractice.aspx">作业管理</a></li>
-                <li class="item"><a>个人中心</a></li>
+                <li class="item"><a href="AddUserInfo.aspx">个人中心</a></li>
             </ul>
         </div>
 
