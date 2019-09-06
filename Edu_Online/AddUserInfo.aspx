@@ -17,8 +17,6 @@
             font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
         }
 
-
-
         .menu {
             background-color: #f7f7f7;
             width: 21%;
@@ -231,6 +229,7 @@
             cursor: pointer;
             font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
         }
+           
     </style>
 </head>
 <body>

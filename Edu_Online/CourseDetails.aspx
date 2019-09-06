@@ -33,9 +33,8 @@
             background-color: white;
             padding: 2% 3%;
             float: left;
-            margin-top: 1%;
             margin-left: 5%;
-            height: 75%;
+            height: 81%;
             overflow: auto;
             border: 2px solid #cacaca;
             width: 37%;
@@ -206,7 +205,7 @@
 
         .Astyle {
             border-left: 5px solid #ccc;
-            height: 164px;
+            height: 82px;
             overflow: auto;
             width: 96%;
             padding-left: 2%;

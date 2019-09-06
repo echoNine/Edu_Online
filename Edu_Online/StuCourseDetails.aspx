@@ -156,7 +156,7 @@
             float: left;
             position: relative;
             margin: 2% 5%;
-            overflow: auto;
+            overflow-x: hidden;
         }
 
         .bar {

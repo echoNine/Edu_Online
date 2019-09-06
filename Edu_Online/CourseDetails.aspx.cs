@@ -98,7 +98,7 @@ namespace Edu_Online
                 ((Button)e.Item.FindControl("Submit")).Visible = false;
                 string answerContent = ((TextBox)e.Item.FindControl("AddAnswer")).Text;
                 string answerBy = Session["userName"].ToString();
-                DateTime answerTime = DateTime.Now.ToLocalTime();
+                string answerTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 SqlConnection con = DataOperate.CreateCon();
                 string sql = "insert into AnswerInfo(AnswerContent,AnswerBy,QuesId,AnswerTime) values('" + answerContent + "','" + answerBy + "'," + questionId + ",'" + answerTime + "')";
                 SqlCommand cmd = new SqlCommand(sql, con);
@@ -111,12 +111,13 @@ namespace Edu_Online
 
         protected void RBindData()
         {
+            string courseId = Request.QueryString["courseId"].ToString();
             string videoPath = video.Src;
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
-            string sql2 = "select * from FileInfo inner join VideoInfo on FileInfo.videoId = VideoInfo.VideoId where FileInfo.videoId=" + videoId;
+            string sql2 = "select * from FileInfo inner join VideoInfo on FileInfo.videoId = VideoInfo.VideoId where VideoInfo.videoId=" + videoId;
             gvResource.DataSource = DataOperate.GetDataset(sql2, "FileInfo");
             gvResource.DataKeyNames = new string[] { "fileId" };
             gvResource.DataBind();

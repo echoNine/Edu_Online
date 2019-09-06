@@ -70,7 +70,7 @@ namespace Edu_Online
                 stuId = HttpContext.Current.Session["userId"].ToString();
             }
             SqlConnection con = DataOperate.CreateCon();
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr1 = DataOperate.GetRow(sql1);
             sdr1.Read();
             string videoId = sdr1["VideoId"].ToString();
@@ -133,8 +133,9 @@ namespace Edu_Online
 
         protected void NBindData()
         {
+            string courseId = Request.QueryString["courseId"].ToString();
             string videoPath = video.Src;
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
@@ -187,14 +188,14 @@ namespace Edu_Online
         protected void btn_save_Click(object sender, EventArgs e)
         {
             string videoPath = video.Src;
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string courseId = Request.QueryString["courseId"].ToString();
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
             string noteContent = notecontent.InnerText;
             string stuId = Session["userId"].ToString();
-            string courseId = Request.QueryString["courseId"];
-            string noteTime = DateTime.Now.ToString("yyyy-MM-dd");
+            string noteTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string sql = "insert into NoteInfo values('" + stuId + "','" + videoId + "','" + noteContent + "','" + noteTime + " ')";
             if (DataOperate.ExecSQL(sql))
             {
@@ -207,19 +208,24 @@ namespace Edu_Online
         protected void btn_push_Click(object sender, EventArgs e)
         {
             string videoPath = video.Src;
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string courseId = Request.QueryString["courseId"].ToString();
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
-            string quesBy = Session["userId"].ToString();
+            string sqlName = "select * from StudentInfo where StuId='" + Session["userId"] + "'";
+            SqlDataReader sdr1 = DataOperate.GetRow(sqlName);
+            sdr1.Read();
+            string quesBy = sdr1["StuName"].ToString();
             string quesContent = questContent.InnerText;
-            string quesTime = DateTime.Now.ToString("yyyy-MM-dd");
-            string sql2 = "insert into QuestionInfo values('" + videoId + "','" + quesBy + "','" + quesContent + "','" + quesTime + " ')";
+            string quesTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string sql2 = "insert into QuesInfo values('" + videoId + "','" + quesBy + "','" + quesContent + "','" + quesTime + " ')";
             if (DataOperate.ExecSQL(sql2))
             {
                 ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('发布成功！')</script>");
                 questContent.InnerText = "";
             }
+            QABindData(videoId);
         }
         private void QABindData(string videoId)
         {
@@ -286,12 +292,13 @@ namespace Edu_Online
 
         protected void RBindData()
         {
+            string courseId = Request.QueryString["courseId"].ToString();
             string videoPath = video.Src;
-            string sql1 = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string sql1 = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql1);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();
-            string sql2 = "select * from FileInfo inner join VideoInfo on FileInfo.videoId = VideoInfo.VideoId where FileInfo.videoId=" + videoId;
+            string sql2 = "select * from FileInfo inner join VideoInfo on FileInfo.videoId = VideoInfo.VideoId where VideoInfo.videoId=" + videoId;
             gvResource.DataSource = DataOperate.GetDataset(sql2, "FileInfo");
             gvResource.DataKeyNames = new string[] { "fileId" };
             gvResource.DataBind();
@@ -363,7 +370,8 @@ namespace Edu_Online
         protected void questitle_Click(object sender, EventArgs e)
         {
             string videoPath = video.Src;
-            string sql = "select * from VideoInfo where VideoPath=" + "'" + videoPath + "'";
+            string courseId = Request.QueryString["courseId"].ToString();
+            string sql = "select * from VideoInfo where CourseId=" + courseId + " and VideoPath='" + videoPath + "'";
             SqlDataReader sdr = DataOperate.GetRow(sql);
             sdr.Read();
             string videoId = sdr["VideoId"].ToString();

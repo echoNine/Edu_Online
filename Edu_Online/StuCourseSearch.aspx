@@ -221,7 +221,7 @@
             <div id="classifyBox" runat="server" class="classifyBox" style="height: 110px">
                 <div id="classifyTitle" runat="server" class="classifyTitle">分类</div>
                 <div id="classifyContent" runat="server" class="classifyContent">
-                    <asp:DataList ID="classifyInfo" runat="server" DataKeyField="courseId" RepeatDirection="Horizontal" RepeatColumns="5">
+                    <asp:DataList ID="classifyInfo" runat="server" DataKeyField="courseId" RepeatDirection="Horizontal" RepeatColumns="8">
                         <ItemTemplate>
                             <a href="StuCourseSearch.aspx?classifyItem=<%# Eval("courseTypeName") %>" class="init"><%# Eval("courseTypeName") %></a>
                         </ItemTemplate>

@@ -109,6 +109,7 @@
             padding: 20px 50px;
             margin-right: 72px;
             height: 300px;
+                margin-bottom: 6%;
         }
 
         .nameItem {
@@ -158,8 +159,12 @@
             font-size: 15px;
             color: #4a4a4a;
             padding: 0 4px;
+            height: 120px;
+            overflow-y: auto;
         }
-
+        .introItem::-webkit-scrollbar {
+    display: none;
+}
         .linkItem {
             text-decoration: none;
             color: #7b7b7b;
@@ -167,7 +172,7 @@
             font-weight: bold;
             float: right;
             margin-right: 13%;
-            margin-top: -3%;
+            margin-top: -10%;
         }
 
             .linkItem:hover {
@@ -187,9 +192,9 @@
             <asp:Panel ID="UserSetting" runat="server" CssClass="UserSetting" onmouseover="Show()" onmouseout="Hide()">
                 <asp:Label ID="user" runat="server" CssClass="user"></asp:Label><br />
                 <asp:Button ID="myCourse" runat="server" Text="我的课程" CssClass="userItem" OnClick="myCourse_Click" />
-                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click"/>
-                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click"/>
-                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click"/>
+                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click" />
+                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click" />
+                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click" />
                 <hr />
                 <asp:HyperLink ID="exit" runat="server" CssClass="exit" NavigateUrl="~/Index.aspx">退出登录</asp:HyperLink>
             </asp:Panel>

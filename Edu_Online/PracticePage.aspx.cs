@@ -37,7 +37,7 @@ namespace Edu_Online
 
         protected void return_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PushPractice.aspx.aspx");
+            Response.Redirect("PushPractice.aspx");
         }
     }
 }

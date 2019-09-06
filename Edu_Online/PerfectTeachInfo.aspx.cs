@@ -91,5 +91,10 @@ namespace Edu_Online
                 ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('个人信息完善失败，请重试')</script>");
             }
         }
+
+        protected void return_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Index.aspx");
+        }
     }
 }

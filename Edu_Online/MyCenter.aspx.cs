@@ -155,8 +155,6 @@ namespace Edu_Online
             txtUnit.Enabled = false;
             string type = sdr["StuTypeId"].ToString();
             string major = sdr["StuMajor"].ToString();
-            UserType.Items.FindByValue(type).Selected = true;
-            MajorCourse.Items.FindByValue(major).Selected = true;
             UserType.Enabled = false;
             MajorCourse.Enabled = false;
             UploadPic.Enabled = false;

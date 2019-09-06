@@ -274,12 +274,13 @@
         .noteContent {
             font-size: 15px;
             color: #505050;
-            line-height: 45px;
+            line-height: 25px;
             text-indent: 2em;
             display: inline-block;
             width: 76%;
             border: 1px solid #e6e6e6;
             border-radius: 5px;
+            padding: 10px;
         }
 
         .noteTime {
@@ -333,10 +334,10 @@
             </div>
         </div>
 
-        <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click"/>
+        <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
 
         <div id="Right" runat="server" class="Right">
-            <asp:DataList ID="CourseInfo" runat="server" DataKeyField="courseId">
+            <asp:DataList ID="CourseInfo" runat="server" DataKeyField="courseId" Visible="false">
                 <ItemTemplate>
                     <div id="courseItem" runat="server" class="courseItem">
                         <asp:Image ImageUrl='<%# Eval("cover") %>' runat="server" ID="cover" CssClass="cover" />
@@ -388,14 +389,14 @@
                     <div class="info">
                         <asp:Label ID="major" runat="server" Text="主修专业" CssClass="infoItem"></asp:Label>
                         <asp:DropDownList ID="MajorCourse" runat="server" CssClass="input" Width="210px">
-                        <asp:ListItem Value="JavaScript">JavaScript</asp:ListItem>
-                        <asp:ListItem Value="C">C</asp:ListItem>
-                        <asp:ListItem Value="数据库">数据库</asp:ListItem>
-                        <asp:ListItem Value="Android">Android</asp:ListItem>
-                        <asp:ListItem Value=".Net">.Net</asp:ListItem>
-                        <asp:ListItem Value="Php">Php</asp:ListItem>
-                        <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
-                    </asp:DropDownList>
+                            <asp:ListItem Value="JavaScript">JavaScript</asp:ListItem>
+                            <asp:ListItem Value="C">C</asp:ListItem>
+                            <asp:ListItem Value="数据库">数据库</asp:ListItem>
+                            <asp:ListItem Value="Android">Android</asp:ListItem>
+                            <asp:ListItem Value=".Net">.Net</asp:ListItem>
+                            <asp:ListItem Value="Php">Php</asp:ListItem>
+                            <asp:ListItem Value="其他方向">其他方向</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                     <div class="info">
                         <asp:Label ID="unit" runat="server" Text="学校单位" CssClass="infoItem"></asp:Label>

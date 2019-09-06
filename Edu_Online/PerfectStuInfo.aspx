@@ -85,10 +85,18 @@
             cursor: pointer;
             font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
         }
+
+        .return {
+            width: 30px;
+            position: absolute;
+            top: 5%;
+            right: 3%;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
         <asp:Panel ID="top" runat="server" CssClass="top">
             <asp:Label ID="StuTip" runat="server" Text="当前用户Id：" />
             <asp:Label ID="StuId" runat="server" />

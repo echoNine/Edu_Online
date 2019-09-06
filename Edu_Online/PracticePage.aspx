@@ -48,15 +48,6 @@
             padding-left: 10px;
         }
 
-        .itemT {
-            line-height: 30px;
-        }
-
-        .itemF {
-            margin-left: 40px;
-            line-height: 30px;
-        }
-
         .submitBtn {
             padding: 8px 16px;
             font-size: 15px;
@@ -102,10 +93,10 @@
                 <ItemTemplate>
                     <asp:Panel ID="SingleItem" runat="server" CssClass="SingleItem">
                         <asp:Label Text='<%# Eval("quesContent") %>' data-id='<%# Eval("quesId") %>' runat="server" ID="quesContent" CssClass="quesContent" /><br />
-                        <input id="singleItemA" type="radio" runat="server" name="single" value='A' class="itemT" /><%# Eval("A") %>
-                        <input id="singleItemB" type="radio" runat="server" name="single" value='B' class="itemF" /><%# Eval("B") %>
-                        <input id="singleItemC" type="radio" runat="server" name="single" value='C' class="itemF" /><%# Eval("C") %>
-                        <input id="singleItemD" type="radio" runat="server" name="single" value='D' class="itemF" /><%# Eval("D") %>
+                        <input id="singleItemA" type="radio" runat="server" name="single" value='A' /><%# Eval("A") %><br />
+                        <input id="singleItemB" type="radio" runat="server" name="single" value='B' /><%# Eval("B") %><br />
+                        <input id="singleItemC" type="radio" runat="server" name="single" value='C' /><%# Eval("C") %><br />
+                        <input id="singleItemD" type="radio" runat="server" name="single" value='D' /><%# Eval("D") %><br />
                     </asp:Panel>
                 </ItemTemplate>
             </asp:DataList><br />
@@ -114,8 +105,8 @@
                 <ItemTemplate>
                     <asp:Panel ID="JudgeItem" runat="server" CssClass="JudgeItem">
                         <asp:Label Text='<%# Eval("quesContent") %>' data-id='<%# Eval("quesId") %>' runat="server" ID="quesContent" CssClass="quesContent" /><br />
-                        <input id="judgeItemT" type="radio" runat="server" name="judge" value="正确" class="itemT" />&nbsp;正确
-                        <input id="judgeItemF" type="radio" runat="server" name="judge" value="错误" class="itemF" />&nbsp;错误
+                        <input id="judgeItemT" type="radio" runat="server" name="judge" value="正确"/>&nbsp;正确&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="judgeItemF" type="radio" runat="server" name="judge" value="错误" />&nbsp;错误
                     </asp:Panel>
                 </ItemTemplate>
             </asp:DataList>

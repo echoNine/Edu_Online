@@ -62,9 +62,7 @@ namespace Edu_Online
             {
                 ClientScript.RegisterStartupScript(Page.GetType(), "", "<script>alert('删除失败')</script>");
             }
-
             BindInfo();
-
         }
 
         protected void BindInfo()

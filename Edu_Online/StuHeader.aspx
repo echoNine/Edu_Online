@@ -55,13 +55,13 @@
         .UserSetting {
             position: absolute;
             right: 2%;
-            top:9%;
+            top: 9%;
             width: 20%;
             padding: 0 1.5%;
             background-color: white;
             border-radius: 0 0 5px 5px;
             z-index: 999;
-            display:none;
+            display: none;
         }
 
         .user {
@@ -117,9 +117,11 @@
             color: white;
             padding: 12%;
         }
-                #Menu1 a:hover {
-            color:#60baf1;
-        }
+
+            #Menu1 a:hover {
+                color: #60baf1;
+            }
+
         .commandCourse {
             background-color: #f7f7f7;
             width: 100%;
@@ -256,7 +258,7 @@
         .courseLevel {
             font-size: 13px;
             color: #75b5d4;
-            margin-left: 37%;
+            margin-left: 56%;
         }
 
         .niceTeacher {
@@ -302,7 +304,14 @@
             font-size: 14px;
             color: #484848;
             text-align: justify;
+            height: 80px;
+            display: inline-block;
+            overflow-y: auto;
         }
+
+            .intro::-webkit-scrollbar {
+                display: none;
+            }
     </style>
 </head>
 <body>
@@ -311,15 +320,15 @@
             <asp:Panel ID="PageLink" runat="server" CssClass="PageLink">
                 <asp:HyperLink ID="indexPage" runat="server" Text="首页" CssClass="LinkTitle" ForeColor="#60baf1" NavigateUrl="~/StuHeader.aspx" />
                 <asp:HyperLink ID="coursePage" runat="server" Text="课程" CssClass="LinkTitle" NavigateUrl="~/StuCourseSearch.aspx" />
-                <asp:HyperLink ID="teacherPage" runat="server" Text="师资" CssClass="LinkTitle" NavigateUrl="~/StuTeacherIntro.aspx"/>
+                <asp:HyperLink ID="teacherPage" runat="server" Text="师资" CssClass="LinkTitle" NavigateUrl="~/StuTeacherIntro.aspx" />
             </asp:Panel>
-            <asp:ImageButton ID="userImg" runat="server" CssClass="userImg" onmouseover="Show()" onmouseout="Hide()"/>
+            <asp:ImageButton ID="userImg" runat="server" CssClass="userImg" onmouseover="Show()" onmouseout="Hide()" />
             <asp:Panel ID="UserSetting" runat="server" CssClass="UserSetting" onmouseover="Show()" onmouseout="Hide()">
                 <asp:Label ID="user" runat="server" CssClass="user"></asp:Label><br />
-                <asp:Button ID="myCourse" runat="server" Text="我的课程" CssClass="userItem" OnClick="myCourse_Click"/>
-                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click"/>
-                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click"/>
-                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click"/>
+                <asp:Button ID="myCourse" runat="server" Text="我的课程" CssClass="userItem" OnClick="myCourse_Click" />
+                <asp:Button ID="myNote" runat="server" Text="我的笔记" CssClass="userItem" OnClick="myNote_Click" />
+                <asp:Button ID="myWork" runat="server" Text="作业情况" CssClass="userItem" OnClick="myWork_Click" />
+                <asp:Button ID="myInfo" runat="server" Text="个人信息" CssClass="userItem" OnClick="myInfo_Click" />
                 <hr />
                 <asp:HyperLink ID="exit" runat="server" CssClass="exit" NavigateUrl="~/Index.aspx">退出登录</asp:HyperLink>
             </asp:Panel>
@@ -328,7 +337,7 @@
         <div id="menu" runat="server" class="menu">
             <asp:Menu ID="Menu1" runat="server">
                 <Items>
-                    <asp:MenuItem Text="JavaScript" Value="JavaScript" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=JavaScript" ></asp:MenuItem>
+                    <asp:MenuItem Text="JavaScript" Value="JavaScript" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=JavaScript"></asp:MenuItem>
                     <asp:MenuItem Text="C语言" Value="C语言" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=C"></asp:MenuItem>
                     <asp:MenuItem Text="数据库" Value="数据库" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=数据库"></asp:MenuItem>
                     <asp:MenuItem Text=".Net" Value=".Net" NavigateUrl="~/StuCourseSearch.aspx?classifyItem=.Net"></asp:MenuItem>

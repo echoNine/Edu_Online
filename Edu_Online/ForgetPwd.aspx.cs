@@ -68,7 +68,6 @@ namespace Edu_Online
         public void SendEmail(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
         {
             System.Net.Mail.SmtpClient client = new SmtpClient(strSmtpServer);
-            //client.UseDefaultCredentials = true;
             client.Credentials = new System.Net.NetworkCredential(strFrom, strFromPass);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             System.Net.Mail.MailMessage message = new MailMessage(strFrom, strto, strSubject, strBody);
