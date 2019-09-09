@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Web;
-using System.Web.Mail;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Services;
 using MimeKit;
-using MailMessage = System.Net.Mail.MailMessage;
 
 namespace Edu_Online
 {
@@ -22,53 +12,25 @@ namespace Edu_Online
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                loginInfo.Visible = true;
-                registerInfoTeach.Visible = false;
-                registerInfoStu.Visible = false;
-                show_login.Style["border-bottom"]= "2px solid #3f9ae8";
-                show_register.Style["border-bottom"] = "2px solid #cdd2d6";
-            }
-
         }
 
-        protected void show_login_Click(object sender, EventArgs e)
+        [WebMethod(EnableSession = true)]
+        public static string Login(string userId, string Pwd, string entryType)
         {
-            loginInfo.Visible = true;
-            registerInfoTeach.Visible = false;
-            registerInfoStu.Visible = false;
-            show_login.Style["border-bottom"] = "2px solid #3f9ae8";
-            show_register.Style["border-bottom"] = "2px solid #cdd2d6";
-        }
-
-        protected void show_register_Click(object sender, EventArgs e)
-        {
-            loginInfo.Visible = false;
-            registerInfoTeach.Visible = true;
-            registerInfoStu.Visible = false;
-            show_login.Style["border-bottom"] = "2px solid #cdd2d6";
-            show_register.Style["border-bottom"] = "2px solid #3f9ae8";
-        }
-
-        protected void btn_login_Click(object sender, EventArgs e)
-        {
-            string userId = txtUserId.Text;
-            string Pwd = txtPwd.Text;
-            Session["entryType"] = RadioUserType.SelectedValue;
-            string cs = Session["entryType"].ToString();
+            HttpContext.Current.Session["entryType"] = entryType;
+            string cs = entryType;
             string sql;
             if (cs == "教师")
             {
                 sql = "select count(*) from TeacherInfo where TeachId=@userId and TeachPassword=@Pwd ";
                 if (CheckPwd(sql, userId, Pwd))
                 {
-                    Session["userId"] = userId;
-                    Response.Redirect("AllCourses.aspx");
+                    HttpContext.Current.Session["userId"] = userId;
+                    return "success";
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");
+                    return "fail";
                 }
             }
             else
@@ -76,29 +38,26 @@ namespace Edu_Online
                 sql = "select count(*) from StudentInfo where StuId=@userId and StuPassword=@Pwd ";
                 if (CheckPwd(sql, userId, Pwd))
                 {
-                    Session["userId"] = userId;
-                    Response.Redirect("StuHeader.aspx");
+                    HttpContext.Current.Session["userId"] = userId;
+                    return "success";
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('登录失败')</script>");   //提示登录失败
+                    return "fail";
                 }
             }
-
-            
         }
 
-        public static bool CheckPwd(string sql, string userId, string Pwd)
+        private static bool CheckPwd(string sql, string userId, string Pwd)
         {
-            SqlConnection con = DataOperate.CreateCon();       //创建数据库连接
-            con.Open();         //打开数据库连接
-            SqlCommand cmd = new SqlCommand(sql, con);        //创建SqlCommand对象
-            cmd.Parameters.Add(new SqlParameter("userId", SqlDbType.VarChar, 50));        //设置参数类型
-            cmd.Parameters["userId"].Value = userId;        //设置参数值
-            cmd.Parameters.Add(new SqlParameter("Pwd", SqlDbType.VarChar, 50));       //设置参数类型
-            cmd.Parameters["Pwd"].Value = Pwd;        //设置参数值
-                                                      //判断验证用户名和密码是否正确，并返回布尔值
-            if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)   //返回指定用户名和密码的记录数大于0，此用户名和密码正确。
+            SqlConnection con = DataOperate.CreateCon();
+            con.Open();
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.Add(new SqlParameter("userId", SqlDbType.VarChar, 50));
+            cmd.Parameters["userId"].Value = userId;
+            cmd.Parameters.Add(new SqlParameter("Pwd", SqlDbType.VarChar, 50));
+            cmd.Parameters["Pwd"].Value = Pwd;
+            if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
             {
                 con.Close();
                 return true;
@@ -110,47 +69,56 @@ namespace Edu_Online
             }
         }
 
-        protected void btn_register_Click1(object sender, EventArgs e)
+        [WebMethod(EnableSession = true)]
+        public static string ToRegister(string userId, string Pwd, string entryType, string mailCode)
         {
-            string userId = userIdTeach.Text;
-            string userPwd = userPwdTeach.Text;
-            string mailCode = mailTeach.Text;
-            string str = Session["code"].ToString();
-            if (str == mailCode)
+            string MailCode = mailCode;
+            string str = HttpContext.Current.Session["code"].ToString();
+            string sql = "";
+            if (str == MailCode)
             {
-                string sql = "insert into TeacherInfo(TeachId,TeachPassword) values(@userId,@userPwd)";
-                SqlConnection con = DataOperate.CreateCon();
-                con.Open();
-                SqlCommand com = new SqlCommand(sql, con);
-                com = new SqlCommand(sql, con);        //创建SqlCommand对象
-                com.Parameters.Add(new SqlParameter("@userId", SqlDbType.VarChar, 50));        //设置参数类型
-                com.Parameters["@userId"].Value = userId;        //设置参数值
-                com.Parameters.Add(new SqlParameter("@userPwd", SqlDbType.VarChar, 50));        //设置参数类型
-                com.Parameters["@userPwd"].Value = userPwd;        //设置参数值
-                if (com.ExecuteNonQuery() > 0)
+                if ("teacher" == entryType)
                 {
-                    Session["userId"] = userId;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='PerfectTeachInfo.aspx'</script>");
+                    sql = "insert into TeacherInfo(TeachId,TeachPassword) values(@userId,@userPwd)";
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('注册失败，请重新注册')</script>");   //提示注册失败
+                    sql = "insert into StudentInfo(StuId,StuPassword) values(@userId,@userPwd)";
+                }
+
+                SqlConnection con = DataOperate.CreateCon();
+                con.Open();
+                SqlCommand com = new SqlCommand(sql, con);
+                com = new SqlCommand(sql, con);
+                com.Parameters.Add(new SqlParameter("@userId", SqlDbType.VarChar, 50));
+                com.Parameters["@userId"].Value = userId;
+                com.Parameters.Add(new SqlParameter("@userPwd", SqlDbType.VarChar, 50));
+                com.Parameters["@userPwd"].Value = Pwd;
+                if (com.ExecuteNonQuery() > 0)
+                {
+                    HttpContext.Current.Session["userId"] = userId;
+                    return "success";
+                }
+                else
+                {
+                    return "fail"; //提示注册失败ToRegister
                 }
             }
             else
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('验证码有误')</script>");   //提示注册失败
+                return "wrong code";
             }
         }
 
-        public void SendEmail1(string strSmtpServer, string strFrom, string strFromPass, string strto, string strSubject, string strBody)
+        private static void SendEmail(string strSmtpServer, string strFrom, string strFromPass, string strto,
+            string strSubject, string strBody)
         {
             BodyBuilder builder = new BodyBuilder();
             MimeMessage mail = new MimeMessage();
             mail.From.Add(new MailboxAddress("", strFrom));
             mail.To.Add(new MailboxAddress("", strto));
             mail.Subject = strSubject;
-            builder.HtmlBody = "<html><body>"+strBody;
+            builder.HtmlBody = "<html><body>" + strBody;
             builder.HtmlBody += "</body></html>";
             mail.Body = builder.ToMessageBody();
 
@@ -160,22 +128,29 @@ namespace Edu_Online
             client.Authenticate(strFrom, strFromPass);
             client.Send(mail);
             client.Disconnect(true);
-            ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('已发送')</script>");
         }
 
-        protected void Send_Click1(object sender, EventArgs e)
+        [WebMethod(EnableSession = true)]
+        public static string SendEmail(string email, string userType)
         {
-            string userId = userIdTeach.Text;
-            string userPwd = userIdTeach.Text;
-            string sql = "select count(*) from TeacherInfo where TeachId=@userId";
+            string sql = "";
+            if (userType == "student")
+            {
+                sql = "select count(*) from StudentInfo where StuId=@userId";
+            }
+            else
+            {
+                sql = "select count(*) from TeacherInfo where TeachId=@userId";
+            }
+
             SqlConnection con = DataOperate.CreateCon();
             con.Open();
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.Parameters.Add(new SqlParameter("@userId", SqlDbType.VarChar, 50));
-            cmd.Parameters["@userId"].Value = userId;
+            cmd.Parameters["@userId"].Value = email;
             if (Convert.ToInt32(cmd.ExecuteScalar()) == 0)
             {
-                String to = userIdTeach.Text;
+                String to = email;
                 Random random = new Random(Guid.NewGuid().GetHashCode());
                 int code = random.Next(100000, 1000000);
                 string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
@@ -183,88 +158,12 @@ namespace Edu_Online
                 string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
                 string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
                 string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail1(strSmtpServer, strFrom, strFromPass, to, "激活邮箱", content);
-                Session["code"] = code;
+                SendEmail(strSmtpServer, strFrom, strFromPass, to, "激活邮箱", content);
+                HttpContext.Current.Session["code"] = code;
+                return "success";
             }
-            else
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('该用户已存在')</script>");   //提示注册失败
 
-            }
-        }
-
-        protected void btn_register_Click2(object sender, EventArgs e)
-        {
-            string userId = userIdStu.Text;
-            string userPwd = userPwdStu.Text;
-            string mailCode = mailStu.Text;
-            string str = Session["code"].ToString();
-            if (str == mailCode)
-            {
-                string sql = "insert into StudentInfo(StuId,StuPassword) values(@userId,@userPwd)";
-                SqlConnection con = DataOperate.CreateCon();
-                con.Open();
-                SqlCommand com = new SqlCommand(sql, con);
-                com = new SqlCommand(sql, con);        //创建SqlCommand对象
-                com.Parameters.Add(new SqlParameter("@userId", SqlDbType.VarChar, 50));        //设置参数类型
-                com.Parameters["@userId"].Value = userId;        //设置参数值
-                com.Parameters.Add(new SqlParameter("@userPwd", SqlDbType.VarChar, 50));        //设置参数类型
-                com.Parameters["@userPwd"].Value = userPwd;        //设置参数值
-                if (com.ExecuteNonQuery() > 0)
-                {
-                    Session["userId"] = userId;
-                    ClientScript.RegisterStartupScript(Page.GetType(), "true", "<script>alert('成功注册新用户，请完善个人信息');window.location.href='PerfectStuInfo.aspx'</script>");
-                }
-                else
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('注册失败，请重新注册')</script>");   //提示注册失败
-                }
-            }
-            else
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('验证码有误')</script>");   //提示注册失败
-            }
-        }
-
-        protected void Send_Click2(object sender, EventArgs e)
-        {
-            string userId = userIdStu.Text;
-            string userPwd = userPwdStu.Text;
-            string sql = "select count(*) from StudentInfo where StuId=@userId";
-            SqlConnection con = DataOperate.CreateCon();
-            con.Open();
-            SqlCommand com = new SqlCommand(sql, con);
-            com.Parameters.Add(new SqlParameter("@userId", SqlDbType.VarChar, 50));
-            com.Parameters["@userId"].Value = userId;
-            if (Convert.ToInt32(com.ExecuteScalar()) == 0)
-            {
-                String To = userIdStu.Text;
-                Random random = new Random(Guid.NewGuid().GetHashCode());
-                int code = random.Next(100000, 1000000);
-                string content = "您正在使用邮箱安全验证服务，您本次操作的验证码是：" + code;
-                string strSmtpServer = ConfigurationManager.AppSettings["STR_SMTP_SERVER"];
-                string strFrom = ConfigurationManager.AppSettings["STR_SMTP_FROM"];
-                string strFromPass = ConfigurationManager.AppSettings["STR_SMTP_PASSWORD"];
-                SendEmail1(strSmtpServer, strFrom, strFromPass, To, "激活邮箱", content);
-                Session["code"] = code;
-            }
-            else
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "", " <script>alert('该用户已存在')</script>");   //提示注册失败
-
-            }
-        }
-
-        protected void linkStu_Click(object sender, EventArgs e)
-        {
-            registerInfoStu.Visible = false;
-            registerInfoTeach.Visible = true;
-        }
-
-        protected void linkTeach_Click(object sender, EventArgs e)
-        {
-            registerInfoStu.Visible = true;
-            registerInfoTeach.Visible = false;
+            return "user existed";
         }
     }
 }

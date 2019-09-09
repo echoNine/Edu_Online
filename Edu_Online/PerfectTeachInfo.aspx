@@ -6,101 +6,17 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>完善个人信息--教师</title>
-    <style type="text/css">
-        body {
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-
-        .top {
-            width: 20%;
-            position: absolute;
-            top: 11%;
-            color: #008BE1;
-            left: 14%;
-        }
-
-        .main {
-            border: 2px solid #eaeaea;
-            width: 967px;
-            height: 445px;
-            padding: 4% 5%;
-            margin: 4% auto;
-            border-radius: 5px;
-        }
-
-        .lefttitle, .righttitle {
-            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
-            border-left: 5px solid #008BE1;
-            font-size: 18px;
-            padding-left: 25px;
-        }
-
-        .LeftInfo, .RightInfo {
-            float: left;
-            border: 1px solid #c4c4c4;
-            width: 418px;
-            height: 420px;
-            padding-left: 60px;
-            padding-top: 35px;
-        }
-
-        .infoitem {
-            margin-right: 70px;
-            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
-            font-size: 15px;
-            color: #5e5e5e;
-            line-height: 30px;
-        }
-
-        .input {
-            width: 250px;
-            height: 36px;
-            border-radius: 5px;
-            border: 1px solid #b9b9b9;
-            padding-left: 10px;
-        }
-
-        .info {
-            width: 380px;
-            height: 36px;
-            margin-top: 26px;
-            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
-            font-size: 15px;
-            color: #5e5e5e;
-        }
-
-        .save {
-            height: 40px;
-            width: 90px;
-            margin-top: 26px;
-            margin-left: 62%;
-            border: none;
-            border-radius: 5px;
-            background: #008BE1;
-            color: #fff;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
-        }
-
-        .return {
-            width: 30px;
-            position: absolute;
-            top: 5%;
-            right: 3%;
-        }
-    </style>
+    <script src="js/perfectTeachinfo.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/perfectTeachinfo.css">
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ImageButton ID="return" runat="server" ImageUrl="~/img/return1.png" CssClass="return" OnClick="return_Click" />
-        <asp:Panel ID="top" runat="server" CssClass="top">
-            <asp:Label ID="TeachTip" runat="server" Text="当前用户Id：" />
-            <asp:Label ID="TeachId" runat="server" />
-        </asp:Panel>
+        <img id="return" src="/img/return1.png" alt="" class="return" onclick="Return()"/>
+        <div id="top" class="top">
+            <span id="TeachTip">当前用户Id：</span>
+            <span id="TeachId"></span>
+        </div>
+        
         <div class="main">
             <div class="LeftInfo">
                 <asp:Label ID="BaseInfo" runat="server" Text="基本信息" CssClass="lefttitle"></asp:Label><br />

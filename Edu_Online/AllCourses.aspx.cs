@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace Edu_Online
 {
@@ -29,6 +25,25 @@ namespace Edu_Online
         protected void quit_Click(object sender, EventArgs e)
         {
             Response.Redirect("Index.aspx");
+        }
+
+        [WebMethod]
+        public static List<Dictionary<string, string>> GetAllCourses()
+        {
+            string sql = "SELECT * FROM CourseInfo";
+            SqlDataReader sdr = DataOperate.GetRow(sql);
+
+            var list = new List<Dictionary<string, string>>();
+
+            while (sdr.Read())
+            {
+                var dic = new Dictionary<string, string>();
+                //CourseName cover
+                dic.Add("CourseName", sdr["CourseName"].ToString());
+                dic.Add("cover", sdr["cover"].ToString());
+                list.Add(dic);
+            }
+            return list;
         }
     }
 }

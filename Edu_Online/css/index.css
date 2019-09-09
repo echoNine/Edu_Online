@@ -1,0 +1,135 @@
+﻿body {
+    background-image: url(/img/indexback.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: 100%;
+}
+
+.main {
+    position: absolute;
+    width: 550px;
+    height: 320px;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 45px 25px 90px 60px;
+}
+
+.btnLogin, .btnRegister {
+    background: #fff;
+    width: 160px;
+    height: 40px;
+    font-size: 14px;
+    margin-bottom: 13px;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+
+.btnLogin:active, .btnRegister:active {
+    border-bottom: 0.5px solid #008BE1;
+}
+
+.UseIdImg {
+    background: url(/img/user.png) no-repeat;
+    background-size: 28px 28px;
+    background-position: 10px 50%;
+    padding-left: 40px;
+}
+
+.PassImg {
+    background: url(/img/pwd.png) no-repeat;
+    background-size: 28px 28px;
+    background-position: 10px 50%;
+    padding-left: 40px;
+}
+
+.inputLogin {
+    width: 320px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
+    margin-bottom: 26px;
+    padding-left: 40px;
+}
+
+.inputRegister {
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
+    margin-bottom: 30px;
+    padding-left: 15px;
+}
+
+.forgetpwd {
+    color: #AFAFAF;
+    font-size: 14px;
+    position: absolute;
+    left: 56%;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.forgetpwd:hover {
+    color: #3f9ae8;
+}
+
+.login, .register, .send {
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background: #008BE1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tip {
+    position: absolute;
+    bottom: 38%;
+    left: 25%;
+}
+
+.link {
+    position: absolute;
+    font-size: 14px;
+    color: #3f9ae8;
+    bottom: 30%;
+    left: 22%;
+    border: none;
+    background-color: white;
+}
+
+.right {
+    position: absolute;
+    right: 9%;
+    top: 10%;
+    width: 150px;
+    height: 80%;
+    border-left: 1px solid #e4e4e4;
+    float: right;
+}
+
+.title {
+    width: 20%;
+    margin-left: 25%;
+    margin-top: 4%;
+}
+
+.foot {
+    float: right;
+    width: 16%;
+    margin-top: 10%;
+    margin-right: 5%;
+}
+
+.teacherRadio {
+    display: block;
+    margin-left: 28px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

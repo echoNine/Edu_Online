@@ -85,6 +85,7 @@
     <Content Include="AllCourses.aspx" />
     <Content Include="CourseDetails.aspx" />
     <Content Include="CourseIntro.aspx" />
+    <Content Include="css\index.css" />
     <Content Include="DoingPage.aspx" />
     <Content Include="ForgetPwd.aspx" />
     <Content Include="img\course.png" />
@@ -95,6 +96,7 @@
     <Content Include="img\temp.png" />
     <Content Include="img\title.png" />
     <Content Include="img\work.png" />
+    <Content Include="js\index.js" />
     <Content Include="modal.css" />
     <Content Include="NewPracticeInfo.aspx" />
     <Content Include="PartList.aspx" />
@@ -338,7 +340,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <ProjectExtensions>

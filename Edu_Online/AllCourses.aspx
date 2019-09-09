@@ -16,9 +16,6 @@
             background-repeat: no-repeat;
             font-family: "pingfang SC", "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
         }
-
-
-
         .menu {
             background-color: #f7f7f7;
             width: 21%;
@@ -221,4 +218,24 @@
         </div>
     </form>
 </body>
+<script >
+    $(document).ready(function() {
+        $.ajax({
+                    type: "post",
+                    url: "AllCourses.aspx/GetAllCourses",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(opt),
+                    success: function (result) {
+                        var list = result.d;
+                        
+                       console.log(result.d);
+                       
+                    },
+                    error: function (result) {
+                        alert("系统繁忙")
+                    }
+                  });
+    })
+</script>
 </html>
