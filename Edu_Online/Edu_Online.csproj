@@ -85,6 +85,7 @@
     <Content Include="AllCourses.aspx" />
     <Content Include="CourseDetails.aspx" />
     <Content Include="CourseIntro.aspx" />
+    <Content Include="css\allcourses.css" />
     <Content Include="css\index.css" />
     <Content Include="DoingPage.aspx" />
     <Content Include="ForgetPwd.aspx" />

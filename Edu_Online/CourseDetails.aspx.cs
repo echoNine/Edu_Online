@@ -6,11 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;//
 
 namespace Edu_Online
 {
-    public partial class CommentList : System.Web.UI.Page
+    public partial class CourseDetails : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -19,7 +19,7 @@ namespace Edu_Online
                 string courseId = Request.QueryString["courseId"];
                 string sql = "select * from CourseInfo inner join VideoInfo on CourseInfo.courseId = VideoInfo.CourseId where CourseInfo.courseId=" + courseId;
 
-                SqlDataReader sdr = DataOperate.GetRow(sql);
+                SqlDataReader sdr= DataOperate.GetRow(sql);
                 sdr.Read();
                 video.Src = sdr["VideoPath"].ToString();
                 currentVideo.Text = sdr["VideoId"].ToString();

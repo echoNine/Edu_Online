@@ -10,7 +10,7 @@
 namespace Edu_Online {
     
     
-    public partial class CommentList {
+    public partial class CourseDetails {
         
         /// <summary>
         /// form1 控件。

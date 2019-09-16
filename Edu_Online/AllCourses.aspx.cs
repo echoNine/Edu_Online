@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Web;
 using System.Web.Services;
 
 namespace Edu_Online
@@ -11,15 +12,8 @@ namespace Edu_Online
         {
             if (!IsPostBack)
             {
-                string sql = "select * from TeacherInfo where TeachId ='" + Session["userId"].ToString() + "'";
-                SqlDataReader sdr = DataOperate.GetRow(sql);
-                sdr.Read();
-                person.ImageUrl = sdr["TeachPic"].ToString();
-                user.Text = sdr["TeachName"].ToString();
-                img.ImageUrl = sdr["TeachPic"].ToString();
+                
             }
-
-            Session["userName"] = user.Text;
         }
 
         protected void quit_Click(object sender, EventArgs e)
@@ -38,12 +32,24 @@ namespace Edu_Online
             while (sdr.Read())
             {
                 var dic = new Dictionary<string, string>();
-                //CourseName cover
                 dic.Add("CourseName", sdr["CourseName"].ToString());
                 dic.Add("cover", sdr["cover"].ToString());
                 list.Add(dic);
             }
             return list;
+        }
+
+        [WebMethod(EnableSession = true)]
+        public static Dictionary<string, string> GetBaseInfo()
+        {
+            string sql = "select * from TeacherInfo where TeachId ='" + HttpContext.Current.Session["userId"].ToString() + "'";
+            SqlDataReader sdr = DataOperate.GetRow(sql);
+            sdr.Read();
+            var teachInfo = new Dictionary<string, string>();
+            teachInfo.Add("TeachPic", sdr["TeachPic"].ToString());
+            teachInfo.Add("TeachName", sdr["TeachName"].ToString());
+            
+            return teachInfo;
         }
     }
 }
