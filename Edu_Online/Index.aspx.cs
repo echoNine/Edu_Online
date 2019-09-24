@@ -22,34 +22,14 @@ namespace Edu_Online
             string sql;
             if (cs == "教师")
             {
-                sql = "select count(*) from TeacherInfo where TeachId=@userId and TeachPassword=@Pwd ";
-                if (CheckPwd(sql, userId, Pwd))
-                {
-                    HttpContext.Current.Session["userId"] = userId;
-                    return "success";
-                }
-                else
-                {
-                    return "fail";
-                }
+                sql = "select * from TeacherInfo where TeachId=@userId and TeachPassword=@Pwd ";
+                
             }
             else
             {
-                sql = "select count(*) from StudentInfo where StuId=@userId and StuPassword=@Pwd ";
-                if (CheckPwd(sql, userId, Pwd))
-                {
-                    HttpContext.Current.Session["userId"] = userId;
-                    return "success";
-                }
-                else
-                {
-                    return "fail";
-                }
+                sql = "select * from StudentInfo where StuId=@userId and StuPassword=@Pwd ";
             }
-        }
-
-        private static bool CheckPwd(string sql, string userId, string Pwd)
-        {
+            
             SqlConnection con = DataOperate.CreateCon();
             con.Open();
             SqlCommand cmd = new SqlCommand(sql, con);
@@ -57,16 +37,16 @@ namespace Edu_Online
             cmd.Parameters["userId"].Value = userId;
             cmd.Parameters.Add(new SqlParameter("Pwd", SqlDbType.VarChar, 50));
             cmd.Parameters["Pwd"].Value = Pwd;
-            if (Convert.ToInt32(cmd.ExecuteScalar()) > 0)
+            SqlDataReader sdr = cmd.ExecuteReader();
+            if (sdr.Read())
             {
-                con.Close();
-                return true;
+                HttpContext.Current.Session["userId"] = userId;
+                HttpContext.Current.Session["userName"] = cs == "教师" ? sdr["TeachName"].ToString() : sdr["StuName"].ToString();
+                HttpContext.Current.Session["userType"] = cs;
+                return "success";
             }
-            else
-            {
-                con.Close();
-                return false;
-            }
+
+            return "fail";
         }
 
         [WebMethod(EnableSession = true)]

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>登录注册</title>
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
-<form id="form1" runat="server">
+<form id="form1">
     <img src="/img/title.png" class="title"/>
     <div class="main">
         <label for="ShowLogin">
@@ -33,7 +33,8 @@
             <a id="forgetPwd" href="ForgetPwd.aspx" class="forgetpwd">忘记密码?</a>
             <br/>
             <label for="teacherRadio" class="teacherRadio">
-                <input id="teachradio" type="radio" name="usertype" checked="checked"><label for="teacher">教师</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="teachradio" type="radio" name="usertype" checked="checked">
+                <label for="teacher">教师</label>&nbsp;&nbsp;&nbsp;&nbsp;
                 <input id="sturadio" type="radio" name="usertype"><label for="student">学生</label>
             </label><br/>
             <label for="tologin">
